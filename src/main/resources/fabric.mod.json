@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "tantalisingteas",
+  "version": "${version}",
+  "name": "Tantalising Teas",
+  "description": "tea mod",
+  "authors": [
+    "ix0rai"
+  ],
+  "contact": {
+    "repo": "https://github.com/ix0rai/tantalisingteas"
+  },
+  "license": "MIT",
+  "icon": "assets/tantalisingteas/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.ix0rai.tantalisingteas.client.TantalisingteasClient"
+    ],
+    "main": [
+      "io.ix0rai.tantalisingteas.Tantalisingteas"
+    ]
+  },
+  "mixins": [
+    "tantalisingteas.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.5",
+    "fabric": "*",
+    "minecraft": "1.19-alpha.22.19.a"
+  }
+}
