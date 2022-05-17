@@ -16,14 +16,16 @@ import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.event.GameEvent;
@@ -31,10 +33,8 @@ import net.minecraft.world.event.GameEvent;
 import java.util.Map;
 import java.util.function.Predicate;
 
-//fills with water
-//dilute tea when extra water is added
-
 public class TeaCauldron extends LeveledCauldronBlock {
+    public static final TagKey<Item> TEA_INGREDIENTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:tea_ingredients"));
     public static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
     private static final IntProperty STRENGTH = IntProperty.of("strength", 1, 3);
 
@@ -42,7 +42,6 @@ public class TeaCauldron extends LeveledCauldronBlock {
         BEHAVIOUR.put(Items.GLASS_BOTTLE, ((state, world, pos, player, hand, stack) -> decreaseLevel(state, world, pos, player, hand, stack, new ItemStack(TantalisingItems.TEA_BOTTLE), blockState -> blockState.get(LEVEL) > 0)));
         BEHAVIOUR.put(Items.WATER_BUCKET, ((state, world, pos, player, hand, stack) -> fillCauldron(state, world, pos, player, hand, stack, itemStack -> itemStack.getItem().equals(Items.WATER_BUCKET))));
         BEHAVIOUR.put(Items.POTION, ((state, world, pos, player, hand, stack) -> increaseLevel(state, world, pos, player, hand, stack, blockState -> blockState.get(LEVEL) < 3)));
-        BEHAVIOUR.put(TantalisingItems.TEA_LEAVES, (state, world, pos, player, hand, stack) -> increaseStrength(state, world, pos, player, blockState -> blockState.get(STRENGTH) < 3));
     }
 
     public TeaCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviorMap) {
@@ -54,7 +53,7 @@ public class TeaCauldron extends LeveledCauldronBlock {
         builder.add(LEVEL).add(STRENGTH);
     }
 
-    private static ActionResult increaseStrength(BlockState state, World world, BlockPos pos, PlayerEntity player, Predicate<BlockState> predicate) {
+    public static ActionResult increaseStrength(BlockState state, World world, BlockPos pos, PlayerEntity player, Predicate<BlockState> predicate) {
         if (!predicate.test(state)) {
             return ActionResult.PASS;
         } else {
@@ -81,7 +80,6 @@ public class TeaCauldron extends LeveledCauldronBlock {
         }
 
         return ActionResult.success(world.isClient);
-
     }
 
     public static ActionResult convertToTeaCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, Predicate<BlockState> predicate) {
@@ -92,12 +90,8 @@ public class TeaCauldron extends LeveledCauldronBlock {
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 
                 int level = state.get(LEVEL);
-                int strength = 2;
-                if (level == 3) {
-                    strength = 1;
-                } else if (level == 1) {
-                    strength = 3;
-                }
+                //flip over numbers: 3 goes to 1, 1 goes to 3, 2 stays 2
+                int strength = Math.abs(level - 4);
 
                 world.setBlockState(pos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LEVEL, level + 1).with(STRENGTH, strength));
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
@@ -164,5 +158,9 @@ public class TeaCauldron extends LeveledCauldronBlock {
 
     public static IntProperty getLevel() {
         return LEVEL;
+    }
+
+    public static IntProperty getStrength() {
+        return STRENGTH;
     }
 }

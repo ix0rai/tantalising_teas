@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Holder;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -29,8 +30,15 @@ public class CauldronBlockMixin {
     @Shadow
     private Map<Item, CauldronBehavior> behaviorMap;
 
+    private boolean registeredRecipes = false;
+
     @Inject(method = "onUse", at = @At("HEAD"))
     public void onUse(BlockState cauldronState, World initialWorld, BlockPos cauldronPos, PlayerEntity playerEntity, Hand playerHand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
+        if (!registeredRecipes) {
+            Registry.ITEM.getOrCreateTag(TeaCauldron.TEA_INGREDIENTS).forEach((Holder<Item> item) -> TeaCauldron.BEHAVIOUR.put(item.value(), (state, world, pos, player, hand, stack) -> TeaCauldron.increaseStrength(state, world, pos, player, blockState -> blockState.get(TeaCauldron.getStrength()) < 3)));
+            registeredRecipes = true;
+        }
+
         //add more things to map
         if (!this.behaviorMap.containsKey(TantalisingItems.TEA_BOTTLE)) {
             Identifier id = Registry.BLOCK.getId(cauldronState.getBlock());

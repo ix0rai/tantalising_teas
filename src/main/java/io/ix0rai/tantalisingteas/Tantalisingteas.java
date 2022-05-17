@@ -16,6 +16,5 @@ public class Tantalisingteas implements ModInitializer {
     public void onInitialize() {
         TantalisingBlocks.register();
         TantalisingItems.registerItems();
-        System.out.println("hello fabric world!");
     }
 }
