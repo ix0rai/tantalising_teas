@@ -4,6 +4,7 @@ import io.ix0rai.tantalisingteas.mixin.AbstractCauldronBlockAccessor;
 import io.ix0rai.tantalisingteas.mixin.CauldronBlockMixin;
 import io.ix0rai.tantalisingteas.mixin.LeveledCauldronBlockMixin;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.LeveledCauldronBlock;
@@ -51,7 +52,7 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new CauldronBlockEntity(pos, state);
+        return new TeaCauldronBlockEntity(pos, state);
     }
 
     public boolean isFull(BlockState state) {
@@ -74,12 +75,11 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
 
     @Override
     public void precipitationTick(BlockState state, World world, BlockPos pos, Biome.Precipitation precipitation) {
-        if (!((CauldronBlockMixin) this).invokeCanFillWithPrecipitation(world, precipitation) || state.get(LEVEL) == 3 || !this.precipitationPredicate.test(precipitation)) {
+        if (!CauldronBlockMixin.invokeCanFillWithPrecipitation(world, precipitation) || state.get(LEVEL) == 3 || !this.precipitationPredicate.test(precipitation)) {
             return;
         }
         world.setBlockState(pos, state.cycle(LEVEL));
     }
-
 
     @Override
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
@@ -101,6 +101,10 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (!TeaCauldron.registeredRecipes) {
+            TeaCauldron.addBehaviour();
+        }
+
         ItemStack itemStack = player.getStackInHand(hand);
         CauldronBehavior cauldronBehavior = this.behaviorMap.get(itemStack.getItem());
         return cauldronBehavior.interact(state, world, pos, player, hand, itemStack);
@@ -126,6 +130,10 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
         return false;
     }
 
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, RandomGenerator randomGenerator) {

@@ -9,5 +9,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(CauldronBlock.class)
 public interface CauldronBlockMixin {
     @Invoker
-    boolean invokeCanFillWithPrecipitation(World world, Biome.Precipitation precipitation);
+    static boolean invokeCanFillWithPrecipitation(World world, Biome.Precipitation precipitation) {
+        throw new UnsupportedOperationException();
+    }
 }

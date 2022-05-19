@@ -22,6 +22,7 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Holder;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -30,12 +31,15 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.event.GameEvent;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class TeaCauldron extends TantalisingCauldronBlock {
     public static final TagKey<Item> TEA_INGREDIENTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:tea_ingredients"));
     public static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
     private static final IntProperty STRENGTH = IntProperty.of("strength", 1, 3);
+
+    public static boolean registeredRecipes = false;
 
     static {
         BEHAVIOUR.put(Items.GLASS_BOTTLE, ((state, world, pos, player, hand, stack) -> decreaseLevel(state, world, pos, player, hand, stack, new ItemStack(TantalisingItems.TEA_BOTTLE), blockState -> blockState.get(LEVEL) > 0)));
@@ -53,19 +57,29 @@ public class TeaCauldron extends TantalisingCauldronBlock {
         super.appendProperties(builder);
     }
 
-    public static ActionResult increaseStrength(BlockState state, World world, BlockPos pos, PlayerEntity player, Predicate<BlockState> predicate) {
+    public static void addBehaviour() {
+        Registry.ITEM.getOrCreateTag(TeaCauldron.TEA_INGREDIENTS).forEach((Holder<Item> item) -> TeaCauldron.BEHAVIOUR.put(item.value(), (state, world, pos, player, hand, stack) -> TeaCauldron.increaseStrength(state, world, pos, player, stack, blockState -> blockState.get(TeaCauldron.getStrength()) < 3)));
+        registeredRecipes = true;
+    }
+
+    public static ActionResult increaseStrength(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, Predicate<BlockState> predicate) {
         if (!predicate.test(state)) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
-                world.setBlockState(pos, state.with(STRENGTH, state.get(STRENGTH) + 1));
+                Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
+                if (entity.isPresent()) {
+                    entity.get().addItem(stack);
+                    stack.decrement(1);
 
-                world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                    world.setBlockState(pos, state.with(STRENGTH, state.get(STRENGTH) + 1));
+
+                    world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                }
             }
 
             return ActionResult.success(world.isClient);
         }
-
     }
 
     public static ActionResult createTeaCauldron(World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
