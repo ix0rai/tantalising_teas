@@ -4,7 +4,10 @@
   "package": "io.ix0rai.tantalisingteas.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CauldronBlockMixin"
+    "AbstractCauldronBlockAccessor",
+    "AbstractCauldronBlockMixin",
+    "CauldronBlockMixin",
+    "LeveledCauldronBlockMixin"
   ],
   "client": [
   ],

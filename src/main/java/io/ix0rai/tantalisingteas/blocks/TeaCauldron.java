@@ -6,7 +6,6 @@ import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -33,7 +32,7 @@ import net.minecraft.world.event.GameEvent;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class TeaCauldron extends LeveledCauldronBlock {
+public class TeaCauldron extends TantalisingCauldronBlock {
     public static final TagKey<Item> TEA_INGREDIENTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:tea_ingredients"));
     public static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
     private static final IntProperty STRENGTH = IntProperty.of("strength", 1, 3);
@@ -50,7 +49,8 @@ public class TeaCauldron extends LeveledCauldronBlock {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(LEVEL).add(STRENGTH);
+        builder.add(STRENGTH);
+        super.appendProperties(builder);
     }
 
     public static ActionResult increaseStrength(BlockState state, World world, BlockPos pos, PlayerEntity player, Predicate<BlockState> predicate) {
