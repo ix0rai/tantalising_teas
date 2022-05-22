@@ -42,13 +42,13 @@ public class TeaCauldron extends TantalisingCauldronBlock {
     public static boolean registeredRecipes = false;
 
     static {
-        BEHAVIOUR.put(Items.GLASS_BOTTLE, ((state, world, pos, player, hand, stack) -> decreaseLevel(state, world, pos, player, hand, stack, new ItemStack(TantalisingItems.TEA_BOTTLE), blockState -> blockState.get(LEVEL) > 0)));
-        BEHAVIOUR.put(Items.WATER_BUCKET, ((state, world, pos, player, hand, stack) -> fillCauldron(state, world, pos, player, hand, stack, itemStack -> itemStack.getItem().equals(Items.WATER_BUCKET))));
-        BEHAVIOUR.put(Items.POTION, ((state, world, pos, player, hand, stack) -> increaseLevel(state, world, pos, player, hand, stack, blockState -> blockState.get(LEVEL) < 3)));
+        BEHAVIOUR.put(Items.GLASS_BOTTLE, (state, world, pos, player, hand, stack) -> decreaseLevel(state, world, pos, player, hand, stack, new ItemStack(TantalisingItems.TEA_BOTTLE)));
+        BEHAVIOUR.put(Items.WATER_BUCKET, (TeaCauldron::fillCauldron));
+        BEHAVIOUR.put(Items.POTION, (TeaCauldron::increaseLevel));
     }
 
-    public TeaCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviorMap) {
-        super(settings, precipitationPredicate, behaviorMap);
+    public TeaCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviour) {
+        super(settings, precipitationPredicate, behaviour);
     }
 
     @Override
@@ -58,19 +58,22 @@ public class TeaCauldron extends TantalisingCauldronBlock {
     }
 
     public static void addBehaviour() {
-        Registry.ITEM.getOrCreateTag(TeaCauldron.TEA_INGREDIENTS).forEach((Holder<Item> item) -> TeaCauldron.BEHAVIOUR.put(item.value(), (state, world, pos, player, hand, stack) -> TeaCauldron.increaseStrength(state, world, pos, player, stack, blockState -> blockState.get(TeaCauldron.getStrength()) < 3)));
+        Registry.ITEM.getOrCreateTag(TEA_INGREDIENTS).forEach((Holder<Item> item) -> BEHAVIOUR.put(item.value(), TeaCauldron::increaseStrength));
         registeredRecipes = true;
     }
 
-    public static ActionResult increaseStrength(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, Predicate<BlockState> predicate) {
-        if (!predicate.test(state)) {
+    public static ActionResult increaseStrength(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
+        if (state.get(STRENGTH) >= 3) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
                 Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
                 if (entity.isPresent()) {
                     entity.get().addItem(stack);
-                    stack.decrement(1);
+
+                    if (!player.getAbilities().creativeMode) {
+                        stack.decrement(1);
+                    }
 
                     world.setBlockState(pos, state.with(STRENGTH, state.get(STRENGTH) + 1));
 
@@ -85,6 +88,7 @@ public class TeaCauldron extends TantalisingCauldronBlock {
     public static ActionResult createTeaCauldron(World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if (!world.isClient) {
             player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, stack.getItem() instanceof TeaBottle ? new ItemStack(Items.GLASS_BOTTLE) : stack));
+
             if (!(stack.getItem() instanceof TeaBottle)) {
                stack.decrement(1);
             }
@@ -96,8 +100,8 @@ public class TeaCauldron extends TantalisingCauldronBlock {
         return ActionResult.success(world.isClient);
     }
 
-    public static ActionResult convertToTeaCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, Predicate<BlockState> predicate) {
-        if (!predicate.test(state)) {
+    public static ActionResult convertToTeaCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
+        if (isFull(state)) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
@@ -115,8 +119,8 @@ public class TeaCauldron extends TantalisingCauldronBlock {
         }
     }
 
-    public static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, Predicate<BlockState> predicate) {
-        if (PotionUtil.getPotion(stack) != Potions.WATER || !predicate.test(state)) {
+    public static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
+        if (PotionUtil.getPotion(stack) != Potions.WATER || isFull(state)) {
             return ActionResult.PASS;
         }
 
@@ -133,8 +137,8 @@ public class TeaCauldron extends TantalisingCauldronBlock {
         return ActionResult.success(world.isClient);
     }
 
-    private static ActionResult fillCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, Predicate<ItemStack> predicate) {
-        if (!predicate.test(stack)) {
+    private static ActionResult fillCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
+        if (!stack.getItem().equals(Items.WATER_BUCKET) || isFull(state)) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
@@ -149,8 +153,8 @@ public class TeaCauldron extends TantalisingCauldronBlock {
         }
     }
 
-    private static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output, Predicate<BlockState> predicate) {
-        if (!predicate.test(state)) {
+    private static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
+        if (isEmpty(state)) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
@@ -168,13 +172,5 @@ public class TeaCauldron extends TantalisingCauldronBlock {
 
             return ActionResult.success(world.isClient);
         }
-    }
-
-    public static IntProperty getLevel() {
-        return LEVEL;
-    }
-
-    public static IntProperty getStrength() {
-        return STRENGTH;
     }
 }

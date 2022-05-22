@@ -3,6 +3,7 @@ package io.ix0rai.tantalisingteas.blocks;
 import io.ix0rai.tantalisingteas.mixin.AbstractCauldronBlockAccessor;
 import io.ix0rai.tantalisingteas.mixin.CauldronBlockMixin;
 import io.ix0rai.tantalisingteas.mixin.LeveledCauldronBlockMixin;
+import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -39,13 +40,13 @@ import java.util.function.Predicate;
 
 @SuppressWarnings("deprecation")
 public abstract class TantalisingCauldronBlock extends BlockWithEntity {
-    private final Map<Item, CauldronBehavior> behaviorMap;
+    private final Map<Item, CauldronBehavior> behaviour;
     public static final IntProperty LEVEL = Properties.LEVEL_3;
     private final Predicate<Biome.Precipitation> precipitationPredicate;
 
-    protected TantalisingCauldronBlock(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviorMap) {
+    protected TantalisingCauldronBlock(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviour) {
         super(settings);
-        this.behaviorMap = behaviorMap;
+        this.behaviour = behaviour;
         this.precipitationPredicate = precipitationPredicate;
     }
 
@@ -55,8 +56,12 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
         return new TeaCauldronBlockEntity(pos, state);
     }
 
-    public boolean isFull(BlockState state) {
-        return state.get(LEVEL) == 3;
+    public static boolean isFull(BlockState state) {
+        return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) >= 3;
+    }
+
+    public static boolean isEmpty(BlockState state) {
+        return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) <= 0;
     }
 
     protected boolean canBeFilledByDripstone(Fluid fluid) {
@@ -92,7 +97,7 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
     }
 
     protected void fillFromDripstone(BlockState state, World world, BlockPos pos) {
-        if (this.isFull(state)) {
+        if (isFull(state)) {
             return;
         }
         world.setBlockState(pos, state.with(LEVEL, state.get(LEVEL) + 1));
@@ -106,7 +111,7 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
         }
 
         ItemStack itemStack = player.getStackInHand(hand);
-        CauldronBehavior cauldronBehavior = this.behaviorMap.get(itemStack.getItem());
+        CauldronBehavior cauldronBehavior = this.behaviour.get(itemStack.getItem());
         return cauldronBehavior.interact(state, world, pos, player, hand, itemStack);
     }
 

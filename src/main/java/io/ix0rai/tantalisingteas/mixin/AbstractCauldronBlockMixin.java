@@ -39,10 +39,10 @@ public class AbstractCauldronBlockMixin {
         if (!this.behaviorMap.containsKey(TantalisingItems.TEA_BOTTLE)) {
             Identifier id = Registry.BLOCK.getId(cauldronState.getBlock());
             if (id.getPath().equals("water_cauldron")) {
-                this.behaviorMap.put(TantalisingItems.TEA_LEAVES, (state, world, pos, player, hand, stack) -> TeaCauldron.convertToTeaCauldron(state, world, pos, player, hand, stack, blockState -> blockState.get(TeaCauldron.LEVEL) != 3));
-                this.behaviorMap.put(TantalisingItems.TEA_BOTTLE, (state, world, pos, player, hand, stack) -> TeaCauldron.convertToTeaCauldron(state, world, pos, player, hand, stack, blockState -> blockState.get(TeaCauldron.getLevel()) != 3));
+                this.behaviorMap.put(TantalisingItems.TEA_LEAVES, TeaCauldron::convertToTeaCauldron);
+                this.behaviorMap.put(TantalisingItems.TEA_BOTTLE, TeaCauldron::convertToTeaCauldron);
             } else if (id.getPath().equals("cauldron")) {
-                this.behaviorMap.put(TantalisingItems.TEA_BOTTLE, (state, world, pos, player, hand, stack) -> TeaCauldron.createTeaCauldron(world, pos, player, hand, stack));
+                this.behaviorMap.put(TantalisingItems.TEA_BOTTLE, ((state, world, pos, player, hand, stack) -> TeaCauldron.createTeaCauldron(world, pos, player, hand, stack)));
             }
         }
     }
