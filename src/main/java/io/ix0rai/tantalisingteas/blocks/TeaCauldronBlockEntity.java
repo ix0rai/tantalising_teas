@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeaCauldronBlockEntity extends BlockEntity {
+    public static final String ITEMS_KEY = "Items";
+
     private final List<ItemStack> items;
 
     public TeaCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -31,7 +33,7 @@ public class TeaCauldronBlockEntity extends BlockEntity {
     public void readNbt(NbtCompound tag) {
         this.items.clear();
 
-        NbtList itemsTag = tag.getList("items", 10);
+        NbtList itemsTag = tag.getList(ITEMS_KEY, 10);
         for (int i = 0; i < itemsTag.size(); i ++) {
             NbtCompound compoundTag = itemsTag.getCompound(i);
             items.add(ItemStack.fromNbt(compoundTag));
@@ -52,12 +54,16 @@ public class TeaCauldronBlockEntity extends BlockEntity {
             }
         }
 
-        tag.put("items", itemsTag);
+        tag.put(ITEMS_KEY, itemsTag);
     }
 
     public void addItem(ItemStack stack) {
         if (stack != null && !stack.isEmpty()) {
             items.add(new ItemStack(stack.getItem()));
         }
+    }
+
+    public List<ItemStack> getItems() {
+        return items;
     }
 }

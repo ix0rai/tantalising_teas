@@ -1,15 +1,34 @@
 package io.ix0rai.tantalisingteas.items;
 
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.HoneyBottleItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class TeaBottle extends HoneyBottleItem {
+    public static final String INGREDIENTS_KEY = "Ingredients";
+    public static final String ID_KEY = "id";
+
     public TeaBottle(Settings settings) {
         super(settings);
     }
@@ -46,5 +65,29 @@ public class TeaBottle extends HoneyBottleItem {
 
             return stack;
         }
+    }
+
+    public static void addIngredient(ItemStack stack, Item ingredient) {
+        NbtCompound nbtCompound = stack.getOrCreateNbt();
+        NbtList ingredients;
+
+        if (!nbtCompound.isEmpty()) {
+            ingredients = nbtCompound.getList(INGREDIENTS_KEY, 10);
+        } else {
+            ingredients = new NbtList();
+        }
+
+        // write nbt
+        NbtCompound compound = new NbtCompound();
+        compound.putString(ID_KEY, Registry.ITEM.getId(ingredient).toString());
+        ingredients.add(compound);
+        nbtCompound.put(INGREDIENTS_KEY, ingredients);
+        stack.setNbt(nbtCompound);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+        tooltip.add(Text.of(String.valueOf(stack.getNbt())));
     }
 }
