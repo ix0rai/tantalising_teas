@@ -57,11 +57,19 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
     }
 
     public static boolean isFull(BlockState state) {
-        return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) >= 3;
+        try {
+            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) >= 3;
+        } catch (IllegalArgumentException ignored) {
+            return false;
+        }
     }
 
     public static boolean isEmpty(BlockState state) {
-        return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) <= 0;
+        try {
+            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) <= 0;
+        } catch (IllegalArgumentException ignored) {
+            return true;
+        }
     }
 
     protected boolean canBeFilledByDripstone(Fluid fluid) {

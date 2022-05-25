@@ -42,7 +42,7 @@ public class AbstractCauldronBlockMixin {
                 this.behaviorMap.put(TantalisingItems.TEA_LEAVES, TeaCauldron::convertToTeaCauldron);
                 this.behaviorMap.put(TantalisingItems.TEA_BOTTLE, TeaCauldron::convertToTeaCauldron);
             } else if (id.getPath().equals("cauldron")) {
-                this.behaviorMap.put(TantalisingItems.TEA_BOTTLE, ((state, world, pos, player, hand, stack) -> TeaCauldron.createTeaCauldron(world, pos, player, hand, stack)));
+                this.behaviorMap.put(TantalisingItems.TEA_BOTTLE, TeaCauldron::convertToTeaCauldron);
             }
         }
     }

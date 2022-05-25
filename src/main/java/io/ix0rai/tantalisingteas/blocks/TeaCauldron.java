@@ -85,34 +85,38 @@ public class TeaCauldron extends TantalisingCauldronBlock {
         }
     }
 
-    public static ActionResult createTeaCauldron(World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if (!world.isClient) {
-            player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, stack.getItem() instanceof TeaBottle ? new ItemStack(Items.GLASS_BOTTLE) : stack));
-
-            if (!(stack.getItem() instanceof TeaBottle)) {
-               stack.decrement(1);
-            }
-
-            world.setBlockState(pos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LEVEL, 1).with(STRENGTH, 3));
-            world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
-        }
-
-        return ActionResult.success(world.isClient);
-    }
-
     public static ActionResult convertToTeaCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if (isFull(state)) {
+        boolean tea = stack.getItem() instanceof TeaBottle;
+
+        if (tea && isFull(state)) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
-                player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
-
-                int level = state.get(LEVEL);
-                //flip over numbers: 3 goes to 1, 1 goes to 3, 2 stays 2
-                int strength = Math.abs(level - 4);
+                int level;
+                int strength;
+                try {
+                    level = state.get(LEVEL);
+                    //flip over numbers: 3 goes to 1, 1 goes to 3, 2 stays 2
+                    strength = Math.abs(level - 4);
+                } catch (IllegalArgumentException ignored) {
+                    level = 0;
+                    strength = 3;
+                }
 
                 world.setBlockState(pos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LEVEL, level + 1).with(STRENGTH, strength));
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
+
+                Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
+
+                if (tea && entity.isPresent()) {
+                    TeaCauldronBlockEntity blockEntity = entity.get();
+
+                    for (ItemStack ingredient : TeaBottle.getIngredients(stack)) {
+                        System.out.println(ingredient);
+                        blockEntity.addItem(ingredient);
+                    }
+                    player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+                }
             }
 
             return ActionResult.success(world.isClient);
@@ -154,27 +158,25 @@ public class TeaCauldron extends TantalisingCauldronBlock {
     }
 
     private static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
-        if (isEmpty(state)) {
+        Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
+
+        if (isEmpty(state) || entity.isEmpty() || entity.get().getItems().isEmpty()) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
-                Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
-
-                if (entity.isPresent()) {
-                    for (ItemStack ingredient : entity.get().getItems()) {
-                        TeaBottle.addIngredient(output, ingredient.getItem());
-                    }
-
-                    player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
-                    player.incrementStat(Stats.USE_CAULDRON);
-                    player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
-
-                    int level = state.get(LEVEL);
-                    world.setBlockState(pos, level <= 1 ? Blocks.CAULDRON.getDefaultState() : state.with(LEVEL, level - 1), 2);
-
-                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    world.emitGameEvent(null, GameEvent.FLUID_PICKUP, pos);
+                for (ItemStack ingredient : entity.get().getItems()) {
+                    TeaBottle.addIngredient(output, ingredient.getItem());
                 }
+
+                player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
+                player.incrementStat(Stats.USE_CAULDRON);
+                player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+
+                int level = state.get(LEVEL);
+                world.setBlockState(pos, level <= 1 ? Blocks.CAULDRON.getDefaultState() : state.with(LEVEL, level - 1), 2);
+
+                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.emitGameEvent(null, GameEvent.FLUID_PICKUP, pos);
             }
 
             return ActionResult.success(world.isClient);

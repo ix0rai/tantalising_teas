@@ -1,28 +1,27 @@
 package io.ix0rai.tantalisingteas.items;
 
+import io.ix0rai.tantalisingteas.Tantalisingteas;
+import io.ix0rai.tantalisingteas.blocks.TeaCauldron;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.HoneyBottleItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.Language;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeaBottle extends HoneyBottleItem {
@@ -31,6 +30,25 @@ public class TeaBottle extends HoneyBottleItem {
 
     public TeaBottle(Settings settings) {
         super(settings);
+    }
+
+    public static List<ItemStack> getIngredients(ItemStack stack) {
+        NbtCompound nbt = stack.getNbt();
+
+        if (nbt == null || !(stack.getItem() instanceof TeaBottle)) {
+            Tantalisingteas.LOGGER.warn("attempted to get ingredients of misconfigured tea bottle");
+            return new ArrayList<>();
+        } else {
+            ArrayList<ItemStack> ingredients = new ArrayList<>();
+            NbtList nbtList = nbt.getList(INGREDIENTS_KEY, 10);
+
+            for (NbtElement element : nbtList) {
+                Identifier id = new Identifier(((NbtCompound) element).getString(ID_KEY));
+                ingredients.add(new ItemStack(Registry.ITEM.get(id)));
+            }
+
+            return ingredients;
+        }
     }
 
     @Override
@@ -68,11 +86,16 @@ public class TeaBottle extends HoneyBottleItem {
     }
 
     public static void addIngredient(ItemStack stack, Item ingredient) {
-        NbtCompound nbtCompound = stack.getOrCreateNbt();
+        if (!new ItemStack(ingredient).isIn(TeaCauldron.TEA_INGREDIENTS)) {
+            Tantalisingteas.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
+            return;
+        }
+
+        NbtCompound nbt = stack.getOrCreateNbt();
         NbtList ingredients;
 
-        if (!nbtCompound.isEmpty()) {
-            ingredients = nbtCompound.getList(INGREDIENTS_KEY, 10);
+        if (!nbt.isEmpty()) {
+            ingredients = nbt.getList(INGREDIENTS_KEY, 10);
         } else {
             ingredients = new NbtList();
         }
@@ -81,13 +104,27 @@ public class TeaBottle extends HoneyBottleItem {
         NbtCompound compound = new NbtCompound();
         compound.putString(ID_KEY, Registry.ITEM.getId(ingredient).toString());
         ingredients.add(compound);
-        nbtCompound.put(INGREDIENTS_KEY, ingredients);
-        stack.setNbt(nbtCompound);
+        nbt.put(INGREDIENTS_KEY, ingredients);
+        stack.setNbt(nbt);
     }
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        tooltip.add(Text.of(String.valueOf(stack.getNbt())));
+
+        NbtCompound nbt = stack.getNbt();
+        if (nbt == null) {
+            tooltip.add(Tantalisingteas.translatableText("error.no_nbt"));
+        } else {
+           NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
+           for (NbtElement element : ingredients) {
+               if (element.getNbtType() != NbtCompound.TYPE) {
+                   tooltip.add(Tantalisingteas.translatableText("error.bad_nbt"));
+               } else {
+                   Item ingredient = Registry.ITEM.get(new Identifier(((NbtCompound) element).getString(ID_KEY)));
+                   tooltip.add(Text.of(Language.getInstance().get(ingredient.getTranslationKey())));
+               }
+           }
+        }
     }
 }
