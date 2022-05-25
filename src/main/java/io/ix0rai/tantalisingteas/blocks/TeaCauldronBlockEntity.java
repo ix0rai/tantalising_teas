@@ -31,9 +31,10 @@ public class TeaCauldronBlockEntity extends BlockEntity {
 
     @Override
     public void readNbt(NbtCompound tag) {
-        this.items.clear();
+        items.clear();
 
         NbtList itemsTag = tag.getList(ITEMS_KEY, 10);
+
         for (int i = 0; i < itemsTag.size(); i ++) {
             NbtCompound compoundTag = itemsTag.getCompound(i);
             items.add(ItemStack.fromNbt(compoundTag));
@@ -42,11 +43,9 @@ public class TeaCauldronBlockEntity extends BlockEntity {
 
     @Override
     protected void writeNbt(NbtCompound tag) {
-        super.writeNbt(tag);
-
         NbtList itemsTag = new NbtList();
-        for (int i = 0; i < itemsTag.size(); i ++) {
-            ItemStack stack = items.get(i);
+
+        for (ItemStack stack : items) {
             if (!stack.isEmpty()) {
                 NbtCompound compoundTag = new NbtCompound();
                 stack.writeNbt(compoundTag);

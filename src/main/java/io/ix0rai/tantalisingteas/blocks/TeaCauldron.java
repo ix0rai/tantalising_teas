@@ -103,7 +103,7 @@ public class TeaCauldron extends TantalisingCauldronBlock {
                     strength = 3;
                 }
 
-                world.setBlockState(pos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LEVEL, level + 1).with(STRENGTH, strength));
+                world.setBlockState(pos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LEVEL, level + (tea ? 1 : 0)).with(STRENGTH, strength));
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
 
                 Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
