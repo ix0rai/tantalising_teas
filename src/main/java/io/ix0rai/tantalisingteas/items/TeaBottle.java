@@ -22,11 +22,16 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TeaBottle extends HoneyBottleItem {
     public static final String INGREDIENTS_KEY = "Ingredients";
     public static final String ID_KEY = "id";
+    public static final Text BAD_NBT = Tantalisingteas.translatableText("error.bad_nbt");
+    public static final Text NO_NBT = Tantalisingteas.translatableText("error.no_nbt");
+    public static final Text TEA = Tantalisingteas.translatableText("word.tea");
 
     public TeaBottle(Settings settings) {
         super(settings);
@@ -36,7 +41,6 @@ public class TeaBottle extends HoneyBottleItem {
         NbtCompound nbt = stack.getNbt();
 
         if (nbt == null || !(stack.getItem() instanceof TeaBottle)) {
-            Tantalisingteas.LOGGER.warn("attempted to get ingredients of misconfigured tea bottle");
             return new ArrayList<>();
         } else {
             ArrayList<ItemStack> ingredients = new ArrayList<>();
@@ -108,18 +112,48 @@ public class TeaBottle extends HoneyBottleItem {
         stack.setNbt(nbt);
     }
 
+    public static ItemStack getPrimaryIngredient(ItemStack stack) {
+        if (!(stack.getItem() instanceof TeaBottle)) {
+            return null;
+        } else {
+            List<ItemStack> ingredients = getIngredients(stack);
+            HashMap<ItemStack, Integer> counts = new HashMap<>();
+
+            for (ItemStack ingredient : ingredients) {
+                counts.putIfAbsent(ingredient, 0);
+                counts.put(ingredient, counts.get(ingredient) + 1);
+            }
+
+            ItemStack primary = null;
+            int number = 0;
+
+            for (Map.Entry<ItemStack, Integer> entry : counts.entrySet()) {
+                if (entry.getValue() > number) {
+                    primary = entry.getKey();
+                }
+            }
+
+            return primary;
+        }
+    }
+
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
+        ItemStack primaryIngredient = getPrimaryIngredient(stack);
+        if (primaryIngredient != null) {
+            stack.setCustomName(Text.of(Language.getInstance().get(primaryIngredient.getTranslationKey()) + " " + Language.getInstance().get(TEA.getString())));
+        }
+
         NbtCompound nbt = stack.getNbt();
         if (nbt == null) {
-            tooltip.add(Tantalisingteas.translatableText("error.no_nbt"));
+            tooltip.add(NO_NBT);
         } else {
            NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
            for (NbtElement element : ingredients) {
                if (element.getNbtType() != NbtCompound.TYPE) {
-                   tooltip.add(Tantalisingteas.translatableText("error.bad_nbt"));
+                   tooltip.add(BAD_NBT);
                } else {
                    Item ingredient = Registry.ITEM.get(new Identifier(((NbtCompound) element).getString(ID_KEY)));
                    tooltip.add(Text.of(Language.getInstance().get(ingredient.getTranslationKey())));
