@@ -170,17 +170,14 @@ public class TeaBottle extends HoneyBottleItem {
         final NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
         NbtList flairs = nbt.getList(FLAIRS_KEY, 10);
 
-        int j = 0;
         for (int i = 0; i < ingredients.size(); i ++) {
-            if (j == index) {
-                NbtCompound flair = (NbtCompound) flairs.get(j);
+            if (i == index) {
+                NbtCompound flair = (NbtCompound) flairs.get(i);
                 NbtInt flairIndex = (NbtInt) flair.get(NUMBER_KEY);
                 if (flairIndex != null) {
                     return Language.getInstance().get(FLAIRS[flairIndex.intValue()].getString());
                 }
             }
-
-            j ++;
         }
 
         return FLAIRS[0].getString();
