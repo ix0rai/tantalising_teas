@@ -1,4 +1,10 @@
 {
   "item.tantalisingteas.tea_leaves": "Tea Leaves",
-  "tantalisingteas.word.tea": "Tea"
+  "tantalisingteas.word.tea": "Tea",
+  "tantalisingteas.word.of": "Of",
+  "tantalisingteas.word.bottle": "Bottle",
+  "tantalisingteas.flair.with_an_infusion_of": "With an infusion of",
+  "tantalisingteas.flair.with_hints_of": "With hints of",
+  "tantalisingteas.flair.with_undertones_of": "With undertones of",
+  "tantalisingteas.flair.with_a_taste_of": "With a taste of"
 }

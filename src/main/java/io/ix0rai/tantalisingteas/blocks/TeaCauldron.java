@@ -165,7 +165,7 @@ public class TeaCauldron extends TantalisingCauldronBlock {
         } else {
             if (!world.isClient) {
                 for (ItemStack ingredient : entity.get().getItems()) {
-                    TeaBottle.addIngredient(output, ingredient.getItem());
+                    TeaBottle.addIngredient(output, ingredient.getItem(), world.random);
                 }
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
