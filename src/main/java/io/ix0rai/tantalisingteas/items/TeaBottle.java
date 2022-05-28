@@ -30,9 +30,8 @@ import java.util.Map;
 
 public class TeaBottle extends HoneyBottleItem {
     public static final String INGREDIENTS_KEY = "Ingredients";
-    public static final String FLAIRS_KEY = "Flairs";
     public static final String ID_KEY = "id";
-    public static final String NUMBER_KEY = "number";
+    public static final String FLAIR_KEY = "flair";
     public static final Text BAD_NBT = Tantalisingteas.translatableText("error.bad_nbt");
     public static final Text NO_NBT = Tantalisingteas.translatableText("error.no_nbt");
     public static final Text TEA = Tantalisingteas.translatableText("word.tea");
@@ -109,22 +108,18 @@ public class TeaBottle extends HoneyBottleItem {
 
         NbtCompound nbt = stack.getOrCreateNbt();
         NbtList ingredients;
-        NbtList flairs;
 
         if (!nbt.isEmpty()) {
             ingredients = nbt.getList(INGREDIENTS_KEY, 10);
-            flairs = nbt.getList(FLAIRS_KEY, 10);
         } else {
             ingredients = new NbtList();
-            flairs = new NbtList();
         }
 
         // write nbt
         NbtCompound compound = new NbtCompound();
         compound.putString(ID_KEY, Registry.ITEM.getId(ingredient).toString());
+        compound.putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
         ingredients.add(compound);
-        flairs.add(NbtInt.of(random.nextInt(FLAIRS.length)));
-        nbt.put(FLAIRS_KEY, flairs);
         nbt.put(INGREDIENTS_KEY, ingredients);
         stack.setNbt(nbt);
     }
@@ -168,45 +163,37 @@ public class TeaBottle extends HoneyBottleItem {
     public String getFlair(ItemStack stack, NbtCompound nbt, RandomGenerator random, int index) {
         updateFlairNbt(stack, nbt, random);
         final NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
-        NbtList flairs = nbt.getList(FLAIRS_KEY, 10);
 
         for (int i = 0; i < ingredients.size(); i ++) {
             if (i == index) {
-                NbtCompound flair = (NbtCompound) flairs.get(i);
-                NbtInt flairIndex = (NbtInt) flair.get(NUMBER_KEY);
+                NbtCompound data = (NbtCompound) ingredients.get(i);
+                NbtInt flairIndex = (NbtInt) data.get(FLAIR_KEY);
+
                 if (flairIndex != null) {
                     return Language.getInstance().get(FLAIRS[flairIndex.intValue()].getString());
                 }
             }
         }
 
-        return FLAIRS[0].getString();
+        return Language.getInstance().get(FLAIRS[0].getString());
     }
 
     public void updateFlairNbt(ItemStack stack, NbtCompound nbt, RandomGenerator random) {
         final NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
-        NbtList flairs = nbt.getList(FLAIRS_KEY, 10);
 
-        if (flairs == null) {
-            flairs = new NbtList();
-            for (int i = 0; i < ingredients.size(); i ++) {
-                NbtCompound c = new NbtCompound();
-                c.put(NUMBER_KEY, NbtInt.of(random.nextInt(FLAIRS.length)));
-                flairs.add(c);
+        boolean updatedNbt = false;
+
+        // ensure every ingredient has an associated tooltip flair
+        for (NbtElement element : ingredients) {
+            if (element.getNbtType().equals(NbtCompound.TYPE) && ((NbtCompound) element).get(FLAIR_KEY) == null) {
+                ((NbtCompound) element).putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
+                updatedNbt = true;
             }
+        }
 
-            // save flair nbt to stack
-            nbt.put(FLAIRS_KEY, flairs);
-            stack.setNbt(nbt);
-        } else if (flairs.size() < ingredients.size()) {
-            for (int i = flairs.size(); i < ingredients.size(); i ++) {
-                NbtCompound c = new NbtCompound();
-                c.put(NUMBER_KEY, NbtInt.of(random.nextInt(FLAIRS.length)));
-                flairs.add(c);
-            }
-
-            // save flair nbt to stack
-            nbt.put(FLAIRS_KEY, flairs);
+        if (updatedNbt) {
+            // save updated nbt to stack
+            nbt.put(INGREDIENTS_KEY, ingredients);
             stack.setNbt(nbt);
         }
     }
@@ -230,7 +217,7 @@ public class TeaBottle extends HoneyBottleItem {
                    Identifier id = new Identifier(((NbtCompound) element).getString(ID_KEY));
                    Item ingredient = Registry.ITEM.get(id);
                    RandomGenerator random = world == null ? RandomGenerator.createThreaded() : world.random;
-                   tooltip.add(Text.of(Language.getInstance().get(getFlair(stack, nbt, random, i)) + " " + Language.getInstance().get(ingredient.getTranslationKey())));
+                   tooltip.add(Text.of(getFlair(stack, nbt, random, i) + " " + Language.getInstance().get(ingredient.getTranslationKey())));
                }
            }
         }
