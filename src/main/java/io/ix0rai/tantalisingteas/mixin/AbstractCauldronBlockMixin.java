@@ -4,6 +4,7 @@ import io.ix0rai.tantalisingteas.blocks.TeaCauldron;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -31,17 +32,16 @@ public class AbstractCauldronBlockMixin {
 
     @Inject(method = "onUse", at = @At("HEAD"))
     public void onUse(BlockState cauldronState, World initialWorld, BlockPos cauldronPos, PlayerEntity playerEntity, Hand playerHand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
+        // register behaviour for all items in the tea_ingredients tag
         if (!TeaCauldron.registeredRecipes) {
             TeaCauldron.addBehaviour();
         }
 
-        //add more things to map
+        // allow vanilla cauldrons to be converted to tea cauldrons
         if (!this.behaviorMap.containsKey(TantalisingItems.TEA_BOTTLE)) {
             Identifier id = Registry.BLOCK.getId(cauldronState.getBlock());
-            if (id.getPath().equals("water_cauldron")) {
-                this.behaviorMap.put(TantalisingItems.TEA_LEAVES, TeaCauldron::convertToTeaCauldron);
-                this.behaviorMap.put(TantalisingItems.TEA_BOTTLE, TeaCauldron::convertToTeaCauldron);
-            } else if (id.getPath().equals("cauldron")) {
+
+            if (id.equals(Registry.BLOCK.getId(Blocks.WATER_CAULDRON)) || id.equals(Registry.BLOCK.getId(Blocks.CAULDRON))) {
                 this.behaviorMap.put(TantalisingItems.TEA_BOTTLE, TeaCauldron::convertToTeaCauldron);
             }
         }

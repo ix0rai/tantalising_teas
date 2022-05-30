@@ -57,6 +57,7 @@ public class TeaCauldronBlockEntity extends BlockEntity {
     }
 
     public void addItem(ItemStack stack) {
+        // assume that the item is already in the tea_ingredients tag
         if (stack != null && !stack.isEmpty()) {
             items.add(new ItemStack(stack.getItem()));
         }

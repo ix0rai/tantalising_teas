@@ -23,6 +23,7 @@ import net.minecraft.tag.TagKey;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Holder;
+import net.minecraft.util.HolderSet;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -58,7 +59,11 @@ public class TeaCauldron extends TantalisingCauldronBlock {
     }
 
     public static void addBehaviour() {
-        Registry.ITEM.getOrCreateTag(TEA_INGREDIENTS).forEach((Holder<Item> item) -> BEHAVIOUR.put(item.value(), TeaCauldron::increaseStrength));
+        HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(TEA_INGREDIENTS);
+        teaIngredients.forEach((Holder<Item> item) -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(item.value(), TeaCauldron::convertToTeaCauldron);
+            BEHAVIOUR.put(item.value(), TeaCauldron::increaseStrength);
+        });
         registeredRecipes = true;
     }
 

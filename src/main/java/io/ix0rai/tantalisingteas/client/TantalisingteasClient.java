@@ -8,6 +8,6 @@ import net.fabricmc.api.Environment;
 public class TantalisingteasClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        System.out.println("hello fabric client!");
+        // nothing for now
     }
 }
