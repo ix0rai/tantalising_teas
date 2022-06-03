@@ -10,6 +10,7 @@
     "LeveledCauldronBlockMixin"
   ],
   "client": [
+    "render.ItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

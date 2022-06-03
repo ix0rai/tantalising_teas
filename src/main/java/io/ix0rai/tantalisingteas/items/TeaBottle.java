@@ -149,13 +149,11 @@ public class TeaBottle extends HoneyBottleItem {
     }
 
     public void setCustomName(ItemStack stack) {
-        if (stack.getItem() instanceof TeaBottle && stack.hasNbt() && !stack.hasCustomName()) {
-            ItemStack primaryIngredient = getPrimaryIngredient(stack);
-            if (primaryIngredient != null) {
-                String name = translate(BOTTLE) + " " + translate(OF) + " "
-                        + translate(primaryIngredient.getTranslationKey()) + " " + Language.getInstance().get(TEA.getString());
-                stack.setCustomName(Text.of(name));
-            }
+        ItemStack primaryIngredient = getPrimaryIngredient(stack);
+        if (primaryIngredient != null) {
+            String name = translate(BOTTLE) + " " + translate(OF) + " "
+                    + translate(primaryIngredient.getTranslationKey()) + " " + translate(TEA);
+            stack.setCustomName(Text.of(name));
         }
     }
 
@@ -214,9 +212,14 @@ public class TeaBottle extends HoneyBottleItem {
         setCustomName(stack);
 
         NbtCompound nbt = stack.getNbt();
+
         if (nbt == null) {
             tooltip.add(NO_NBT);
-        } else {
+        } else if (stack.hasNbt()) {
+            if (!stack.hasCustomName()) {
+                setCustomName(stack);
+            }
+
            NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
            for (int i = 0; i < ingredients.size(); i ++) {
                NbtElement element = ingredients.get(i);
