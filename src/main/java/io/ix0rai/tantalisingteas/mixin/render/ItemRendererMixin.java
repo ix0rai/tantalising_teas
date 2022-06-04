@@ -24,7 +24,7 @@ public class ItemRendererMixin {
     @Inject(method = "getHeldItemModel", at = @At("HEAD"), cancellable = true)
     public void getHeldItemModel(ItemStack stack, World world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir) {
         if (stack.isOf(TantalisingItems.TEA_BOTTLE)) {
-            //note: in the future, this will get the model for a certain colour based on the item's nbt data
+            //todo: get colour from stack nbt's ingredients
             BakedModel teaModel = this.models.getModelManager().getModel(new ModelIdentifier("minecraft:trident#inventory"));
             cir.setReturnValue(teaModel);
         }

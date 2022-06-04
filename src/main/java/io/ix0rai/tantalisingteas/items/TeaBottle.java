@@ -1,9 +1,16 @@
 package io.ix0rai.tantalisingteas.items;
 
+import com.mojang.blaze3d.texture.NativeImage;
 import io.ix0rai.tantalisingteas.Tantalisingteas;
 import io.ix0rai.tantalisingteas.blocks.TeaCauldron;
+import io.ix0rai.tantalisingteas.mixin.render.SpriteAccessor;
+import io.ix0rai.tantalisingteas.registry.TantalisingItems;
+import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedModelManager;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoneyBottleItem;
@@ -31,6 +38,7 @@ public class TeaBottle extends HoneyBottleItem {
     public static final String INGREDIENTS_KEY = "Ingredients";
     public static final String ID_KEY = "id";
     public static final String FLAIR_KEY = "flair";
+    public static final String COLOUR_KEY = "colour";
     public static final Text BAD_NBT = Tantalisingteas.translatableText("error.bad_nbt");
     public static final Text NO_NBT = Tantalisingteas.translatableText("error.no_nbt");
     public static final Text TEA = Tantalisingteas.translatableText("word.tea");
@@ -56,12 +64,60 @@ public class TeaBottle extends HoneyBottleItem {
             ArrayList<ItemStack> ingredients = new ArrayList<>();
             NbtList nbtList = nbt.getList(INGREDIENTS_KEY, 10);
 
-            for (NbtElement element : nbtList) {
-                Identifier id = new Identifier(((NbtCompound) element).getString(ID_KEY));
-                ingredients.add(new ItemStack(Registry.ITEM.get(id)));
+            for (int i = 0; i < nbtList.size(); i ++) {
+                Identifier id = new Identifier(nbtList.getCompound(i).getString(ID_KEY));
+                ingredients.add(Registry.ITEM.get(id).getDefaultStack());
             }
 
             return ingredients;
+        }
+    }
+
+    //todo: compute most vibrant colour instead of most common
+    //todo: match colour to closest from a list of predefined options
+    public static void updateColourValues(ItemStack stack, BakedModelManager manager) {
+        NbtCompound nbt = stack.getNbt();
+
+        if (nbt != null && stack.hasNbt() && stack.isOf(TantalisingItems.TEA_BOTTLE)) {
+            NbtList nbtList = nbt.getList(INGREDIENTS_KEY, 10);
+
+            for (int i = 0; i < nbtList.size(); i ++) {
+                NbtCompound ingredientNbt = nbtList.getCompound(i);
+                if (!ingredientNbt.contains(COLOUR_KEY)) {
+                    Identifier id = new Identifier(ingredientNbt.getString(ID_KEY));
+
+                    ModelIdentifier modelId = new ModelIdentifier(id + "#inventory");
+                    BakedModel model = manager.getModel(modelId);
+
+                    NativeImage texture = ((SpriteAccessor) model.getParticleSprite()).getImages()[0];
+
+                    Map<String, Integer> hexes = new Object2IntArrayMap<>();
+
+                    for (int x = 0; x < texture.getWidth(); x ++) {
+                        for (int y = 0; y < texture.getHeight(); y ++) {
+                            int r = texture.getRed(x, y);
+                            int g = texture.getGreen(x, y);
+                            int b = texture.getBlue(x, y);
+
+                            String hex = String.format("#%02x%02x%02x", r, g, b);
+
+                            hexes.put(hex, hexes.getOrDefault(hex, 0) + 1);
+                        }
+                    }
+
+                    String bestHex = "";
+                    int highest = 0;
+
+                    for (Map.Entry<String, Integer> entry : hexes.entrySet()) {
+                        if (entry.getValue() > highest) {
+                            highest = entry.getValue();
+                            bestHex = entry.getKey();
+                        }
+                    }
+
+                    ingredientNbt.putString(COLOUR_KEY, bestHex);
+                }
+            }
         }
     }
 
