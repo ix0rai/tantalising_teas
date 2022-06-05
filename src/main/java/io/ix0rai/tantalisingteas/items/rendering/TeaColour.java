@@ -1,39 +1,57 @@
 package io.ix0rai.tantalisingteas.items.rendering;
 
-public enum TeaColour {
-    // greys
-    BLACK(0, 0, 0, 13),
-    WHITE(255, 255, 255, 12),
-    BROWN(165, 42, 42, 11),
+import io.ix0rai.tantalisingteas.items.TeaBottle;
+import net.minecraft.nbt.NbtCompound;
 
+import java.util.List;
+
+public enum TeaColour {
     // reds
-    RED(255, 0, 0, 1),
-    MAROON(128, 0, 0, 2),
+    VERY_LIGHT_RED(0xff0000, 1),
+    LIGHT_RED(0xbf0000, 2),
+    RED(0x800000, 2),
+    DARK_RED(0x400000, 3),
+    VERY_DARK_RED(0x200000, 4),
 
     // greens
-    LIME(0, 255, 0, 10),
-    GREEN(0, 128, 0, 9),
-    OLIVE(128, 128, 0, 8),
+    VERY_LIGHT_GREEN(0x00ff00, 10),
+    LIGHT_GREEN(0x00bf00, 9),
+    GREEN(0x008000, 9),
+    DARK_GREEN(0x004000, 8),
+    VERY_DARK_GREEN(0x002000, 7),
+
+    OLIVE(0x808000, 8),
 
     // blues
-    CYAN(0, 255, 255, 7),
-    BLUE(0, 0, 255, 6),
-    TEAL(0, 128, 128, 5),
-    NAVY(0, 0, 128, 4),
+    VERY_LIGHT_BLUE(0x00c8ff, 6),
+    LIGHT_BLUE(0x0080ff, 5),
+    BLUE(0x0000ff, 6),
+    DARK_BLUE(0x000080, 5),
+    VERY_DARK_BLUE(0x000040, 4),
+
+    CYAN(0x00ffff, 7),
+    TEAL(0x008080, 5),
 
     // misc
-    PURPLE(128, 0, 128, 3),
-    MAGENTA(255, 0, 255, 3);
+    YELLOW(0xffff00, 5),
+    ORANGE(0xff8000, 3),
+    PINK(0xff00ff, 3),
+    PURPLE(0x800080, 3),
+    BLACK(0x000000, 13),
+    WHITE(0xffffff, 12),
+    BROWN(0xa52a2a, 11);
 
+    private final int hex;
     private final int red;
     private final int green;
     private final int blue;
     private final int priority;
 
-    TeaColour(int r, int g, int b, int priority) {
-        this.red = r;
-        this.green = g;
-        this.blue = b;
+    TeaColour(int hex, int priority) {
+        this.hex = hex;
+        this.red = (hex >> 16) & 0xff;
+        this.green = (hex >> 8) & 0xff;
+        this.blue = hex & 0xff;
         this.priority = priority;
     }
 
@@ -49,8 +67,29 @@ public enum TeaColour {
         return highestPriority;
     }
 
+    private static TeaColour fromHex(int hex) {
+        return getClosest((hex >> 16) & 0xff, (hex >> 8) & 0xff, hex & 0xff);
+    }
+
+    public static TeaColour getFromIngredients(List<NbtCompound> ingredients) {
+        int[] averageRgb = new int[]{0, 0, 0};
+
+        for (NbtCompound ingredient : ingredients) {
+            TeaColour colour = TeaColour.fromHex(ingredient.getInt(TeaBottle.COLOUR_KEY));
+            averageRgb[0] += colour.red;
+            averageRgb[1] += colour.green;
+            averageRgb[2] += colour.blue;
+        }
+
+        for (int i = 0; i < averageRgb.length; i++) {
+            averageRgb[i] /= ingredients.size();
+        }
+
+        return getClosest(averageRgb[0], averageRgb[1], averageRgb[2]);
+    }
+
     public static TeaColour getClosest(int r, int g, int b) {
-        TeaColour closest = WHITE;
+        TeaColour closest = BLACK;
 
         for (TeaColour colour : TeaColour.values()) {
             if (colour != closest) {
@@ -77,15 +116,7 @@ public enum TeaColour {
         return Math.abs(this.red - r) + Math.abs(this.green - g) + Math.abs(this.blue - b);
     }
 
-    public int getRed() {
-        return this.red;
-    }
-
-    public int getGreen() {
-        return this.green;
-    }
-
-    public int getBlue() {
-        return this.blue;
+    public int getHex() {
+        return this.hex;
     }
 }

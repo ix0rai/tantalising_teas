@@ -143,9 +143,9 @@ public class TeaBottle extends HoneyBottleItem {
                         }
                     }
 
+                    // save colour
                     TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
-
-                    ingredientNbt.putString(COLOUR_KEY, String.format("#%02x%02x%02x", highestPriority.getRed(), highestPriority.getGreen(), highestPriority.getBlue()));
+                    ingredientNbt.putInt(COLOUR_KEY, highestPriority.getHex());
                 }
             }
         }
@@ -212,7 +212,7 @@ public class TeaBottle extends HoneyBottleItem {
                 compound.putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
             }
             if (ingredient.contains(COLOUR_KEY)) {
-                compound.putString(COLOUR_KEY, ingredient.getString(COLOUR_KEY));
+                compound.putInt(COLOUR_KEY, ingredient.getInt(COLOUR_KEY));
             }
 
             // write nbt
