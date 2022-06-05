@@ -12,7 +12,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 
 public class TeaCauldronBlockEntity extends BlockEntity {
     private final NbtList items;
@@ -53,8 +52,7 @@ public class TeaCauldronBlockEntity extends BlockEntity {
     }
 
     public void addData(NbtCompound compound) {
-        // assume that the item is already in the tea_ingredients tag
-        if (compound != null && !compound.isEmpty()) {
+        if (compound != null && !compound.isEmpty() && TeaBottle.isTeaIngredient(compound)) {
             items.add(compound);
         }
     }
@@ -62,8 +60,7 @@ public class TeaCauldronBlockEntity extends BlockEntity {
     public void addStack(ItemStack stack) {
         if (stack != null && !stack.isEmpty()) {
             NbtCompound compound = new NbtCompound();
-            compound.putString(TeaBottle.ID_KEY, Registry.ITEM.getId(stack.getItem()).toString());
-            items.add(compound);
+            addData(compound);
         }
     }
 

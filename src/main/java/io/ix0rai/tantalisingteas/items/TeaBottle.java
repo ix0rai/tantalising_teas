@@ -198,8 +198,7 @@ public class TeaBottle extends HoneyBottleItem {
             }
 
             // ensure item is in tea ingredient tag
-            Identifier id = new Identifier(ingredient.getString(ID_KEY));
-            if (!Registry.ITEM.get(id).getDefaultStack().isIn(TeaCauldron.TEA_INGREDIENTS)) {
+            if (!isTeaIngredient(ingredient)) {
                 Tantalisingteas.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
                 return;
             }
@@ -221,6 +220,11 @@ public class TeaBottle extends HoneyBottleItem {
             nbt.put(INGREDIENTS_KEY, ingredients);
             stack.setNbt(nbt);
         }
+    }
+
+    public static boolean isTeaIngredient(NbtCompound ingredient) {
+        Identifier id = new Identifier(ingredient.getString(ID_KEY));
+        return Registry.ITEM.get(id).getDefaultStack().isIn(TeaCauldron.TEA_INGREDIENTS);
     }
 
     public static NbtCompound getPrimaryIngredient(ItemStack stack) {
