@@ -3,9 +3,9 @@ package io.ix0rai.tantalisingteas.items;
 import com.mojang.blaze3d.texture.NativeImage;
 import io.ix0rai.tantalisingteas.Tantalisingteas;
 import io.ix0rai.tantalisingteas.blocks.TeaCauldron;
+import io.ix0rai.tantalisingteas.items.rendering.TeaColour;
 import io.ix0rai.tantalisingteas.mixin.render.SpriteAccessor;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
-import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.model.BakedModel;
@@ -55,26 +55,23 @@ public class TeaBottle extends HoneyBottleItem {
         super(settings);
     }
 
-    public static List<ItemStack> getIngredients(ItemStack stack) {
+    public static List<NbtCompound> getIngredients(ItemStack stack) {
         NbtCompound nbt = stack.getNbt();
 
         if (nbt == null || !(stack.getItem() instanceof TeaBottle)) {
             return new ArrayList<>();
         } else {
-            ArrayList<ItemStack> ingredients = new ArrayList<>();
+            ArrayList<NbtCompound> ingredients = new ArrayList<>();
             NbtList nbtList = nbt.getList(INGREDIENTS_KEY, 10);
 
             for (int i = 0; i < nbtList.size(); i ++) {
-                Identifier id = new Identifier(nbtList.getCompound(i).getString(ID_KEY));
-                ingredients.add(Registry.ITEM.get(id).getDefaultStack());
+                ingredients.add(nbtList.getCompound(i));
             }
 
             return ingredients;
         }
     }
 
-    //todo: compute most vibrant colour instead of most common
-    //todo: match colour to closest from a list of predefined options
     public static void updateColourValues(ItemStack stack, BakedModelManager manager) {
         NbtCompound nbt = stack.getNbt();
 
@@ -91,31 +88,64 @@ public class TeaBottle extends HoneyBottleItem {
 
                     NativeImage texture = ((SpriteAccessor) model.getParticleSprite()).getImages()[0];
 
-                    Map<String, Integer> hexes = new Object2IntArrayMap<>();
+                    Map<TeaColour, Integer> colours = new HashMap<>();
 
+                    // assemble a map of colours and their numbers of appearances
                     for (int x = 0; x < texture.getWidth(); x ++) {
                         for (int y = 0; y < texture.getHeight(); y ++) {
                             int r = texture.getRed(x, y);
                             int g = texture.getGreen(x, y);
                             int b = texture.getBlue(x, y);
 
-                            String hex = String.format("#%02x%02x%02x", r, g, b);
+                            TeaColour colour = TeaColour.getClosest(r, g, b);
 
-                            hexes.put(hex, hexes.getOrDefault(hex, 0) + 1);
+                            colours.put(colour, colours.getOrDefault(colour, 0) + 1);
                         }
                     }
 
-                    String bestHex = "";
-                    int highest = 0;
+                    // get average reoccurrences of colour
+                    int averageOccurrences = 0;
+                    for (int number : colours.values()) {
+                        averageOccurrences += number;
+                    }
+                    averageOccurrences /= colours.size();
 
-                    for (Map.Entry<String, Integer> entry : hexes.entrySet()) {
-                        if (entry.getValue() > highest) {
-                            highest = entry.getValue();
-                            bestHex = entry.getKey();
+                    // purge map of rare colours
+                    for (Map.Entry<TeaColour, Integer> entry : colours.entrySet()) {
+                        if (entry.getValue() < averageOccurrences) {
+                            colours.remove(entry.getKey());
+                            break;
                         }
                     }
 
-                    ingredientNbt.putString(COLOUR_KEY, bestHex);
+                    // assemble top three most saturated colours
+                    TeaColour[] mostSaturatedColours = new TeaColour[3];
+                    boolean full = false;
+
+                    for (TeaColour colour : colours.keySet()) {
+                        if (!full) {
+                            for (int j = 0; j < mostSaturatedColours.length; j ++) {
+                                if (mostSaturatedColours[j] == null) {
+                                    mostSaturatedColours[j] = colour;
+                                    if (i == mostSaturatedColours.length) {
+                                        full = true;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int j = 0; j < mostSaturatedColours.length; j ++) {
+                            if (mostSaturatedColours[j] != null && colour.getRgbSum() > mostSaturatedColours[j].getRgbSum()) {
+                                mostSaturatedColours[j] = colour;
+                                break;
+                            }
+                        }
+                    }
+
+                    TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
+
+                    ingredientNbt.putString(COLOUR_KEY, String.format("#%02x%02x%02x", highestPriority.getRed(), highestPriority.getGreen(), highestPriority.getBlue()));
                 }
             }
         }
@@ -155,60 +185,73 @@ public class TeaBottle extends HoneyBottleItem {
         }
     }
 
-    public static void addIngredient(ItemStack stack, Item ingredient, RandomGenerator random) {
-        if (!new ItemStack(ingredient).isIn(TeaCauldron.TEA_INGREDIENTS)) {
-            Tantalisingteas.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
-            return;
-        }
+    public static void addIngredient(ItemStack stack, NbtCompound ingredient, RandomGenerator random) {
+        if (ingredient != null && !ingredient.isEmpty()  && ingredient.contains(ID_KEY)) {
+            // get nbt
+            NbtCompound nbt = stack.getOrCreateNbt();
+            NbtList ingredients;
 
-        NbtCompound nbt = stack.getOrCreateNbt();
-        NbtList ingredients;
-
-        if (!nbt.isEmpty()) {
-            ingredients = nbt.getList(INGREDIENTS_KEY, 10);
-        } else {
-            ingredients = new NbtList();
-        }
-
-        // write nbt
-        NbtCompound compound = new NbtCompound();
-        compound.putString(ID_KEY, Registry.ITEM.getId(ingredient).toString());
-        compound.putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
-        ingredients.add(compound);
-        nbt.put(INGREDIENTS_KEY, ingredients);
-        stack.setNbt(nbt);
-    }
-
-    public static ItemStack getPrimaryIngredient(ItemStack stack) {
-        if (!(stack.getItem() instanceof TeaBottle)) {
-            return null;
-        } else {
-            List<ItemStack> ingredients = getIngredients(stack);
-            HashMap<ItemStack, Integer> counts = new HashMap<>();
-
-            for (ItemStack ingredient : ingredients) {
-                counts.putIfAbsent(ingredient, 0);
-                counts.put(ingredient, counts.get(ingredient) + 1);
+            if (!nbt.isEmpty()) {
+                ingredients = nbt.getList(INGREDIENTS_KEY, 10);
+            } else {
+                ingredients = new NbtList();
             }
 
-            ItemStack primary = null;
+            // ensure item is in tea ingredient tag
+            Identifier id = new Identifier(ingredient.getString(ID_KEY));
+            if (!Registry.ITEM.get(id).getDefaultStack().isIn(TeaCauldron.TEA_INGREDIENTS)) {
+                Tantalisingteas.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
+                return;
+            }
+
+            // save nbt
+            NbtCompound compound = new NbtCompound();
+            compound.putString(ID_KEY, ingredient.getString(ID_KEY));
+            if (ingredient.contains(FLAIR_KEY)) {
+                compound.putInt(FLAIR_KEY, ingredient.getInt(FLAIR_KEY));
+            } else {
+                compound.putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
+            }
+            if (ingredient.contains(COLOUR_KEY)) {
+                compound.putString(COLOUR_KEY, ingredient.getString(COLOUR_KEY));
+            }
+
+            // write nbt
+            ingredients.add(compound);
+            nbt.put(INGREDIENTS_KEY, ingredients);
+            stack.setNbt(nbt);
+        }
+    }
+
+    public static NbtCompound getPrimaryIngredient(ItemStack stack) {
+        if (!(stack.getItem() instanceof TeaBottle) || stack.getNbt() == null) {
+            return null;
+        } else {
+            NbtList ingredients = stack.getNbt().getList(INGREDIENTS_KEY, 10);
+            HashMap<NbtElement, Integer> counts = new HashMap<>();
+
+            for (NbtElement ingredient : ingredients) {
+                counts.put(ingredient, counts.getOrDefault(ingredient, 0) + 1);
+            }
+
+            NbtElement primary = null;
             int number = 0;
 
-            for (Map.Entry<ItemStack, Integer> entry : counts.entrySet()) {
+            for (Map.Entry<NbtElement, Integer> entry : counts.entrySet()) {
                 if (entry.getValue() > number) {
                     primary = entry.getKey();
                 }
             }
 
-            return primary;
+            return (NbtCompound) primary;
         }
     }
 
     public void setCustomName(ItemStack stack) {
-        ItemStack primaryIngredient = getPrimaryIngredient(stack);
+        NbtCompound primaryIngredient = getPrimaryIngredient(stack);
         if (primaryIngredient != null) {
             String name = translate(BOTTLE) + " " + translate(OF) + " "
-                    + translate(primaryIngredient.getTranslationKey()) + " " + translate(TEA);
+                    + translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + translate(TEA);
             stack.setCustomName(Text.of(name));
         }
     }

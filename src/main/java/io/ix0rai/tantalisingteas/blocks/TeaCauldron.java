@@ -12,6 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundCategory;
@@ -74,7 +76,7 @@ public class TeaCauldron extends TantalisingCauldronBlock {
             if (!world.isClient) {
                 Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
                 if (entity.isPresent()) {
-                    entity.get().addItem(stack);
+                    entity.get().addStack(stack);
 
                     if (!player.getAbilities().creativeMode) {
                         stack.decrement(1);
@@ -116,9 +118,8 @@ public class TeaCauldron extends TantalisingCauldronBlock {
                 if (tea && entity.isPresent()) {
                     TeaCauldronBlockEntity blockEntity = entity.get();
 
-                    for (ItemStack ingredient : TeaBottle.getIngredients(stack)) {
-                        System.out.println(ingredient);
-                        blockEntity.addItem(ingredient);
+                    for (NbtCompound ingredient : TeaBottle.getIngredients(stack)) {
+                        blockEntity.addData(ingredient);
                     }
                     player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
                 }
@@ -169,8 +170,8 @@ public class TeaCauldron extends TantalisingCauldronBlock {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
-                for (ItemStack ingredient : entity.get().getItems()) {
-                    TeaBottle.addIngredient(output, ingredient.getItem(), world.random);
+                for (NbtElement ingredient : entity.get().getItems()) {
+                    TeaBottle.addIngredient(output, (NbtCompound) ingredient, world.random);
                 }
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
