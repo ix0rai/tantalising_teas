@@ -30,7 +30,9 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -76,10 +78,11 @@ public class TeaBottle extends HoneyBottleItem {
         NbtCompound nbt = stack.getNbt();
 
         if (nbt != null && stack.hasNbt() && stack.isOf(TantalisingItems.TEA_BOTTLE)) {
-            NbtList nbtList = nbt.getList(INGREDIENTS_KEY, 10);
+            NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
+            boolean updated = false;
 
-            for (int i = 0; i < nbtList.size(); i ++) {
-                NbtCompound ingredientNbt = nbtList.getCompound(i);
+            for (int i = 0; i < ingredients.size(); i ++) {
+                NbtCompound ingredientNbt = ingredients.getCompound(i);
                 if (!ingredientNbt.contains(COLOUR_KEY)) {
                     Identifier id = new Identifier(ingredientNbt.getString(ID_KEY));
 
@@ -90,15 +93,29 @@ public class TeaBottle extends HoneyBottleItem {
 
                     Map<TeaColour, Integer> colours = new HashMap<>();
 
-                    // assemble a map of colours and their numbers of appearances
+                    // assemble a map of colours and their number of occurrences
                     for (int x = 0; x < texture.getWidth(); x ++) {
                         for (int y = 0; y < texture.getHeight(); y ++) {
                             int r = texture.getRed(x, y);
                             int g = texture.getGreen(x, y);
                             int b = texture.getBlue(x, y);
 
-                            TeaColour colour = TeaColour.getClosest(r, g, b);
+                            // calculate transparency
+                            try {
+                                int t = texture.getPixelOpacity(x, y);
+                                r -= t;
+                                g -= t;
+                                b -= t;
 
+                                // filter out entirely transparent pixels
+                                if (r == 0 && g == 0 && b == 0) {
+                                    continue;
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            TeaColour colour = TeaColour.getClosest(r, g, b);
                             colours.put(colour, colours.getOrDefault(colour, 0) + 1);
                         }
                     }
@@ -108,13 +125,14 @@ public class TeaBottle extends HoneyBottleItem {
                     for (int number : colours.values()) {
                         averageOccurrences += number;
                     }
-                    averageOccurrences /= colours.size();
+                    averageOccurrences /= colours.size() - 1;
 
                     // purge map of rare colours
-                    for (Map.Entry<TeaColour, Integer> entry : colours.entrySet()) {
-                        if (entry.getValue() < averageOccurrences) {
-                            colours.remove(entry.getKey());
-                            break;
+                    Iterator<TeaColour> iterator = colours.keySet().iterator();
+                    while (iterator.hasNext()) {
+                        int occurrences = colours.get(iterator.next());
+                        if (occurrences < averageOccurrences) {
+                            iterator.remove();
                         }
                     }
 
@@ -125,7 +143,15 @@ public class TeaBottle extends HoneyBottleItem {
                     for (TeaColour colour : colours.keySet()) {
                         if (!full) {
                             for (int j = 0; j < mostSaturatedColours.length; j ++) {
-                                if (mostSaturatedColours[j] == null) {
+                                boolean contains = false;
+                                for (int k = 0; k < j; k ++) {
+                                    if (mostSaturatedColours[k].getId().equals(colour.getId())) {
+                                        contains = true;
+                                        break;
+                                    }
+                                }
+
+                                if (mostSaturatedColours[j] == null && !contains) {
                                     mostSaturatedColours[j] = colour;
                                     if (i == mostSaturatedColours.length) {
                                         full = true;
@@ -136,7 +162,7 @@ public class TeaBottle extends HoneyBottleItem {
                         }
 
                         for (int j = 0; j < mostSaturatedColours.length; j ++) {
-                            if (mostSaturatedColours[j] != null && colour.getRgbSum() > mostSaturatedColours[j].getRgbSum()) {
+                            if (mostSaturatedColours[j] != null && colour != null && colour.getRgbSum() > mostSaturatedColours[j].getRgbSum()) {
                                 mostSaturatedColours[j] = colour;
                                 break;
                             }
@@ -146,7 +172,13 @@ public class TeaBottle extends HoneyBottleItem {
                     // save colour
                     TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
                     ingredientNbt.putInt(COLOUR_KEY, highestPriority.getHex());
+                    updated = true;
                 }
+            }
+
+            if (updated) {
+                nbt.put(INGREDIENTS_KEY, ingredients);
+                stack.setNbt(nbt);
             }
         }
     }

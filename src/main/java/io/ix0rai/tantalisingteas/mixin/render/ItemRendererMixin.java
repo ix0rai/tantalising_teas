@@ -1,8 +1,10 @@
 package io.ix0rai.tantalisingteas.mixin.render;
 
+import io.ix0rai.tantalisingteas.Tantalisingteas;
 import io.ix0rai.tantalisingteas.items.TeaBottle;
 import io.ix0rai.tantalisingteas.items.rendering.TeaColour;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
@@ -26,6 +28,7 @@ public class ItemRendererMixin {
     @Shadow
     private ItemModels models;
 
+    //todo: get custom models working: will probably have to register dummy items for each
     @Inject(method = "getHeldItemModel", at = @At("HEAD"), cancellable = true)
     public void getHeldItemModel(ItemStack stack, World world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir) {
         if (stack.isOf(TantalisingItems.TEA_BOTTLE)) {
@@ -33,8 +36,12 @@ public class ItemRendererMixin {
             List<NbtCompound> ingredients = TeaBottle.getIngredients(stack);
             TeaColour colour = TeaColour.getFromIngredients(ingredients);
 
-            //todo: implement colouring
-            BakedModel teaModel = this.models.getModelManager().getModel(new ModelIdentifier("minecraft:trident#inventory"));
+            ModelIdentifier id = new ModelIdentifier(Tantalisingteas.id("item/" + colour.getId() + "_tea_model") + "#inventory");
+            // debug code
+            if (colour.getId().equals(TeaColour.DARK_RED.getId())) {
+                id = new ModelIdentifier("minecraft:sweet_berries#inventory");
+            }
+            BakedModel teaModel = this.models.getModelManager().getModel(id);
             cir.setReturnValue(teaModel);
         }
     }
