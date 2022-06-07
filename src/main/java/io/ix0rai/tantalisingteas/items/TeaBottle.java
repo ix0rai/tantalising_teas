@@ -30,7 +30,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -111,8 +110,8 @@ public class TeaBottle extends HoneyBottleItem {
                                 if (r == 0 && g == 0 && b == 0) {
                                     continue;
                                 }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            } catch (IllegalArgumentException ignored) {
+                                // thrown if the texture has no alpha channel
                             }
 
                             TeaColour colour = TeaColour.getClosest(r, g, b);
