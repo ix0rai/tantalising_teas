@@ -28,7 +28,6 @@ public class ItemRendererMixin {
     @Shadow
     private ItemModels models;
 
-    //todo: get custom models working: will probably have to register dummy items for each
     @Inject(method = "getHeldItemModel", at = @At("HEAD"), cancellable = true)
     public void getHeldItemModel(ItemStack stack, World world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir) {
         if (stack.isOf(TantalisingItems.TEA_BOTTLE)) {
@@ -36,11 +35,7 @@ public class ItemRendererMixin {
             List<NbtCompound> ingredients = TeaBottle.getIngredients(stack);
             TeaColour colour = TeaColour.getFromIngredients(ingredients);
 
-            ModelIdentifier id = new ModelIdentifier(Tantalisingteas.id("item/" + colour.getId() + "_tea_model") + "#inventory");
-            // debug code
-            if (colour.getId().equals(TeaColour.DARK_RED.getId())) {
-                id = new ModelIdentifier("minecraft:sweet_berries#inventory");
-            }
+            ModelIdentifier id = new ModelIdentifier(Tantalisingteas.id(colour.getId() + "_tea_model"), "inventory");
             BakedModel teaModel = this.models.getModelManager().getModel(id);
             cir.setReturnValue(teaModel);
         }
