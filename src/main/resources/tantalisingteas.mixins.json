@@ -11,8 +11,7 @@
   ],
   "client": [
     "render.ItemRendererMixin",
-    "render.SpriteAccessor",
-    "render.ModelLoaderMixin"
+    "render.SpriteAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

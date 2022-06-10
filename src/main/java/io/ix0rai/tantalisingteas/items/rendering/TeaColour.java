@@ -7,40 +7,41 @@ import java.util.List;
 
 public enum TeaColour {
     // reds
-    VERY_LIGHT_RED("very_light_red", 0xff0000, 1),
-    LIGHT_RED("light_red", 0xbf0000, 2),
-    RED("red", 0x800000, 2),
-    DARK_RED("dark_red", 0x400000, 2),
-    VERY_DARK_RED("very_dark_red", 0x200000, 2),
+    VERY_LIGHT_RED(0, "very_light_red", 0xff0000, 1),
+    LIGHT_RED(1, "light_red", 0xbf0000, 2),
+    RED(2, "red", 0x800000, 2),
+    DARK_RED(3, "dark_red", 0x400000, 2),
+    VERY_DARK_RED(4, "very_dark_red", 0x200000, 2),
 
     // greens
-    VERY_LIGHT_GREEN("very_light_green", 0x00ff00, 10),
-    LIGHT_GREEN("light_green", 0x00bf00, 9),
-    GREEN("green", 0x008000, 9),
-    DARK_GREEN("dark_green", 0x004000, 8),
-    VERY_DARK_GREEN("very_dark_green", 0x002000, 7),
+    VERY_LIGHT_GREEN(5, "very_light_green", 0x00ff00, 10),
+    LIGHT_GREEN(6, "light_green", 0x00bf00, 9),
+    GREEN(7, "green", 0x008000, 9),
+    DARK_GREEN(8, "dark_green", 0x004000, 8),
+    VERY_DARK_GREEN(9, "very_dark_green", 0x002000, 7),
 
-    OLIVE("olive", 0x808000, 8),
+    OLIVE(10, "olive", 0x808000, 8),
 
     // blues
-    VERY_LIGHT_BLUE("very_light_blue", 0x00c8ff, 6),
-    LIGHT_BLUE("light_blue", 0x0080ff, 5),
-    BLUE("blue", 0x0000ff, 6),
-    DARK_BLUE("dark_blue", 0x000080, 5),
-    VERY_DARK_BLUE("very_dark_blue", 0x000040, 4),
+    VERY_LIGHT_BLUE(11, "very_light_blue", 0x00c8ff, 6),
+    LIGHT_BLUE(12, "light_blue", 0x0080ff, 5),
+    BLUE(13, "blue", 0x0000ff, 6),
+    DARK_BLUE(14, "dark_blue", 0x000080, 5),
+    VERY_DARK_BLUE(15, "very_dark_blue", 0x000040, 4),
 
-    CYAN("cyan", 0x00ffff, 7),
-    TEAL("teal", 0x008080, 5),
+    CYAN(16, "cyan", 0x00ffff, 7),
+    TEAL(17, "teal", 0x008080, 5),
 
     // misc
-    YELLOW("yellow", 0xffff00, 5),
-    ORANGE("orange", 0xff8000, 3),
-    PINK("pink", 0xff00ff, 3),
-    PURPLE("purple", 0x800080, 3),
-    BLACK("black", 0x000000, 13),
-    WHITE("white", 0xffffff, 12),
-    BROWN("brown", 0xa52a2a, 11);
+    YELLOW(18, "yellow", 0xffff00, 5),
+    ORANGE(19, "orange", 0xff8000, 3),
+    PINK(20, "pink", 0xff00ff, 3),
+    PURPLE(21, "purple", 0x800080, 3),
+    BLACK(22, "black", 0x000000, 13),
+    WHITE(23, "white", 0xffffff, 12),
+    BROWN(24, "brown", 0xa52a2a, 11);
 
+    private final int numericalId;
     private final String id;
     private final int hex;
     private final int red;
@@ -48,7 +49,8 @@ public enum TeaColour {
     private final int blue;
     private final int priority;
 
-    TeaColour(String id, int hex, int priority) {
+    TeaColour(int numericalId, String id, int hex, int priority) {
+        this.numericalId = numericalId;
         this.id = id;
         this.hex = hex;
         this.red = (hex >> 16) & 0xff;
@@ -126,5 +128,9 @@ public enum TeaColour {
 
     public String getId() {
         return this.id;
+    }
+
+    public int getNumericalId() {
+        return this.numericalId;
     }
 }
