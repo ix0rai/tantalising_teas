@@ -5,7 +5,6 @@ import io.ix0rai.tantalisingteas.Tantalisingteas;
 import io.ix0rai.tantalisingteas.blocks.TeaCauldron;
 import io.ix0rai.tantalisingteas.items.rendering.TeaColour;
 import io.ix0rai.tantalisingteas.mixin.render.SpriteAccessor;
-import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.model.BakedModel;
@@ -40,6 +39,7 @@ public class TeaBottle extends HoneyBottleItem {
     public static final String ID_KEY = "id";
     public static final String FLAIR_KEY = "flair";
     public static final String COLOUR_KEY = "colour";
+    public static final String NEEDS_UPDATE_KEY = "needsUpdate";
     public static final Text BAD_NBT = Tantalisingteas.translatableText("error.bad_nbt");
     public static final Text NO_NBT = Tantalisingteas.translatableText("error.no_nbt");
     public static final Text TEA = Tantalisingteas.translatableText("word.tea");
@@ -75,110 +75,110 @@ public class TeaBottle extends HoneyBottleItem {
 
     public static void updateColourValues(ItemStack stack, BakedModelManager manager) {
         NbtCompound nbt = stack.getNbt();
+        assert nbt != null;
 
-        if (nbt != null && stack.hasNbt() && stack.isOf(TantalisingItems.TEA_BOTTLE)) {
-            NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
-            boolean updated = false;
+        NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
+        boolean updated = false;
 
-            for (int i = 0; i < ingredients.size(); i ++) {
-                NbtCompound ingredientNbt = ingredients.getCompound(i);
-                if (!ingredientNbt.contains(COLOUR_KEY)) {
-                    Identifier id = new Identifier(ingredientNbt.getString(ID_KEY));
+        for (int i = 0; i < ingredients.size(); i ++) {
+            NbtCompound ingredientNbt = ingredients.getCompound(i);
+            if (!ingredientNbt.contains(COLOUR_KEY)) {
+                Identifier id = new Identifier(ingredientNbt.getString(ID_KEY));
 
-                    ModelIdentifier modelId = new ModelIdentifier(id + "#inventory");
-                    BakedModel model = manager.getModel(modelId);
+                ModelIdentifier modelId = new ModelIdentifier(id + "#inventory");
+                BakedModel model = manager.getModel(modelId);
 
-                    NativeImage texture = ((SpriteAccessor) model.getParticleSprite()).getImages()[0];
+                NativeImage texture = ((SpriteAccessor) model.getParticleSprite()).getImages()[0];
 
-                    Map<TeaColour, Integer> colours = new HashMap<>();
+                Map<TeaColour, Integer> colours = new HashMap<>();
 
-                    // assemble a map of colours and their number of occurrences
-                    for (int x = 0; x < texture.getWidth(); x ++) {
-                        for (int y = 0; y < texture.getHeight(); y ++) {
-                            int r = texture.getRed(x, y);
-                            int g = texture.getGreen(x, y);
-                            int b = texture.getBlue(x, y);
+                // assemble a map of colours and their number of occurrences
+                for (int x = 0; x < texture.getWidth(); x ++) {
+                    for (int y = 0; y < texture.getHeight(); y ++) {
+                        int r = texture.getRed(x, y);
+                        int g = texture.getGreen(x, y);
+                        int b = texture.getBlue(x, y);
 
-                            // calculate transparency
-                            try {
-                                int t = texture.getPixelOpacity(x, y);
-                                r -= t;
-                                g -= t;
-                                b -= t;
+                        // calculate transparency
+                        try {
+                            int t = texture.getPixelOpacity(x, y);
+                            r -= t;
+                            g -= t;
+                            b -= t;
 
-                                // filter out entirely transparent pixels
-                                if (r == 0 && g == 0 && b == 0) {
-                                    continue;
-                                }
-                            } catch (IllegalArgumentException ignored) {
-                                // thrown if the texture has no alpha channel
+                            // filter out entirely transparent pixels
+                            if (r == 0 && g == 0 && b == 0) {
+                                continue;
                             }
-
-                            TeaColour colour = TeaColour.getClosest(r, g, b);
-                            colours.put(colour, colours.getOrDefault(colour, 0) + 1);
+                        } catch (IllegalArgumentException ignored) {
+                            // thrown if the texture has no alpha channel
                         }
+
+                        TeaColour colour = TeaColour.getClosest(r, g, b);
+                        colours.put(colour, colours.getOrDefault(colour, 0) + 1);
                     }
+                }
 
-                    // get average reoccurrences of colour
-                    int averageOccurrences = 0;
-                    for (int number : colours.values()) {
-                        averageOccurrences += number;
+                // get average reoccurrences of colour
+                int averageOccurrences = 0;
+                for (int number : colours.values()) {
+                    averageOccurrences += number;
+                }
+                averageOccurrences /= colours.size() - 1;
+
+                // purge map of rare colours
+                Iterator<TeaColour> iterator = colours.keySet().iterator();
+                while (iterator.hasNext()) {
+                    int occurrences = colours.get(iterator.next());
+                    if (occurrences < averageOccurrences) {
+                        iterator.remove();
                     }
-                    averageOccurrences /= colours.size() - 1;
+                }
 
-                    // purge map of rare colours
-                    Iterator<TeaColour> iterator = colours.keySet().iterator();
-                    while (iterator.hasNext()) {
-                        int occurrences = colours.get(iterator.next());
-                        if (occurrences < averageOccurrences) {
-                            iterator.remove();
-                        }
-                    }
+                // assemble top three most saturated colours
+                TeaColour[] mostSaturatedColours = new TeaColour[3];
+                boolean full = false;
 
-                    // assemble top three most saturated colours
-                    TeaColour[] mostSaturatedColours = new TeaColour[3];
-                    boolean full = false;
-
-                    for (TeaColour colour : colours.keySet()) {
-                        if (!full) {
-                            for (int j = 0; j < mostSaturatedColours.length; j ++) {
-                                boolean contains = false;
-                                for (int k = 0; k < j; k ++) {
-                                    if (mostSaturatedColours[k].getId().equals(colour.getId())) {
-                                        contains = true;
-                                        break;
-                                    }
-                                }
-
-                                if (mostSaturatedColours[j] == null && !contains) {
-                                    mostSaturatedColours[j] = colour;
-                                    if (i == mostSaturatedColours.length) {
-                                        full = true;
-                                    }
+                for (TeaColour colour : colours.keySet()) {
+                    if (!full) {
+                        for (int j = 0; j < mostSaturatedColours.length; j ++) {
+                            boolean contains = false;
+                            for (int k = 0; k < j; k ++) {
+                                if (mostSaturatedColours[k].getId().equals(colour.getId())) {
+                                    contains = true;
                                     break;
                                 }
                             }
-                        }
 
-                        for (int j = 0; j < mostSaturatedColours.length; j ++) {
-                            if (mostSaturatedColours[j] != null && colour != null && colour.getRgbSum() > mostSaturatedColours[j].getRgbSum()) {
+                            if (mostSaturatedColours[j] == null && !contains) {
                                 mostSaturatedColours[j] = colour;
+                                if (i == mostSaturatedColours.length) {
+                                    full = true;
+                                }
                                 break;
                             }
                         }
                     }
 
-                    // save colour
-                    TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
-                    ingredientNbt.putInt(COLOUR_KEY, highestPriority.getHex());
-                    updated = true;
+                    for (int j = 0; j < mostSaturatedColours.length; j ++) {
+                        if (mostSaturatedColours[j] != null && colour != null && colour.getRgbSum() > mostSaturatedColours[j].getRgbSum()) {
+                            mostSaturatedColours[j] = colour;
+                            break;
+                        }
+                    }
                 }
-            }
 
-            if (updated) {
-                nbt.put(INGREDIENTS_KEY, ingredients);
-                stack.setNbt(nbt);
+                // save colour
+                TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
+                ingredientNbt.putString(COLOUR_KEY, highestPriority.getId());
+                updated = true;
             }
+        }
+
+        if (updated) {
+            nbt.put(INGREDIENTS_KEY, ingredients);
+            nbt.remove(NEEDS_UPDATE_KEY);
+            stack.setNbt(nbt);
         }
     }
 
@@ -243,12 +243,13 @@ public class TeaBottle extends HoneyBottleItem {
                 compound.putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
             }
             if (ingredient.contains(COLOUR_KEY)) {
-                compound.putInt(COLOUR_KEY, ingredient.getInt(COLOUR_KEY));
+                compound.putString(COLOUR_KEY, ingredient.getString(COLOUR_KEY));
             }
 
             // write nbt
             ingredients.add(compound);
             nbt.put(INGREDIENTS_KEY, ingredients);
+            nbt.putBoolean(NEEDS_UPDATE_KEY, true);
             stack.setNbt(nbt);
         }
     }
