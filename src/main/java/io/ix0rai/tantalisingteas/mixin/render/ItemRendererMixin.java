@@ -1,6 +1,7 @@
 package io.ix0rai.tantalisingteas.mixin.render;
 
 import io.ix0rai.tantalisingteas.items.TeaBottle;
+import io.ix0rai.tantalisingteas.items.rendering.TeaColour;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
@@ -24,7 +25,7 @@ public class ItemRendererMixin {
     @Inject(method = "getHeldItemModel", at = @At("HEAD"))
     public void getHeldItemModel(ItemStack stack, World world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir) {
         if (stack.isOf(TantalisingItems.TEA_BOTTLE) && stack.getNbt() != null && stack.getNbt().getBoolean(TeaBottle.NEEDS_UPDATE_KEY)) {
-            TeaBottle.updateColourValues(stack, this.models.getModelManager());
+            TeaColour.updateColourValues(stack, this.models.getModelManager());
         }
     }
 }
