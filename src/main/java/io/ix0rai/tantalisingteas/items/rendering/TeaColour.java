@@ -137,30 +137,31 @@ public enum TeaColour {
         boolean full = false;
 
         for (TeaColour colour : colours.keySet()) {
-            if (!full) {
-                for (int j = 0; j < mostSaturatedColours.length; j ++) {
-                    boolean contains = false;
-                    for (int k = 0; k < j; k ++) {
-                        if (mostSaturatedColours[k].getId().equals(colour.getId())) {
-                            contains = true;
-                            break;
+
+            // ensure colour is not null
+            if (colour != null) {
+                for (int i = 0; i < mostSaturatedColours.length; i++) {
+                    if (!full && mostSaturatedColours[i] == null) {
+                        boolean contains = false;
+                        for (int k = 0; k < i; k++) {
+                            if (mostSaturatedColours[k] != null && mostSaturatedColours[k].getId().equals(colour.getId())) {
+                                contains = true;
+                                break;
+                            }
+                        }
+
+                        if (!contains) {
+                            mostSaturatedColours[i] = colour;
+                            if (i == mostSaturatedColours.length - 1) {
+                                full = true;
+                            }
                         }
                     }
 
-                    if (mostSaturatedColours[j] == null && !contains) {
-                        mostSaturatedColours[j] = colour;
-                        if (j == mostSaturatedColours.length - 1) {
-                            full = true;
-                        }
+                    if (mostSaturatedColours[i] != null && colour.getRgbSum() > mostSaturatedColours[i].getRgbSum()) {
+                        mostSaturatedColours[i] = colour;
                         break;
                     }
-                }
-            }
-
-            for (int j = 0; j < mostSaturatedColours.length; j ++) {
-                if (mostSaturatedColours[j] != null && colour != null && colour.getRgbSum() > mostSaturatedColours[j].getRgbSum()) {
-                    mostSaturatedColours[j] = colour;
-                    break;
                 }
             }
         }
@@ -218,6 +219,11 @@ public enum TeaColour {
         }
     }
 
+    /**
+     * gets a colour that represents the given list of ingredients
+     * @param ingredients the list of ingredients to pull the colours from
+     * @return the closest colour to the average of the given ingredients' rgb values
+     */
     public static TeaColour getFromIngredients(List<NbtCompound> ingredients) {
         int[] averageRgb = new int[]{0, 0, 0};
 
@@ -239,16 +245,8 @@ public enum TeaColour {
         TeaColour closest = BLACK;
 
         for (TeaColour colour : TeaColour.values()) {
-            if (colour != closest) {
-                int redDiff = Math.abs(colour.red - r);
-                int greenDiff = Math.abs(colour.green - g);
-                int blueDiff = Math.abs(colour.blue - b);
-
-                int totalDiff = redDiff + greenDiff + blueDiff;
-
-                if (totalDiff < closest.getTotalDiff(r, g, b)) {
-                    closest = colour;
-                }
+            if (colour != closest && colour.getTotalDiff(r, g, b) < closest.getTotalDiff(r, g, b)) {
+                closest = colour;
             }
         }
 

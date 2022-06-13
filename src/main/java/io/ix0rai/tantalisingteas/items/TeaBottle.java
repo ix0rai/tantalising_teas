@@ -52,7 +52,7 @@ public class TeaBottle extends HoneyBottleItem {
     public static List<NbtCompound> getIngredients(ItemStack stack) {
         NbtCompound nbt = stack.getNbt();
 
-        if (nbt == null || !(stack.getItem() instanceof TeaBottle)) {
+        if (nbt == null) {
             return new ArrayList<>();
         } else {
             ArrayList<NbtCompound> ingredients = new ArrayList<>();
