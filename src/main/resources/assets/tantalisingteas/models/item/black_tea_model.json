@@ -2,10 +2,6 @@
    "parent": "minecraft:item/generated",
    "textures": {
        "layer0": "minecraft:item/glass_bottle",
-       "layer1": "tantalisingteas:tea_overlay/black_layer1",
-       "layer2": "tantalisingteas:tea_overlay/black_layer2",
-       "layer3": "tantalisingteas:tea_overlay/black_layer3",
-       "layer4": "tantalisingteas:tea_overlay/black_layer4",
-       "layer5": "tantalisingteas:tea_overlay/black_layer5"
+       "layer1": "tantalisingteas:tea_overlay/black"
    }
 }
