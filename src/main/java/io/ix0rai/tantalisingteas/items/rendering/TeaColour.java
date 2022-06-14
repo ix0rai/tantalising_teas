@@ -225,10 +225,20 @@ public enum TeaColour {
      * @return the closest colour to the average of the given ingredients' rgb values
      */
     public static TeaColour getFromIngredients(List<NbtCompound> ingredients) {
+        if (ingredients.isEmpty()) {
+            return TeaColour.BLACK;
+        }
+
         int[] averageRgb = new int[]{0, 0, 0};
 
         for (NbtCompound ingredient : ingredients) {
-            TeaColour colour = TeaColour.get(ingredient.getString(TeaBottle.COLOUR_KEY));
+            //safeguard: this should almost never be the case, but it is possible that the ingredient has no colour when the model predicate runs its check
+            TeaColour colour;
+            try {
+                colour = TeaColour.get(ingredient.getString(TeaBottle.COLOUR_KEY));
+            } catch (Exception ignored) {
+                continue;
+            }
             averageRgb[0] += colour.red;
             averageRgb[1] += colour.green;
             averageRgb[2] += colour.blue;

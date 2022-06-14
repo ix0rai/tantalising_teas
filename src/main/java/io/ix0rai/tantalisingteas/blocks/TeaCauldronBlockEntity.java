@@ -6,12 +6,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 
 public class TeaCauldronBlockEntity extends BlockEntity {
     private final NbtList items;
@@ -24,6 +24,13 @@ public class TeaCauldronBlockEntity extends BlockEntity {
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.of(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        NbtCompound nbt = new NbtCompound();
+        nbt.put(TeaBottle.INGREDIENTS_KEY, items);
+        return nbt;
     }
 
     @Override
@@ -40,15 +47,7 @@ public class TeaCauldronBlockEntity extends BlockEntity {
 
     @Override
     protected void writeNbt(NbtCompound tag) {
-        NbtList nbt = new NbtList();
-
-        for (NbtElement element : items) {
-            if (element.getNbtType() == NbtCompound.TYPE) {
-                nbt.add(element);
-            }
-        }
-
-        tag.put(TeaBottle.INGREDIENTS_KEY, nbt);
+        tag.put(TeaBottle.INGREDIENTS_KEY, items);
     }
 
     public void addData(NbtCompound compound) {
@@ -58,13 +57,23 @@ public class TeaCauldronBlockEntity extends BlockEntity {
     }
 
     public void addStack(ItemStack stack) {
-        if (stack != null && !stack.isEmpty()) {
+        if (stack != null) {
             NbtCompound compound = new NbtCompound();
+            compound.putString(TeaBottle.ID_KEY, Registry.ITEM.getId(stack.getItem()).toString());
             addData(compound);
         }
     }
 
     public NbtList getItems() {
         return items;
+    }
+
+    @Override
+    public String toString() {
+        return "TeaCauldronBlockEntity{" +
+                "pos=" + getPos() +
+                "world=" + this.getWorld() +
+                "items=" + items +
+                '}';
     }
 }

@@ -82,7 +82,7 @@ public class TeaCauldron extends TantalisingCauldronBlock {
         if (tea && isFull(state)) {
             return ActionResult.PASS;
         } else {
-            if (!world.isClient && tea) {
+            if (!world.isClient) {
                 int level;
                 try {
                     level = state.get(LEVEL);
@@ -90,18 +90,20 @@ public class TeaCauldron extends TantalisingCauldronBlock {
                     level = 0;
                 }
 
-                world.setBlockState(pos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LEVEL, level + 1));
+                world.setBlockState(pos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LEVEL, level + (tea ? 1 : 0)));
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
 
                 Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
 
-                if (entity.isPresent()) {
+                if (tea && entity.isPresent()) {
                     TeaCauldronBlockEntity blockEntity = entity.get();
 
                     for (NbtCompound ingredient : TeaBottle.getIngredients(stack)) {
                         blockEntity.addData(ingredient);
                     }
                     player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+                } else if (entity.isPresent() && stack.isIn(TEA_INGREDIENTS)) {
+                    entity.get().addStack(stack);
                 }
             }
 
