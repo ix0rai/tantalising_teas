@@ -167,7 +167,7 @@ public class TeaBottle extends HoneyBottleItem {
         }
     }
 
-    public void setCustomName(ItemStack stack) {
+    public static void setCustomName(ItemStack stack) {
         NbtCompound primaryIngredient = getPrimaryIngredient(stack);
         if (primaryIngredient != null) {
             String name = translate(BOTTLE) + " " + translate(OF) + " "
@@ -228,7 +228,6 @@ public class TeaBottle extends HoneyBottleItem {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        setCustomName(stack);
 
         NbtCompound nbt = stack.getNbt();
 
