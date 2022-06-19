@@ -8,6 +8,8 @@ import io.ix0rai.tantalisingteas.items.rendering.TeaColour;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * generator for item model data
@@ -26,15 +28,28 @@ public class ItemModelGenerator {
     private static void generateTeaBottleModel() throws IOException {
         File file = new File(MODEL_PATH + "item/tea_bottle.json");
 
-        Override[] overrides = new Override[TeaColour.values().length];
+        try (FileWriter writer = new FileWriter(file)) {
+            GSON.toJson(getUpToDateTeaBottleJson(), writer);
+        }
+    }
+
+    static ItemModelJson getUpToDateTeaBottleJson() {
+        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", Tantalisingteas.MOD_ID + ":item/tea_bottle_overlay"), generateUpToDateOverrides());
+    }
+
+    static JsonOverride[] generateUpToDateOverrides() {
+        JsonOverride[] jsonOverrides = new JsonOverride[TeaColour.values().length];
+
         for (int i = 0; i < TeaColour.values().length; i ++) {
             TeaColour colour = TeaColour.values()[i];
-            overrides[i] = new Override(new Predicate(colour.getNumericalId()), colour.getId());
+            jsonOverrides[i] = new JsonOverride(new Predicate(colour.getNumericalId()), colour.getId());
         }
 
-        try (FileWriter writer = new FileWriter(file)) {
-            GSON.toJson(new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", Tantalisingteas.MOD_ID + ":item/tea_bottle_overlay"), overrides), writer);
-        }
+        return jsonOverrides;
+    }
+
+    static ItemModelJson getJson(TeaColour colour) {
+        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", Tantalisingteas.MOD_ID + ":tea_overlay/" + colour.getId()), null);
     }
 
     private static void generateTeaColourModels() throws IOException {
@@ -42,21 +57,36 @@ public class ItemModelGenerator {
             File file = new File(MODEL_PATH + "item/" + colour.getId() + "_tea_model.json");
             if (file.createNewFile()) {
                 try (FileWriter writer = new FileWriter(file)) {
-                    GSON.toJson(new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", Tantalisingteas.MOD_ID + ":tea_overlay/" + colour.getId()), null), writer);
+                    GSON.toJson(getJson(colour), writer);
                 }
             }
         }
     }
 
-    private static class ItemModelJson {
+    static class ItemModelJson {
         public String parent;
         public Textures textures;
-        public Override[] overrides;
+        public JsonOverride[] overrides;
 
-        public ItemModelJson(String parent, Textures textures, Override[] overrides) {
+        public ItemModelJson(String parent, Textures textures, JsonOverride[] overrides) {
             this.parent = parent;
             this.textures = textures;
             this.overrides = overrides;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            ItemModelJson that = (ItemModelJson) o;
+            return Objects.equals(parent, that.parent) && Objects.equals(textures, that.textures) && Arrays.equals(overrides, that.overrides);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = Objects.hash(parent, textures);
+            result = 31 * result + Arrays.hashCode(overrides);
+            return result;
         }
     }
 
@@ -68,15 +98,41 @@ public class ItemModelGenerator {
             this.layer0 = layer0;
             this.layer1 = layer1;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Textures textures = (Textures) o;
+            return Objects.equals(layer0, textures.layer0) && Objects.equals(layer1, textures.layer1);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(layer0, layer1);
+        }
     }
 
-    private static class Override {
+    private static class JsonOverride {
         public Predicate predicate;
         public String model;
 
-        public Override(Predicate predicate, String model) {
+        public JsonOverride(Predicate predicate, String model) {
             this.predicate = predicate;
             this.model = Tantalisingteas.MOD_ID + ":item/" + model + "_tea_model";
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            JsonOverride that = (JsonOverride) o;
+            return Objects.equals(predicate, that.predicate) && Objects.equals(model, that.model);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(predicate, model);
         }
     }
 
@@ -85,6 +141,19 @@ public class ItemModelGenerator {
 
         public Predicate(int id) {
             this.id = id;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Predicate predicate = (Predicate) o;
+            return id == predicate.id;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
         }
     }
 }

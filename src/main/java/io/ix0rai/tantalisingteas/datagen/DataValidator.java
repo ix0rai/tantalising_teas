@@ -11,6 +11,35 @@ import java.io.IOException;
 public class DataValidator {
     public static void main(String[] args) throws IOException {
         validateTeaColours();
+        validateData();
+    }
+
+    private static void validateData() throws IOException {
+        for (TeaColour colour : TeaColour.values()) {
+            File file = new File(ItemModelGenerator.MODEL_PATH + "/item/" + colour.getId() + "_tea_model.json");
+            checkExistence(file);
+            ItemModelGenerator.ItemModelJson json = ItemModelGenerator.GSON.fromJson(new FileReader(file), ItemModelGenerator.ItemModelJson.class);
+            if (!json.equals(ItemModelGenerator.getJson(colour))) {
+                throw new IllegalStateException("json of file " + file + " has been edited: \n"
+                        + "should be: \n" + ItemModelGenerator.GSON.toJson(ItemModelGenerator.getJson(colour))
+                        + "\nwas: \n" + ItemModelGenerator.GSON.toJson(json));
+            }
+        }
+
+        File file = new File(ItemModelGenerator.MODEL_PATH + "item/tea_bottle.json");
+        checkExistence(file);
+        ItemModelGenerator.ItemModelJson json = ItemModelGenerator.GSON.fromJson(new FileReader(file), ItemModelGenerator.ItemModelJson.class);
+        if (!json.equals(ItemModelGenerator.getUpToDateTeaBottleJson())) {
+            throw new IllegalStateException("json of file " + file + " has been edited: \n"
+                    + "should be: \n" + ItemModelGenerator.GSON.toJson(ItemModelGenerator.getUpToDateTeaBottleJson())
+                    + "\nwas: \n" + ItemModelGenerator.GSON.toJson(json));
+        }
+    }
+
+    private static void checkExistence(File file) {
+        if (!file.exists()) {
+            throw new IllegalStateException("necessary file " + file + " does not exist");
+        }
     }
 
     private static void validateTeaColours() throws IOException {
