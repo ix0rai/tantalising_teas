@@ -4,6 +4,7 @@ import io.ix0rai.tantalisingteas.Tantalisingteas;
 import io.ix0rai.tantalisingteas.items.rendering.TeaColour;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,34 +12,28 @@ import java.io.IOException;
 public class DataValidator {
     public static void main(String[] args) throws IOException {
         validateTeaColours();
-        validateData();
+        validateJsonData();
     }
 
-    private static void validateData() throws IOException {
+    private static void validateJsonData() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
             File file = new File(ItemModelGenerator.MODEL_PATH + "/item/" + colour.getId() + "_tea_model.json");
-            checkExistence(file);
-            ItemModelGenerator.ItemModelJson json = ItemModelGenerator.GSON.fromJson(new FileReader(file), ItemModelGenerator.ItemModelJson.class);
-            if (!json.equals(ItemModelGenerator.getJson(colour))) {
-                throw new IllegalStateException("json of file " + file + " has been edited: \n"
-                        + "should be: \n" + ItemModelGenerator.GSON.toJson(ItemModelGenerator.getJson(colour))
-                        + "\nwas: \n" + ItemModelGenerator.GSON.toJson(json));
-            }
+            validateJson(file, ItemModelGenerator.getJson(colour));
         }
 
         File file = new File(ItemModelGenerator.MODEL_PATH + "item/tea_bottle.json");
-        checkExistence(file);
-        ItemModelGenerator.ItemModelJson json = ItemModelGenerator.GSON.fromJson(new FileReader(file), ItemModelGenerator.ItemModelJson.class);
-        if (!json.equals(ItemModelGenerator.getUpToDateTeaBottleJson())) {
-            throw new IllegalStateException("json of file " + file + " has been edited: \n"
-                    + "should be: \n" + ItemModelGenerator.GSON.toJson(ItemModelGenerator.getUpToDateTeaBottleJson())
-                    + "\nwas: \n" + ItemModelGenerator.GSON.toJson(json));
-        }
+        validateJson(file, ItemModelGenerator.getLatestTeaBottleJson());
     }
 
-    private static void checkExistence(File file) {
+    private static void validateJson(File file, ItemModelGenerator.ItemModelJson json) throws FileNotFoundException {
         if (!file.exists()) {
             throw new IllegalStateException("necessary file " + file + " does not exist");
+        }
+
+        if (!ItemModelGenerator.GSON.fromJson(new FileReader(file), ItemModelGenerator.ItemModelJson.class).equals(json)) {
+            throw new IllegalStateException("json of file " + file + " has been edited: \n"
+                    + "should be: \n" + ItemModelGenerator.GSON.toJson(ItemModelGenerator.getLatestTeaBottleJson())
+                    + "\nwas: \n" + ItemModelGenerator.GSON.toJson(json));
         }
     }
 

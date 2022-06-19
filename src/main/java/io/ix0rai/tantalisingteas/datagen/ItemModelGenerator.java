@@ -29,15 +29,15 @@ public class ItemModelGenerator {
         File file = new File(MODEL_PATH + "item/tea_bottle.json");
 
         try (FileWriter writer = new FileWriter(file)) {
-            GSON.toJson(getUpToDateTeaBottleJson(), writer);
+            GSON.toJson(getLatestTeaBottleJson(), writer);
         }
     }
 
-    static ItemModelJson getUpToDateTeaBottleJson() {
-        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", Tantalisingteas.MOD_ID + ":item/tea_bottle_overlay"), generateUpToDateOverrides());
+    static ItemModelJson getLatestTeaBottleJson() {
+        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", Tantalisingteas.MOD_ID + ":item/tea_bottle_overlay"), generateLatestOverrides());
     }
 
-    static JsonOverride[] generateUpToDateOverrides() {
+    static JsonOverride[] generateLatestOverrides() {
         JsonOverride[] jsonOverrides = new JsonOverride[TeaColour.values().length];
 
         for (int i = 0; i < TeaColour.values().length; i ++) {
