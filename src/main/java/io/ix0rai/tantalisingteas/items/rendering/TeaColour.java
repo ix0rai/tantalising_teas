@@ -11,40 +11,38 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 
+import java.security.InvalidParameterException;
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * WARNING: IF ADDING ANY VALUES TO THIS ENUM THAT ARE NOT AT THE VERY END, YOU MUST UPDATE THE TEA MODEL JSON FILE OR ELSE COLOURS WILL BE CORRUPTED
- */
 public enum TeaColour {
-    VERY_LIGHT_RED(255, 0, 0, 1),
-    LIGHT_RED(200, 0, 0, 2),
-    RED(128, 0, 0, 2),
-    DARK_RED(64, 0, 0, 4),
-    VERY_DARK_RED(32, 0, 0, 5),
-    VERY_LIGHT_GREEN(0, 255, 0, 10),
-    LIGHT_GREEN(0, 200, 0, 9),
-    GREEN(0, 128, 0, 9),
-    DARK_GREEN(0, 64, 0, 8),
-    VERY_DARK_GREEN(0, 32, 0, 7),
-    OLIVE(128, 128, 0, 8),
-    VERY_LIGHT_BLUE(0, 200, 255, 6),
-    LIGHT_BLUE(0, 128, 255, 5),
-    BLUE(0, 0, 255, 6),
-    DARK_BLUE(0, 0, 128, 5),
-    VERY_DARK_BLUE(0, 0, 64, 4),
-    CYAN(0, 255, 255, 7),
-    TEAL(0, 128, 128, 5),
-    YELLOW(255, 255, 0, 3),
-    ORANGE(255, 128, 0, 3),
-    PINK(255, 0, 255, 3),
-    PURPLE(128, 0, 128, 3),
-    BLACK(0, 0, 0, 13),
-    WHITE(255, 255, 255, 12),
-    BROWN(76, 50, 40, 11);
+    VERY_LIGHT_RED(255, 0, 0, 1, 0),
+    LIGHT_RED(200, 0, 0, 2, 1),
+    RED(128, 0, 0, 2, 2),
+    DARK_RED(64, 0, 0, 4, 3),
+    VERY_DARK_RED(32, 0, 0, 5, 4),
+    VERY_LIGHT_GREEN(0, 255, 0, 10, 5),
+    LIGHT_GREEN(0, 200, 0, 9, 6),
+    GREEN(0, 128, 0, 9, 7),
+    DARK_GREEN(0, 64, 0, 8, 8),
+    VERY_DARK_GREEN(0, 32, 0, 7, 9),
+    OLIVE(128, 128, 0, 8, 10),
+    VERY_LIGHT_BLUE(0, 200, 255, 6, 11),
+    LIGHT_BLUE(0, 128, 255, 5, 12),
+    BLUE(0, 0, 255, 6, 13),
+    DARK_BLUE(0, 0, 128, 5, 14),
+    VERY_DARK_BLUE(0, 0, 64, 4, 15),
+    CYAN(0, 255, 255, 7, 16),
+    TEAL(0, 128, 128, 5, 17),
+    YELLOW(255, 255, 0, 3, 18),
+    ORANGE(255, 128, 0, 3, 19),
+    PINK(255, 0, 255, 3, 20),
+    PURPLE(128, 0, 128, 3, 21),
+    BLACK(0, 0, 0, 13, 22),
+    WHITE(255, 255, 255, 12, 23),
+    BROWN(76, 50, 40, 11, 24);
 
     private final int numericalId;
     private final String id;
@@ -53,13 +51,24 @@ public enum TeaColour {
     private final int blue;
     private final int priority;
 
-    TeaColour(int r, int g, int b, int priority) {
-        this.numericalId = this.ordinal();
+    TeaColour(int r, int g, int b, int priority, int numericalId) {
+        this.numericalId = numericalId;
         this.id = this.name().toLowerCase();
         this.red = r;
         this.green = g;
         this.blue = b;
         this.priority = priority;
+    }
+
+    static {
+        // validate all tea colours to ensure that their ids are unique -- we don't want the game to run if the list is misconfigured
+        for (TeaColour colour : TeaColour.values()) {
+            for (TeaColour colour2 : TeaColour.values()) {
+                if (colour.numericalId == colour2.numericalId && !colour.getId().equals(colour2.getId())) {
+                    throw new InvalidParameterException("cannot have two TeaColours with the same numerical id (offenders: " + colour.getId() + ", " + colour.numericalId + " and " + colour2.getId() + ", " + colour2.numericalId);
+                }
+            }
+        }
     }
 
     public static TeaColour get(String id) {
@@ -175,7 +184,7 @@ public enum TeaColour {
      * <br> if an ingredient has no colour, it will be assigned what we determine to be the primary colour of the ingredient
      * <br>
      * <br> how this works:
-     * <br> 1. get the ingredient's texture using its id and the providided {@link BakedModelManager}
+     * <br> 1. get the ingredient's texture using its id and the provided {@link BakedModelManager}
      * <br> 2. run over the full texture and get all colours used, associating with them their number of occurrences
      * <br> 3. purge the map of rare colours, defined as colours that occur less than the average number of occurrences
      * <br> 4. get the top three most saturated colours - these are most likely to be important to the texture

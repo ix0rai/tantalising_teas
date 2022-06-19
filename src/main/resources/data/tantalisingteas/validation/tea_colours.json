@@ -1,0 +1,102 @@
+[
+  {
+    "numericalId": 0,
+    "id": "very_light_red"
+  },
+  {
+    "numericalId": 1,
+    "id": "light_red"
+  },
+  {
+    "numericalId": 2,
+    "id": "red"
+  },
+  {
+    "numericalId": 3,
+    "id": "dark_red"
+  },
+  {
+    "numericalId": 4,
+    "id": "very_dark_red"
+  },
+  {
+    "numericalId": 5,
+    "id": "very_light_green"
+  },
+  {
+    "numericalId": 6,
+    "id": "light_green"
+  },
+  {
+    "numericalId": 7,
+    "id": "green"
+  },
+  {
+    "numericalId": 8,
+    "id": "dark_green"
+  },
+  {
+    "numericalId": 9,
+    "id": "very_dark_green"
+  },
+  {
+    "numericalId": 10,
+    "id": "olive"
+  },
+  {
+    "numericalId": 11,
+    "id": "very_light_blue"
+  },
+  {
+    "numericalId": 12,
+    "id": "light_blue"
+  },
+  {
+    "numericalId": 13,
+    "id": "blue"
+  },
+  {
+    "numericalId": 14,
+    "id": "dark_blue"
+  },
+  {
+    "numericalId": 15,
+    "id": "very_dark_blue"
+  },
+  {
+    "numericalId": 16,
+    "id": "cyan"
+  },
+  {
+    "numericalId": 17,
+    "id": "teal"
+  },
+  {
+    "numericalId": 18,
+    "id": "yellow"
+  },
+  {
+    "numericalId": 19,
+    "id": "orange"
+  },
+  {
+    "numericalId": 20,
+    "id": "pink"
+  },
+  {
+    "numericalId": 21,
+    "id": "purple"
+  },
+  {
+    "numericalId": 22,
+    "id": "black"
+  },
+  {
+    "numericalId": 23,
+    "id": "white"
+  },
+  {
+    "numericalId": 24,
+    "id": "brown"
+  }
+]
