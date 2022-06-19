@@ -21,6 +21,10 @@ task validateData(type: JavaExec) {
     mainClass = "io.ix0rai." + project.maven_group + ".datagen.DataValidator"
 }
 
+jar {
+    dependsOn(validateData)
+}
+
 build {
     dependsOn(generateItemModels)
 }
