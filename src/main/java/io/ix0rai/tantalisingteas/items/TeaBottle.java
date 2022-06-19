@@ -31,6 +31,8 @@ public class TeaBottle extends HoneyBottleItem {
     public static final String INGREDIENTS_KEY = "Ingredients";
     public static final String ID_KEY = "id";
     public static final String FLAIR_KEY = "flair";
+    public static final String COLOUR_KEY = "colour";
+    public static final String NEEDS_UPDATE_KEY = "needsUpdate";
     public static final Text BAD_NBT = Tantalisingteas.translatableText("error.bad_nbt");
     public static final Text NO_NBT = Tantalisingteas.translatableText("error.no_nbt");
     public static final Text TEA = Tantalisingteas.translatableText("word.tea");
@@ -47,18 +49,17 @@ public class TeaBottle extends HoneyBottleItem {
         super(settings);
     }
 
-    public static List<ItemStack> getIngredients(ItemStack stack) {
+    public static List<NbtCompound> getIngredients(ItemStack stack) {
         NbtCompound nbt = stack.getNbt();
 
-        if (nbt == null || !(stack.getItem() instanceof TeaBottle)) {
+        if (nbt == null) {
             return new ArrayList<>();
         } else {
-            ArrayList<ItemStack> ingredients = new ArrayList<>();
+            ArrayList<NbtCompound> ingredients = new ArrayList<>();
             NbtList nbtList = nbt.getList(INGREDIENTS_KEY, 10);
 
-            for (NbtElement element : nbtList) {
-                Identifier id = new Identifier(((NbtCompound) element).getString(ID_KEY));
-                ingredients.add(new ItemStack(Registry.ITEM.get(id)));
+            for (int i = 0; i < nbtList.size(); i ++) {
+                ingredients.add(nbtList.getCompound(i));
             }
 
             return ingredients;
@@ -67,7 +68,7 @@ public class TeaBottle extends HoneyBottleItem {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        //we handle changing the stack
+        // we handle changing the stack
         ItemStack stack1 = stack.copy();
         super.finishUsing(stack, world, user);
         stack = stack1;
@@ -76,8 +77,8 @@ public class TeaBottle extends HoneyBottleItem {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
         }
 
-        //return empty bottle, or throw it away if it does not fit
-        //also decrement the stack size if it will not be entirely consumed
+        // return empty bottle, or throw it away if it does not fit
+        // also decrement the stack size if it will not be entirely consumed
         if (stack.isEmpty()) {
             return new ItemStack(Items.GLASS_BOTTLE);
         } else {
@@ -99,63 +100,79 @@ public class TeaBottle extends HoneyBottleItem {
         }
     }
 
-    public static void addIngredient(ItemStack stack, Item ingredient, RandomGenerator random) {
-        if (!new ItemStack(ingredient).isIn(TeaCauldron.TEA_INGREDIENTS)) {
-            Tantalisingteas.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
-            return;
-        }
+    public static void addIngredient(ItemStack stack, NbtCompound ingredient, RandomGenerator random) {
+        if (ingredient != null && !ingredient.isEmpty()  && ingredient.contains(ID_KEY)) {
+            // get nbt
+            NbtCompound nbt = stack.getOrCreateNbt();
+            NbtList ingredients;
 
-        NbtCompound nbt = stack.getOrCreateNbt();
-        NbtList ingredients;
-
-        if (!nbt.isEmpty()) {
-            ingredients = nbt.getList(INGREDIENTS_KEY, 10);
-        } else {
-            ingredients = new NbtList();
-        }
-
-        // write nbt
-        NbtCompound compound = new NbtCompound();
-        compound.putString(ID_KEY, Registry.ITEM.getId(ingredient).toString());
-        compound.putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
-        ingredients.add(compound);
-        nbt.put(INGREDIENTS_KEY, ingredients);
-        stack.setNbt(nbt);
-    }
-
-    public static ItemStack getPrimaryIngredient(ItemStack stack) {
-        if (!(stack.getItem() instanceof TeaBottle)) {
-            return null;
-        } else {
-            List<ItemStack> ingredients = getIngredients(stack);
-            HashMap<ItemStack, Integer> counts = new HashMap<>();
-
-            for (ItemStack ingredient : ingredients) {
-                counts.putIfAbsent(ingredient, 0);
-                counts.put(ingredient, counts.get(ingredient) + 1);
+            if (!nbt.isEmpty()) {
+                ingredients = nbt.getList(INGREDIENTS_KEY, 10);
+            } else {
+                ingredients = new NbtList();
             }
 
-            ItemStack primary = null;
+            // ensure item is in tea ingredient tag
+            if (!isTeaIngredient(ingredient)) {
+                Tantalisingteas.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
+                return;
+            }
+
+            // save nbt
+            NbtCompound compound = new NbtCompound();
+            compound.putString(ID_KEY, ingredient.getString(ID_KEY));
+            if (ingredient.contains(FLAIR_KEY)) {
+                compound.putInt(FLAIR_KEY, ingredient.getInt(FLAIR_KEY));
+            } else {
+                compound.putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
+            }
+            if (ingredient.contains(COLOUR_KEY)) {
+                compound.putString(COLOUR_KEY, ingredient.getString(COLOUR_KEY));
+            }
+
+            // write nbt
+            ingredients.add(compound);
+            nbt.put(INGREDIENTS_KEY, ingredients);
+            nbt.putBoolean(NEEDS_UPDATE_KEY, true);
+            stack.setNbt(nbt);
+        }
+    }
+
+    public static boolean isTeaIngredient(NbtCompound ingredient) {
+        Identifier id = new Identifier(ingredient.getString(ID_KEY));
+        return Registry.ITEM.get(id).getDefaultStack().isIn(TeaCauldron.TEA_INGREDIENTS);
+    }
+
+    public static NbtCompound getPrimaryIngredient(ItemStack stack) {
+        if (!(stack.getItem() instanceof TeaBottle) || stack.getNbt() == null) {
+            return null;
+        } else {
+            NbtList ingredients = stack.getNbt().getList(INGREDIENTS_KEY, 10);
+            HashMap<NbtElement, Integer> counts = new HashMap<>();
+
+            for (NbtElement ingredient : ingredients) {
+                counts.put(ingredient, counts.getOrDefault(ingredient, 0) + 1);
+            }
+
+            NbtElement primary = null;
             int number = 0;
 
-            for (Map.Entry<ItemStack, Integer> entry : counts.entrySet()) {
+            for (Map.Entry<NbtElement, Integer> entry : counts.entrySet()) {
                 if (entry.getValue() > number) {
                     primary = entry.getKey();
                 }
             }
 
-            return primary;
+            return (NbtCompound) primary;
         }
     }
 
-    public void setCustomName(ItemStack stack) {
-        if (stack.getItem() instanceof TeaBottle && stack.hasNbt() && !stack.hasCustomName()) {
-            ItemStack primaryIngredient = getPrimaryIngredient(stack);
-            if (primaryIngredient != null) {
-                String name = translate(BOTTLE) + " " + translate(OF) + " "
-                        + translate(primaryIngredient.getTranslationKey()) + " " + Language.getInstance().get(TEA.getString());
-                stack.setCustomName(Text.of(name));
-            }
+    public static void setCustomName(ItemStack stack) {
+        NbtCompound primaryIngredient = getPrimaryIngredient(stack);
+        if (primaryIngredient != null) {
+            String name = translate(BOTTLE) + " " + translate(OF) + " "
+                    + translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + translate(TEA);
+            stack.setCustomName(Text.of(name));
         }
     }
 
@@ -211,12 +228,16 @@ public class TeaBottle extends HoneyBottleItem {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        setCustomName(stack);
 
         NbtCompound nbt = stack.getNbt();
+
         if (nbt == null) {
             tooltip.add(NO_NBT);
-        } else {
+        } else if (stack.hasNbt()) {
+            if (!stack.hasCustomName()) {
+                setCustomName(stack);
+            }
+
            NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
            for (int i = 0; i < ingredients.size(); i ++) {
                NbtElement element = ingredients.get(i);

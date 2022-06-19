@@ -3,7 +3,6 @@ package io.ix0rai.tantalisingteas.blocks;
 import io.ix0rai.tantalisingteas.items.TeaBottle;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -12,13 +11,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -38,7 +37,6 @@ import java.util.function.Predicate;
 public class TeaCauldron extends TantalisingCauldronBlock {
     public static final TagKey<Item> TEA_INGREDIENTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:tea_ingredients"));
     public static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
-    private static final IntProperty STRENGTH = IntProperty.of("strength", 1, 3);
 
     public static boolean registeredRecipes = false;
 
@@ -52,63 +50,47 @@ public class TeaCauldron extends TantalisingCauldronBlock {
         super(settings, precipitationPredicate, behaviour);
     }
 
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(STRENGTH);
-        super.appendProperties(builder);
-    }
-
     public static void addBehaviour() {
         HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(TEA_INGREDIENTS);
         teaIngredients.forEach((Holder<Item> item) -> {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(item.value(), TeaCauldron::convertToTeaCauldron);
-            BEHAVIOUR.put(item.value(), TeaCauldron::increaseStrength);
+            BEHAVIOUR.put(item.value(), TeaCauldron::addIngredient);
         });
         registeredRecipes = true;
     }
 
-    public static ActionResult increaseStrength(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if (state.get(STRENGTH) >= 3) {
-            return ActionResult.PASS;
-        } else {
-            if (!world.isClient) {
-                Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
-                if (entity.isPresent()) {
-                    entity.get().addItem(stack);
+    public static ActionResult addIngredient(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
+        if (!world.isClient) {
+            Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
+            if (entity.isPresent()) {
+                entity.get().addStack(stack);
 
-                    if (!player.getAbilities().creativeMode) {
-                        stack.decrement(1);
-                    }
-
-                    world.setBlockState(pos, state.with(STRENGTH, state.get(STRENGTH) + 1));
-
-                    world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                if (!player.getAbilities().creativeMode) {
+                    stack.decrement(1);
                 }
-            }
 
-            return ActionResult.success(world.isClient);
+                world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+            }
         }
+
+        return ActionResult.success(world.isClient);
     }
 
     public static ActionResult convertToTeaCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        boolean tea = stack.getItem() instanceof TeaBottle;
+        boolean tea = stack.isOf(TantalisingItems.TEA_BOTTLE);
 
         if (tea && isFull(state)) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
                 int level;
-                int strength;
                 try {
                     level = state.get(LEVEL);
-                    //flip over numbers: 3 goes to 1, 1 goes to 3, 2 stays 2
-                    strength = Math.abs(level - 4);
                 } catch (IllegalArgumentException ignored) {
                     level = 0;
-                    strength = 3;
                 }
 
-                world.setBlockState(pos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LEVEL, level + (tea ? 1 : 0)).with(STRENGTH, strength));
+                world.setBlockState(pos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LEVEL, level + (tea ? 1 : 0)));
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
 
                 Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
@@ -116,11 +98,12 @@ public class TeaCauldron extends TantalisingCauldronBlock {
                 if (tea && entity.isPresent()) {
                     TeaCauldronBlockEntity blockEntity = entity.get();
 
-                    for (ItemStack ingredient : TeaBottle.getIngredients(stack)) {
-                        System.out.println(ingredient);
-                        blockEntity.addItem(ingredient);
+                    for (NbtCompound ingredient : TeaBottle.getIngredients(stack)) {
+                        blockEntity.addData(ingredient);
                     }
                     player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+                } else if (entity.isPresent() && stack.isIn(TEA_INGREDIENTS)) {
+                    entity.get().addStack(stack);
                 }
             }
 
@@ -137,9 +120,8 @@ public class TeaCauldron extends TantalisingCauldronBlock {
             player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 
             int level = state.get(LEVEL);
-            int strength = state.get(STRENGTH);
 
-            world.setBlockState(pos, state.with(LEVEL, level + 1).with(STRENGTH, strength > 1 ? strength - 1 : 1));
+            world.setBlockState(pos, state.with(LEVEL, level + 1));
             world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
             world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
         }
@@ -153,7 +135,7 @@ public class TeaCauldron extends TantalisingCauldronBlock {
             if (!world.isClient) {
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.BUCKET)));
 
-                world.setBlockState(pos, state.with(LEVEL, 3).with(STRENGTH, 1), 2);
+                world.setBlockState(pos, state.with(LEVEL, 3), 2);
 
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
             }
@@ -169,8 +151,8 @@ public class TeaCauldron extends TantalisingCauldronBlock {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
-                for (ItemStack ingredient : entity.get().getItems()) {
-                    TeaBottle.addIngredient(output, ingredient.getItem(), world.random);
+                for (NbtElement ingredient : entity.get().getItems()) {
+                    TeaBottle.addIngredient(output, (NbtCompound) ingredient, world.random);
                 }
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));

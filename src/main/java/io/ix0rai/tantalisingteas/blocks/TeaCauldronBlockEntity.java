@@ -1,5 +1,6 @@
 package io.ix0rai.tantalisingteas.blocks;
 
+import io.ix0rai.tantalisingteas.items.TeaBottle;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -10,18 +11,14 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraft.util.registry.Registry;
 
 public class TeaCauldronBlockEntity extends BlockEntity {
-    public static final String ITEMS_KEY = "Items";
-
-    private final List<ItemStack> items;
+    private final NbtList items;
 
     public TeaCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(TantalisingBlocks.TEA_CAULDRON_ENTITY, blockPos, blockState);
-        items = new ArrayList<>();
+        items = new NbtList();
     }
 
     @Override
@@ -30,40 +27,53 @@ public class TeaCauldronBlockEntity extends BlockEntity {
     }
 
     @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        NbtCompound nbt = new NbtCompound();
+        nbt.put(TeaBottle.INGREDIENTS_KEY, items);
+        return nbt;
+    }
+
+    @Override
     public void readNbt(NbtCompound tag) {
         items.clear();
 
-        NbtList itemsTag = tag.getList(ITEMS_KEY, 10);
+        NbtList itemsTag = tag.getList(TeaBottle.INGREDIENTS_KEY, 10);
 
         for (int i = 0; i < itemsTag.size(); i ++) {
             NbtCompound compoundTag = itemsTag.getCompound(i);
-            items.add(ItemStack.fromNbt(compoundTag));
+            items.add(compoundTag);
         }
     }
 
     @Override
     protected void writeNbt(NbtCompound tag) {
-        NbtList itemsTag = new NbtList();
-
-        for (ItemStack stack : items) {
-            if (!stack.isEmpty()) {
-                NbtCompound compoundTag = new NbtCompound();
-                stack.writeNbt(compoundTag);
-                itemsTag.add(compoundTag);
-            }
-        }
-
-        tag.put(ITEMS_KEY, itemsTag);
+        tag.put(TeaBottle.INGREDIENTS_KEY, items);
     }
 
-    public void addItem(ItemStack stack) {
-        // assume that the item is already in the tea_ingredients tag
-        if (stack != null && !stack.isEmpty()) {
-            items.add(new ItemStack(stack.getItem()));
+    public void addData(NbtCompound compound) {
+        if (compound != null && !compound.isEmpty() && TeaBottle.isTeaIngredient(compound)) {
+            items.add(compound);
         }
     }
 
-    public List<ItemStack> getItems() {
+    public void addStack(ItemStack stack) {
+        if (stack != null) {
+            NbtCompound compound = new NbtCompound();
+            compound.putString(TeaBottle.ID_KEY, Registry.ITEM.getId(stack.getItem()).toString());
+            addData(compound);
+        }
+    }
+
+    public NbtList getItems() {
         return items;
+    }
+
+    @Override
+    public String toString() {
+        return "TeaCauldronBlockEntity{" +
+                "pos=" + getPos() +
+                "world=" + this.getWorld() +
+                "items=" + items +
+                '}';
     }
 }
