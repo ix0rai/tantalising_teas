@@ -1,7 +1,7 @@
 package io.ix0rai.tantalisingteas.items;
 
 import io.ix0rai.tantalisingteas.Tantalisingteas;
-import io.ix0rai.tantalisingteas.blocks.TeaCauldron;
+import io.ix0rai.tantalisingteas.blocks.BoilingCauldron;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -140,7 +140,7 @@ public class TeaBottle extends HoneyBottleItem {
 
     public static boolean isTeaIngredient(NbtCompound ingredient) {
         Identifier id = new Identifier(ingredient.getString(ID_KEY));
-        return Registry.ITEM.get(id).getDefaultStack().isIn(TeaCauldron.TEA_INGREDIENTS);
+        return Registry.ITEM.get(id).getDefaultStack().isIn(BoilingCauldron.TEA_INGREDIENTS);
     }
 
     public static NbtCompound getPrimaryIngredient(ItemStack stack) {

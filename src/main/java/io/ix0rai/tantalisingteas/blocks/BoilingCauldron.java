@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundCategory;
@@ -34,7 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class TeaCauldron extends TantalisingCauldronBlock {
+public class BoilingCauldron extends TantalisingCauldronBlock {
     public static final TagKey<Item> TEA_INGREDIENTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:tea_ingredients"));
     public static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
 
@@ -42,19 +41,19 @@ public class TeaCauldron extends TantalisingCauldronBlock {
 
     static {
         BEHAVIOUR.put(Items.GLASS_BOTTLE, (state, world, pos, player, hand, stack) -> decreaseLevel(state, world, pos, player, hand, stack, new ItemStack(TantalisingItems.TEA_BOTTLE)));
-        BEHAVIOUR.put(Items.WATER_BUCKET, (TeaCauldron::fillCauldron));
-        BEHAVIOUR.put(Items.POTION, (TeaCauldron::increaseLevel));
+        BEHAVIOUR.put(Items.WATER_BUCKET, (BoilingCauldron::fillCauldron));
+        BEHAVIOUR.put(Items.POTION, (BoilingCauldron::increaseLevel));
     }
 
-    public TeaCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviour) {
+    public BoilingCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviour) {
         super(settings, precipitationPredicate, behaviour);
     }
 
     public static void addBehaviour() {
         HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(TEA_INGREDIENTS);
         teaIngredients.forEach((Holder<Item> item) -> {
-            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(item.value(), TeaCauldron::convertToTeaCauldron);
-            BEHAVIOUR.put(item.value(), TeaCauldron::addIngredient);
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(item.value(), BoilingCauldron::convertToTeaCauldron);
+            BEHAVIOUR.put(item.value(), BoilingCauldron::addIngredient);
         });
         registeredRecipes = true;
     }
@@ -151,8 +150,8 @@ public class TeaCauldron extends TantalisingCauldronBlock {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
-                for (NbtElement ingredient : entity.get().getItems()) {
-                    TeaBottle.addIngredient(output, (NbtCompound) ingredient, world.random);
+                for (int i = 0; i < entity.get().getItems().size(); i ++) {
+                    TeaBottle.addIngredient(output, entity.get().getItems().getCompound(i), world.random);
                 }
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));

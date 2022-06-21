@@ -2,7 +2,7 @@ package io.ix0rai.tantalisingteas.blocks;
 
 import io.ix0rai.tantalisingteas.mixin.AbstractCauldronBlockAccessor;
 import io.ix0rai.tantalisingteas.mixin.CauldronBlockMixin;
-import io.ix0rai.tantalisingteas.mixin.LeveledCauldronBlockMixin;
+import io.ix0rai.tantalisingteas.mixin.LeveledCauldronBlockInvoker;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -81,7 +81,7 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
         if (!world.isClient && entity.isOnFire() && ((AbstractCauldronBlockAccessor) this).invokeIsEntityTouchingFluid(state, pos, entity)) {
             entity.extinguish();
             if (entity.canModifyAt(world, pos)) {
-                ((LeveledCauldronBlockMixin) this).invokeOnFireCollision(state, world, pos);
+                ((LeveledCauldronBlockInvoker) this).invokeOnFireCollision(state, world, pos);
             }
         }
     }
@@ -114,8 +114,8 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!TeaCauldron.registeredRecipes) {
-            TeaCauldron.addBehaviour();
+        if (!BoilingCauldron.registeredRecipes) {
+            BoilingCauldron.addBehaviour();
         }
 
         ItemStack itemStack = player.getStackInHand(hand);

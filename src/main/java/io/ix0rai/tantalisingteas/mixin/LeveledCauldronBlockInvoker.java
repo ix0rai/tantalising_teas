@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(LeveledCauldronBlock.class)
-public interface LeveledCauldronBlockMixin {
+public interface LeveledCauldronBlockInvoker {
     @Invoker
     void invokeOnFireCollision(BlockState state, World world, BlockPos pos);
 }
