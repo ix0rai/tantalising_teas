@@ -1,6 +1,6 @@
 package io.ix0rai.tantalisingteas.datagen;
 
-import io.ix0rai.tantalisingteas.Tantalisingteas;
+import io.ix0rai.tantalisingteas.TantalisingTeas;
 import io.ix0rai.tantalisingteas.items.rendering.TeaColour;
 
 import java.io.File;
@@ -38,7 +38,7 @@ public class DataValidator {
     }
 
     private static void validateTeaColours() throws IOException {
-        File file = new File("src/main/resources/data/" + Tantalisingteas.MOD_ID + "/validation/tea_colours.json");
+        File file = new File("src/main/resources/data/" + TantalisingTeas.MOD_ID + "/validation/tea_colours.json");
         JsonTeaColour[] colours = ItemModelGenerator.GSON.fromJson(new FileReader(file), JsonTeaColour[].class);
 
         for (int i = 0; i < colours.length; i ++) {
@@ -59,8 +59,8 @@ public class DataValidator {
     }
 
     private static class JsonTeaColour {
-        public int numericalId;
-        public String id;
+        public final int numericalId;
+        public final String id;
 
         public JsonTeaColour(TeaColour colour) {
             this.numericalId = colour.getNumericalId();

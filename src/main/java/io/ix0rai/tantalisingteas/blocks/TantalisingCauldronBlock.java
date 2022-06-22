@@ -3,16 +3,8 @@ package io.ix0rai.tantalisingteas.blocks;
 import io.ix0rai.tantalisingteas.mixin.AbstractCauldronBlockAccessor;
 import io.ix0rai.tantalisingteas.mixin.CauldronBlockMixin;
 import io.ix0rai.tantalisingteas.mixin.LeveledCauldronBlockInvoker;
-import net.minecraft.block.AbstractCauldronBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.LeveledCauldronBlock;
-import net.minecraft.block.PointedDripstoneBlock;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,7 +25,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.function.Predicate;
@@ -48,12 +39,6 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
         super(settings);
         this.behaviour = behaviour;
         this.precipitationPredicate = precipitationPredicate;
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TeaCauldronBlockEntity(pos, state);
     }
 
     public static boolean isFull(BlockState state) {
@@ -114,10 +99,6 @@ public abstract class TantalisingCauldronBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!BoilingCauldron.registeredRecipes) {
-            BoilingCauldron.addBehaviour();
-        }
-
         ItemStack itemStack = player.getStackInHand(hand);
         CauldronBehavior cauldronBehavior = this.behaviour.get(itemStack.getItem());
         return cauldronBehavior.interact(state, world, pos, player, hand, itemStack);

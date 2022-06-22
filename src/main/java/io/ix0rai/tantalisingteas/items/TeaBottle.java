@@ -1,6 +1,6 @@
 package io.ix0rai.tantalisingteas.items;
 
-import io.ix0rai.tantalisingteas.Tantalisingteas;
+import io.ix0rai.tantalisingteas.TantalisingTeas;
 import io.ix0rai.tantalisingteas.blocks.BoilingCauldron;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
@@ -33,16 +33,16 @@ public class TeaBottle extends HoneyBottleItem {
     public static final String FLAIR_KEY = "flair";
     public static final String COLOUR_KEY = "colour";
     public static final String NEEDS_UPDATE_KEY = "needsUpdate";
-    public static final Text BAD_NBT = Tantalisingteas.translatableText("error.bad_nbt");
-    public static final Text NO_NBT = Tantalisingteas.translatableText("error.no_nbt");
-    public static final Text TEA = Tantalisingteas.translatableText("word.tea");
-    public static final Text OF = Tantalisingteas.translatableText("word.of");
-    public static final Text BOTTLE = Tantalisingteas.translatableText("word.bottle");
+    public static final Text BAD_NBT = TantalisingTeas.translatableText("error.bad_nbt");
+    public static final Text NO_NBT = TantalisingTeas.translatableText("error.no_nbt");
+    public static final Text TEA = TantalisingTeas.translatableText("word.tea");
+    public static final Text OF = TantalisingTeas.translatableText("word.of");
+    public static final Text BOTTLE = TantalisingTeas.translatableText("word.bottle");
     public static final Text[] FLAIRS = new Text[] {
-            Tantalisingteas.translatableText("flair.with_an_infusion"),
-            Tantalisingteas.translatableText("flair.with_hints"),
-            Tantalisingteas.translatableText("flair.with_undertones"),
-            Tantalisingteas.translatableText("flair.with_a_taste")
+            TantalisingTeas.translatableText("flair.with_an_infusion"),
+            TantalisingTeas.translatableText("flair.with_hints"),
+            TantalisingTeas.translatableText("flair.with_undertones"),
+            TantalisingTeas.translatableText("flair.with_a_taste")
     };
 
     public TeaBottle(Settings settings) {
@@ -114,7 +114,7 @@ public class TeaBottle extends HoneyBottleItem {
 
             // ensure item is in tea ingredient tag
             if (!isTeaIngredient(ingredient)) {
-                Tantalisingteas.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
+                TantalisingTeas.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
                 return;
             }
 

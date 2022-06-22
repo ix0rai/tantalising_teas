@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "tantalisingteas",
+  "id": "tantalising_teas",
   "version": "${version}",
   "name": "Tantalising Teas",
   "description": "tea mod",
@@ -8,21 +8,21 @@
     "ix0rai"
   ],
   "contact": {
-    "repo": "https://github.com/ix0rai/tantalisingteas"
+    "repo": "https://github.com/ix0rai/tantalising_teas"
   },
   "license": "MIT",
-  "icon": "assets/tantalisingteas/icon.png",
+  "icon": "assets/tantalising_teas/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
-      "io.ix0rai.tantalisingteas.client.TantalisingteasClient"
+      "io.ix0rai.tantalisingteas.client.TantalisingTeasClient"
     ],
     "main": [
-      "io.ix0rai.tantalisingteas.Tantalisingteas"
+      "io.ix0rai.tantalisingteas.TantalisingTeas"
     ]
   },
   "mixins": [
-    "tantalisingteas.mixins.json"
+    "tantalising_teas.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.5",
