@@ -63,57 +63,82 @@ public class ItemModelGenerator {
         }
     }
 
-    record ItemModelJson(String parent, Textures textures, JsonOverride[] overrides) {
-        @Override
-            public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                ItemModelJson that = (ItemModelJson) o;
-                return Objects.equals(parent, that.parent) && Objects.equals(textures, that.textures) && Arrays.equals(overrides, that.overrides);
-            }
+    static class ItemModelJson {
+        private final String parent;
+        private final Textures textures;
+        private final JsonOverride[] overrides;
 
-            @Override
-            public int hashCode() {
-                int result = Objects.hash(parent, textures);
-                result = 31 * result + Arrays.hashCode(overrides);
-                return result;
-            }
+        public ItemModelJson(String parent, Textures textures, JsonOverride[] overrides) {
+            this.parent = parent;
+            this.textures = textures;
+            this.overrides = overrides;
         }
 
-    private record Textures(String layer0, String layer1) {
         @Override
-            public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                Textures textures = (Textures) o;
-                return Objects.equals(layer0, textures.layer0) && Objects.equals(layer1, textures.layer1);
-            }
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            ItemModelJson that = (ItemModelJson) o;
+            return Objects.equals(parent, that.parent) && Objects.equals(textures, that.textures) && Arrays.equals(overrides, that.overrides);
+        }
 
+        @Override
+        public int hashCode() {
+            int result = Objects.hash(parent, textures);
+            result = 31 * result + Arrays.hashCode(overrides);
+            return result;
+        }
     }
 
-    private record JsonOverride(Predicate predicate, String model) {
-            private JsonOverride(Predicate predicate, String model) {
-                this.predicate = predicate;
-                this.model = TantalisingTeas.MOD_ID + ":item/" + model + "_tea_model";
-            }
+    private static final class Textures {
+        private final String layer0;
+        private final String layer1;
 
-            @Override
-            public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                JsonOverride that = (JsonOverride) o;
-                return Objects.equals(predicate, that.predicate) && Objects.equals(model, that.model);
-            }
+        public Textures(String layer0, String layer1) {
+            this.layer0 = layer0;
+            this.layer1 = layer1;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Textures textures = (Textures) o;
+            return Objects.equals(layer0, textures.layer0) && Objects.equals(layer1, textures.layer1);
+        }
     }
 
-    private record Predicate(int id) {
-        @Override
-            public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                Predicate predicate = (Predicate) o;
-                return id == predicate.id;
-            }
+    private static class JsonOverride {
+        private final Predicate predicate;
+        private final String model;
 
+        private JsonOverride(Predicate predicate, String model) {
+            this.predicate = predicate;
+            this.model = TantalisingTeas.MOD_ID + ":item/" + model + "_tea_model";
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            JsonOverride that = (JsonOverride) o;
+            return Objects.equals(predicate, that.predicate) && Objects.equals(model, that.model);
+        }
+    }
+
+    private static final class Predicate {
+        private final int id;
+
+        public Predicate(int id) {
+            this.id = id;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Predicate predicate = (Predicate) o;
+            return id == predicate.id;
+        }
     }
 }

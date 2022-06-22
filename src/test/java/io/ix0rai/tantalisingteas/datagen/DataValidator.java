@@ -38,7 +38,7 @@ public class DataValidator {
     }
 
     private static void validateTeaColours() throws IOException {
-        File file = new File("src/main/resources/data/" + TantalisingTeas.MOD_ID + "/validation/tea_colours.json");
+        File file = new File("src/test/resources/data/" + TantalisingTeas.MOD_ID + "/validation/tea_colours.json");
         JsonTeaColour[] colours = ItemModelGenerator.GSON.fromJson(new FileReader(file), JsonTeaColour[].class);
 
         for (int i = 0; i < colours.length; i ++) {

@@ -9,14 +9,14 @@ group = project.maven_group
 
 task generateItemModels(type: JavaExec) {
     group = "other"
-    classpath = sourceSets.main.runtimeClasspath
+    classpath = sourceSets.test.runtimeClasspath
     //noinspection all
     mainClass = "io.ix0rai." + project.maven_group + ".datagen.ItemModelGenerator"
 }
 
 task validateData(type: JavaExec) {
     group = "other"
-    classpath = sourceSets.main.runtimeClasspath
+    classpath = sourceSets.test.runtimeClasspath
     //noinspection all
     mainClass = "io.ix0rai." + project.maven_group + ".datagen.DataValidator"
 }
