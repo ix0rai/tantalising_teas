@@ -3,6 +3,7 @@ package io.ix0rai.tantalisingteas.blocks;
 import io.ix0rai.tantalisingteas.items.TeaBottle;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
+import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -75,7 +76,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
     }
 
     public static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if (PotionUtil.getPotion(stack) != Potions.WATER || isFull(state)) {
+        if (PotionUtil.getPotion(stack) != Potions.WATER || isStateFull(state)) {
             return ActionResult.PASS;
         }
 
@@ -92,7 +93,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
     }
 
     private static ActionResult fillCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if (!stack.getItem().equals(Items.WATER_BUCKET) || isFull(state)) {
+        if (!stack.getItem().equals(Items.WATER_BUCKET) || isStateFull(state)) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
@@ -110,7 +111,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
     private static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
         Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
 
-        if (isEmpty(state) || entity.isEmpty() || entity.get().getItems().isEmpty()) {
+        if (isStateEmpty(state) || entity.isEmpty() || entity.get().getItems().isEmpty()) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
@@ -130,6 +131,22 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
             }
 
             return ActionResult.success(world.isClient);
+        }
+    }
+
+    public static boolean isStateFull(BlockState state) {
+        try {
+            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) >= 3;
+        } catch (IllegalArgumentException ignored) {
+            return false;
+        }
+    }
+
+    public static boolean isStateEmpty(BlockState state) {
+        try {
+            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) <= 0;
+        } catch (IllegalArgumentException ignored) {
+            return true;
         }
     }
 }
