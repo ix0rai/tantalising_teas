@@ -33,6 +33,7 @@ public class TeaBottle extends HoneyBottleItem {
     public static final String FLAIR_KEY = "flair";
     public static final String COLOUR_KEY = "colour";
     public static final String NEEDS_UPDATE_KEY = "needsUpdate";
+    public static final String STRENGTH_KEY = "strength";
     public static final Text BAD_NBT = TantalisingTeas.translatableText("error.bad_nbt");
     public static final Text NO_NBT = TantalisingTeas.translatableText("error.no_nbt");
     public static final Text TEA = TantalisingTeas.translatableText("word.tea");
@@ -42,7 +43,13 @@ public class TeaBottle extends HoneyBottleItem {
             TantalisingTeas.translatableText("flair.with_an_infusion"),
             TantalisingTeas.translatableText("flair.with_hints"),
             TantalisingTeas.translatableText("flair.with_undertones"),
-            TantalisingTeas.translatableText("flair.with_a_taste")
+            TantalisingTeas.translatableText("flair.with_a_taste"),
+    };
+
+    public static final Text[] STRENGTHS = new Text[] {
+            TantalisingTeas.translatableText("strength.weak"),
+            TantalisingTeas.translatableText("strength.medium"),
+            TantalisingTeas.translatableText("strength.strong"),
     };
 
     public TeaBottle(Settings settings) {
@@ -58,7 +65,7 @@ public class TeaBottle extends HoneyBottleItem {
             ArrayList<NbtCompound> ingredients = new ArrayList<>();
             NbtList nbtList = nbt.getList(INGREDIENTS_KEY, 10);
 
-            for (int i = 0; i < nbtList.size(); i ++) {
+            for (int i = 0; i < nbtList.size(); i++) {
                 ingredients.add(nbtList.getCompound(i));
             }
 
@@ -118,24 +125,40 @@ public class TeaBottle extends HoneyBottleItem {
                 return;
             }
 
-            // save nbt
-            NbtCompound compound = new NbtCompound();
-            compound.putString(ID_KEY, ingredient.getString(ID_KEY));
-            if (ingredient.contains(FLAIR_KEY)) {
-                compound.putInt(FLAIR_KEY, ingredient.getInt(FLAIR_KEY));
-            } else {
-                compound.putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
-            }
-            if (ingredient.contains(COLOUR_KEY)) {
-                compound.putString(COLOUR_KEY, ingredient.getString(COLOUR_KEY));
-            }
+            // copy and update nbt
+            NbtCompound compound = copyAndUpdate(ingredient, random);
 
             // write nbt
             ingredients.add(compound);
             nbt.put(INGREDIENTS_KEY, ingredients);
-            nbt.putBoolean(NEEDS_UPDATE_KEY, true);
             stack.setNbt(nbt);
         }
+    }
+
+    private static NbtCompound copyAndUpdate(NbtCompound toCopy, RandomGenerator random) {
+        NbtCompound newNbt = new NbtCompound();
+
+        newNbt.putString(ID_KEY, toCopy.getString(ID_KEY));
+
+        if (toCopy.contains(FLAIR_KEY)) {
+            newNbt.putInt(FLAIR_KEY, toCopy.getInt(FLAIR_KEY));
+        } else {
+            newNbt.putInt(FLAIR_KEY, random.nextInt(FLAIRS.length));
+        }
+
+        if (toCopy.contains(COLOUR_KEY)) {
+            newNbt.putString(COLOUR_KEY, toCopy.getString(COLOUR_KEY));
+        }
+
+        if (toCopy.contains(STRENGTH_KEY)) {
+            newNbt.putInt(STRENGTH_KEY, toCopy.getInt(STRENGTH_KEY));
+        } else {
+            newNbt.putInt(STRENGTH_KEY, 3);
+        }
+
+        newNbt.putBoolean(NEEDS_UPDATE_KEY, true);
+
+        return newNbt;
     }
 
     public static boolean isTeaIngredient(NbtCompound ingredient) {
@@ -167,13 +190,30 @@ public class TeaBottle extends HoneyBottleItem {
         }
     }
 
-    public static void setCustomName(ItemStack stack) {
-        NbtCompound primaryIngredient = getPrimaryIngredient(stack);
-        if (primaryIngredient != null) {
-            String name = translate(BOTTLE) + " " + translate(OF) + " "
-                    + translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + translate(TEA);
-            stack.setCustomName(Text.of(name));
+    public static void updateCustomName(ItemStack stack) {
+        if (stack.getNbt() != null && !stack.hasCustomName() || stack.getNbt().getBoolean(NEEDS_UPDATE_KEY)) {
+            NbtCompound primaryIngredient = getPrimaryIngredient(stack);
+            if (primaryIngredient != null) {
+                String name = translate(BOTTLE) + " " + translate(OF) + " "
+                        /* todo: lang is broken??????? why?????? has I ever????? */
+                        + translate(STRENGTHS[getOverallStrength(stack.getNbt())]) + " " + translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + translate(TEA);
+                stack.setCustomName(Text.of(name));
+            }
         }
+    }
+
+    private static int getOverallStrength(NbtCompound nbt) {
+        NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
+
+        double averageStrength = 0;
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            NbtCompound ingredient = ingredients.getCompound(i);
+            averageStrength += ingredient.getInt(STRENGTH_KEY);
+        }
+
+        // calculate average strength
+        return (int) Math.round(averageStrength / ingredients.size()) - 1;
     }
 
     public String getFlair(ItemStack stack, NbtCompound nbt, RandomGenerator random, int index) {
@@ -234,10 +274,6 @@ public class TeaBottle extends HoneyBottleItem {
         if (nbt == null) {
             tooltip.add(NO_NBT);
         } else if (stack.hasNbt()) {
-            if (!stack.hasCustomName()) {
-                setCustomName(stack);
-            }
-
            NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
            for (int i = 0; i < ingredients.size(); i ++) {
                NbtElement element = ingredients.get(i);

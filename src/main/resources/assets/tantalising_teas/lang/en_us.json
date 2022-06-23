@@ -6,5 +6,8 @@
   "tantalising_teas.flair.with_an_infusion": "With an infusion",
   "tantalising_teas.flair.with_hints": "With hints",
   "tantalising_teas.flair.with_undertones": "With undertones",
-  "tantalising_teas.flair.with_a_taste": "With a taste"
+  "tantalising_teas.flair.with_a_taste": "With a taste",
+  "tantalising_teas.strength.weak": "Weak",
+  "tantalising_teas.strength.medium": "\b",
+  "tantalising_teas.strength.strong": "Strong"
 }

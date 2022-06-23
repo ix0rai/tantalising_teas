@@ -13,6 +13,7 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
+// todo: tick function that increases ingredient strength as time passes
 public class BoilingCauldronBlockEntity extends BlockEntity {
     private final NbtList items;
 
