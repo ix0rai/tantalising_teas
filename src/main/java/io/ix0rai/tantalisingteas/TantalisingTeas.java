@@ -22,7 +22,7 @@ public class TantalisingTeas implements ModInitializer {
         if (!key.contains(".")) {
             LOGGER.warn("creating translation key with no category");
         }
-        return Text.createFormatted(MOD_ID + "." + key);
+        return Text.of(MOD_ID + "." + key);
     }
 
     @Override

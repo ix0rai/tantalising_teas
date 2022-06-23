@@ -25,8 +25,8 @@
     "tantalising_teas.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.5",
-    "fabric": "*",
-    "minecraft": "1.19-alpha.22.19.a"
+    "fabricloader": ">=0.14.0",
+    "fabric": ">=0.50.0",
+    "minecraft": "1.19"
   }
 }
