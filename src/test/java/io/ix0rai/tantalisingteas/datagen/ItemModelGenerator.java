@@ -3,7 +3,7 @@ package io.ix0rai.tantalisingteas.datagen;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.ix0rai.tantalisingteas.TantalisingTeas;
-import io.ix0rai.tantalisingteas.items.rendering.TeaColour;
+import io.ix0rai.tantalisingteas.data.TeaColour;
 
 import java.io.File;
 import java.io.FileWriter;

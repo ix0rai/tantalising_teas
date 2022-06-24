@@ -1,7 +1,7 @@
 package io.ix0rai.tantalisingteas.datagen;
 
 import io.ix0rai.tantalisingteas.TantalisingTeas;
-import io.ix0rai.tantalisingteas.items.rendering.TeaColour;
+import io.ix0rai.tantalisingteas.data.TeaColour;
 
 import java.io.File;
 import java.io.FileNotFoundException;

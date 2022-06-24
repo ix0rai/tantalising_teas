@@ -1,13 +1,18 @@
 package io.ix0rai.tantalisingteas.blocks;
 
+import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.items.TeaBottle;
+import io.ix0rai.tantalisingteas.mixin.BlockWithEntityInvoker;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -51,6 +56,11 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new BoilingCauldronBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return BlockWithEntityInvoker.invokeCheckType(type, TantalisingBlocks.BOILING_CAULDRON_ENTITY, BoilingCauldronBlockEntity::tick);
     }
 
     public static void addBehaviour() {
@@ -116,7 +126,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
         } else {
             if (!world.isClient) {
                 for (int i = 0; i < entity.get().getItems().size(); i ++) {
-                    TeaBottle.addIngredient(output, entity.get().getItems().getCompound(i), world.random);
+                    NbtUtil.addIngredient(output, entity.get().getItems().getCompound(i), world.random);
                 }
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));

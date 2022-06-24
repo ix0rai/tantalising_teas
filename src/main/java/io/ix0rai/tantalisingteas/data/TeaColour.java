@@ -1,7 +1,6 @@
-package io.ix0rai.tantalisingteas.items.rendering;
+package io.ix0rai.tantalisingteas.data;
 
 import com.mojang.blaze3d.texture.NativeImage;
-import io.ix0rai.tantalisingteas.items.TeaBottle;
 import io.ix0rai.tantalisingteas.mixin.render.SpriteAccessor;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedModelManager;
@@ -14,7 +13,6 @@ import net.minecraft.util.Identifier;
 import java.security.InvalidParameterException;
 import java.util.EnumMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public enum TeaColour {
@@ -197,13 +195,13 @@ public enum TeaColour {
         NbtCompound nbt = stack.getNbt();
         assert nbt != null;
 
-        NbtList ingredients = nbt.getList(TeaBottle.INGREDIENTS_KEY, 10);
+        NbtList ingredients = NbtUtil.getIngredients(stack.getNbt());
         boolean updated = false;
 
         for (int i = 0; i < ingredients.size(); i ++) {
             NbtCompound ingredientNbt = ingredients.getCompound(i);
-            if (!ingredientNbt.contains(TeaBottle.COLOUR_KEY)) {
-                Identifier id = new Identifier(ingredientNbt.getString(TeaBottle.ID_KEY));
+            if (!NbtUtil.hasColour(ingredientNbt)) {
+                Identifier id = NbtUtil.getIngredientId(ingredientNbt);
 
                 ModelIdentifier modelId = new ModelIdentifier(id + "#inventory");
                 BakedModel model = manager.getModel(modelId);
@@ -216,14 +214,13 @@ public enum TeaColour {
 
                 // save colour
                 TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
-                ingredientNbt.putString(TeaBottle.COLOUR_KEY, highestPriority.getId());
+                NbtUtil.setColour(ingredientNbt, highestPriority);
                 updated = true;
             }
         }
 
         if (updated) {
-            nbt.put(TeaBottle.INGREDIENTS_KEY, ingredients);
-            stack.setNbt(nbt);
+            NbtUtil.updateIngredients(ingredients, nbt);
         }
     }
 
@@ -232,21 +229,24 @@ public enum TeaColour {
      * @param ingredients the list of ingredients to pull the colours from
      * @return the closest colour to the average of the given ingredients' rgb values
      */
-    public static TeaColour getFromIngredients(List<NbtCompound> ingredients) {
+    public static TeaColour getFromIngredients(NbtList ingredients) {
         if (ingredients.isEmpty()) {
             return TeaColour.BLACK;
         }
 
         int[] averageRgb = new int[]{0, 0, 0};
 
-        for (NbtCompound ingredient : ingredients) {
+        for (int i = 0; i < ingredients.size(); i ++) {
+            NbtCompound ingredient = ingredients.getCompound(i);
+
             //safeguard: this should almost never be the case, but it is possible that the ingredient has no colour when the model predicate runs its check
             TeaColour colour;
             try {
-                colour = TeaColour.get(ingredient.getString(TeaBottle.COLOUR_KEY));
+                colour = NbtUtil.getColour(ingredient);
             } catch (Exception ignored) {
                 continue;
             }
+
             averageRgb[0] += colour.red;
             averageRgb[1] += colour.green;
             averageRgb[2] += colour.blue;
@@ -259,7 +259,7 @@ public enum TeaColour {
         return getClosest(averageRgb[0], averageRgb[1], averageRgb[2]);
     }
 
-    public static TeaColour getClosest(int r, int g, int b) {
+    private static TeaColour getClosest(int r, int g, int b) {
         TeaColour closest = BLACK;
 
         for (TeaColour colour : TeaColour.values()) {

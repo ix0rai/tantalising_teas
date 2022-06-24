@@ -1,6 +1,6 @@
 package io.ix0rai.tantalisingteas.blocks;
 
-import io.ix0rai.tantalisingteas.items.TeaBottle;
+import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,8 +12,8 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 
-// todo: tick function that increases ingredient strength as time passes
 public class BoilingCauldronBlockEntity extends BlockEntity {
     private final NbtList items;
 
@@ -27,10 +27,14 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
         return BlockEntityUpdateS2CPacket.of(this);
     }
 
+    public static void tick(World world, BlockPos pos, BlockState state, BoilingCauldronBlockEntity boilingCauldron) {
+        // todo: tick function that increases ingredient strength as time passes
+    }
+
     @Override
     public NbtCompound toInitialChunkDataNbt() {
         NbtCompound nbt = new NbtCompound();
-        nbt.put(TeaBottle.INGREDIENTS_KEY, items);
+        NbtUtil.updateIngredients(items, nbt);
         return nbt;
     }
 
@@ -38,21 +42,21 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
     public void readNbt(NbtCompound tag) {
         items.clear();
 
-        NbtList itemsTag = tag.getList(TeaBottle.INGREDIENTS_KEY, 10);
+        NbtList ingredients = NbtUtil.getIngredients(tag);
 
-        for (int i = 0; i < itemsTag.size(); i ++) {
-            NbtCompound compoundTag = itemsTag.getCompound(i);
+        for (int i = 0; i < ingredients.size(); i ++) {
+            NbtCompound compoundTag = ingredients.getCompound(i);
             items.add(compoundTag);
         }
     }
 
     @Override
     protected void writeNbt(NbtCompound tag) {
-        tag.put(TeaBottle.INGREDIENTS_KEY, items);
+        NbtUtil.updateIngredients(items, tag);
     }
 
     public void addData(NbtCompound compound) {
-        if (compound != null && !compound.isEmpty() && TeaBottle.isTeaIngredient(compound)) {
+        if (compound != null && !compound.isEmpty() && NbtUtil.isTeaIngredient(compound)) {
             items.add(compound);
         }
     }
@@ -60,7 +64,7 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
     public void addStack(ItemStack stack) {
         if (stack != null) {
             NbtCompound compound = new NbtCompound();
-            compound.putString(TeaBottle.ID_KEY, Registry.ITEM.getId(stack.getItem()).toString());
+            NbtUtil.setId(compound, Registry.ITEM.getId(stack.getItem()));
             addData(compound);
         }
     }
