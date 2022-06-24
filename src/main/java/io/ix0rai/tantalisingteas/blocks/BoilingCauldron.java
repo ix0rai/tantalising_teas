@@ -35,7 +35,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class BoilingCauldron extends TantalisingCauldronBlock {
-    public static final TagKey<Item> TEA_INGREDIENTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:tea_ingredients"));
+    public static final TagKey<Item> TEA_INGREDIENTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "tea_ingredients"));
     public static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
 
     static {

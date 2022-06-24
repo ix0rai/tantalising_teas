@@ -223,7 +223,6 @@ public enum TeaColour {
 
         if (updated) {
             nbt.put(TeaBottle.INGREDIENTS_KEY, ingredients);
-            nbt.remove(TeaBottle.NEEDS_UPDATE_KEY);
             stack.setNbt(nbt);
         }
     }

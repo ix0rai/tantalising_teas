@@ -24,12 +24,10 @@ public class ItemRendererMixin {
 
     @Inject(method = "getHeldItemModel", at = @At("HEAD"))
     public void getHeldItemModel(ItemStack stack, World world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir) {
-        if (stack.isOf(TantalisingItems.TEA_BOTTLE) && stack.getNbt() != null) {
+        if (stack.isOf(TantalisingItems.TEA_BOTTLE) && stack.getNbt() != null && stack.getNbt().getBoolean(TeaBottle.NEEDS_UPDATE_KEY)) {
+            TeaColour.updateColourValues(stack, this.models.getModelManager());
             TeaBottle.updateCustomName(stack);
-            if (stack.getNbt().getBoolean(TeaBottle.NEEDS_UPDATE_KEY)) {
-                TeaColour.updateColourValues(stack, this.models.getModelManager());
-                TeaBottle.updateCustomName(stack);
-            }
+            stack.getNbt().putBoolean(TeaBottle.NEEDS_UPDATE_KEY, false);
         }
     }
 }

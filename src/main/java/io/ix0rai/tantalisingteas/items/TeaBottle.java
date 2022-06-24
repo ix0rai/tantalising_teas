@@ -131,6 +131,7 @@ public class TeaBottle extends HoneyBottleItem {
             // write nbt
             ingredients.add(compound);
             nbt.put(INGREDIENTS_KEY, ingredients);
+            nbt.putBoolean(NEEDS_UPDATE_KEY, true);
             stack.setNbt(nbt);
         }
     }
@@ -155,8 +156,6 @@ public class TeaBottle extends HoneyBottleItem {
         } else {
             newNbt.putInt(STRENGTH_KEY, 3);
         }
-
-        newNbt.putBoolean(NEEDS_UPDATE_KEY, true);
 
         return newNbt;
     }
@@ -191,11 +190,10 @@ public class TeaBottle extends HoneyBottleItem {
     }
 
     public static void updateCustomName(ItemStack stack) {
-        if (stack.getNbt() != null && !stack.hasCustomName() || stack.getNbt().getBoolean(NEEDS_UPDATE_KEY)) {
+        if (stack.getNbt() != null && stack.getNbt().getBoolean(NEEDS_UPDATE_KEY)) {
             NbtCompound primaryIngredient = getPrimaryIngredient(stack);
             if (primaryIngredient != null) {
                 String name = translate(BOTTLE) + " " + translate(OF) + " "
-                        /* todo: lang is broken??????? why?????? has I ever????? */
                         + translate(STRENGTHS[getOverallStrength(stack.getNbt())]) + " " + translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + translate(TEA);
                 stack.setCustomName(Text.of(name));
             }
