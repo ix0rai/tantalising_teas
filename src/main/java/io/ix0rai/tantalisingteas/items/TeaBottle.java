@@ -16,7 +16,6 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -83,8 +82,7 @@ public class TeaBottle extends HoneyBottleItem {
                } else {
                    Identifier id = NbtUtil.getIngredientId(element);
                    Item ingredient = Registry.ITEM.get(id);
-                   RandomGenerator random = world == null ? RandomGenerator.createThreaded() : world.random;
-                   tooltip.add(Text.of(NbtUtil.getFlair(stack, nbt, random, i) + " " + Util.translate(ingredient.getTranslationKey())));
+                   tooltip.add(Text.of(NbtUtil.getFlair(nbt, i) + " " + Util.translate(ingredient.getTranslationKey())));
                }
            }
         }

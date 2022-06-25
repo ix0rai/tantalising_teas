@@ -1,8 +1,6 @@
 package io.ix0rai.tantalisingteas.data;
 
 import io.ix0rai.tantalisingteas.TantalisingTeas;
-import io.ix0rai.tantalisingteas.blocks.BoilingCauldron;
-import io.ix0rai.tantalisingteas.items.TeaBottle;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -14,6 +12,9 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class NbtUtil {
     private static final String INGREDIENTS_KEY = "Ingredients";
@@ -23,30 +24,44 @@ public class NbtUtil {
     private static final String NEEDS_UPDATE_KEY = "needsUpdate";
     private static final String STRENGTH_KEY = "strength";
 
+    /**
+     * gets the primary ingredient of the provided stack's nbt
+     * @param stack the stack to get the primary ingredient of
+     * @return the primary ingredient: the ingredient that occurs the most often in the nbt
+     */
     public static NbtCompound getPrimaryIngredient(ItemStack stack) {
-        if (!(stack.getItem() instanceof TeaBottle) || stack.getNbt() == null) {
+        if (stack.getNbt() == null) {
             return null;
         } else {
             NbtList ingredients = getIngredients(stack.getNbt());
             HashMap<NbtElement, Integer> counts = new HashMap<>();
 
+            // count how many occurrences of each ingredient there are
             for (NbtElement ingredient : ingredients) {
                 counts.put(ingredient, counts.getOrDefault(ingredient, 0) + 1);
             }
 
-            NbtElement primary = null;
-            int number = 0;
-
-            for (Map.Entry<NbtElement, Integer> entry : counts.entrySet()) {
-                if (entry.getValue() > number) {
-                    primary = entry.getKey();
-                }
-            }
-
-            return (NbtCompound) primary;
+            return getElementWithHighestValue(counts);
         }
     }
 
+    private static NbtCompound getElementWithHighestValue(Map<NbtElement, Integer> counts) {
+        NbtElement primary = null;
+        int number = 0;
+
+        for (Map.Entry<NbtElement, Integer> entry : counts.entrySet()) {
+            if (entry.getValue() > number) {
+                primary = entry.getKey();
+            }
+        }
+
+        return (NbtCompound) primary;
+    }
+
+    /**
+     * updates the custom stack name of the provided stack
+     * @param stack the stack to update
+     */
     public static void updateCustomName(ItemStack stack) {
         NbtCompound nbt = stack.getNbt();
 
@@ -76,8 +91,13 @@ public class NbtUtil {
         }
     }
 
+    /**
+     * gets the overall strength of the nbt's ingredient values
+     * @param nbt the nbt to get the strength of
+     * @return the overall strength of the nbt, formatted as an index of {@link Util#STRENGTHS}
+     */
     private static int getOverallStrength(NbtCompound nbt) {
-        NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
+        NbtList ingredients = getIngredients(nbt);
 
         double averageStrength = 0;
 
@@ -90,9 +110,14 @@ public class NbtUtil {
         return (int) Math.round(averageStrength / ingredients.size() / 2) - 1;
     }
 
-    public static String getFlair(ItemStack stack, NbtCompound nbt, RandomGenerator random, int index) {
-        updateFlairNbt(stack, nbt, random);
-        final NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
+    /**
+     * gets the flair of a specific ingredient
+     * @param nbt the full stack nbt to get the ingredient and flair data from
+     * @param index the index of the ingredient
+     * @return a formatted string for the flair of the ingredient
+     */
+    public static String getFlair(NbtCompound nbt, int index) {
+        final NbtList ingredients = getIngredients(nbt);
 
         NbtCompound data = ingredients.getCompound(index);
         if (!data.isEmpty()) {
@@ -102,42 +127,17 @@ public class NbtUtil {
         }
     }
 
-    public static void updateFlairNbt(ItemStack stack, NbtCompound nbt, RandomGenerator random) {
-        final NbtList ingredients = nbt.getList(INGREDIENTS_KEY, 10);
-
-        boolean updatedNbt = false;
-
-        // ensure every ingredient has an associated tooltip flair
-        for (NbtElement element : ingredients) {
-            if (element.getNbtType().equals(NbtCompound.TYPE)) {
-                NbtCompound compound = (NbtCompound) element;
-
-                // check compound for flair data and add if missing
-                if (!(compound.contains(FLAIR_KEY))) {
-                    compound.putInt(FLAIR_KEY, random.nextInt(Util.FLAIRS.length));
-                    updatedNbt = true;
-                }
-            }
-        }
-
-        if (updatedNbt) {
-            // save updated nbt to stack
-            nbt.put(INGREDIENTS_KEY, ingredients);
-            stack.setNbt(nbt);
-        }
-    }
-
+    /**
+     * adds an ingredient to the nbt of the given stack
+     * @param stack the stack to add the ingredient to
+     * @param ingredient the ingredient to add to the stack
+     * @param random a random generator to generate a flair for the ingredient
+     */
     public static void addIngredient(ItemStack stack, NbtCompound ingredient, RandomGenerator random) {
-        if (ingredient != null && !ingredient.isEmpty()  && ingredient.contains(ID_KEY)) {
+        if (ingredient != null && !ingredient.isEmpty() && ingredient.contains(ID_KEY)) {
             // get nbt
             NbtCompound nbt = stack.getOrCreateNbt();
-            NbtList ingredients;
-
-            if (!nbt.isEmpty()) {
-                ingredients = nbt.getList(INGREDIENTS_KEY, 10);
-            } else {
-                ingredients = new NbtList();
-            }
+            NbtList ingredients = getIngredients(nbt);
 
             // ensure item is in tea ingredient tag
             if (!isTeaIngredient(ingredient)) {
@@ -145,51 +145,43 @@ public class NbtUtil {
                 return;
             }
 
-            // copy and update nbt
-            NbtCompound compound = copyAndUpdate(ingredient, random);
+            // update nbt
+            updateNbt(ingredient, random);
 
             // write nbt
-            ingredients.add(compound);
+            ingredients.add(ingredient);
             updateIngredients(ingredients, nbt);
             setUpdated(nbt);
         }
     }
 
-    private static NbtCompound copyAndUpdate(NbtCompound toCopy, RandomGenerator random) {
-        NbtCompound newNbt = new NbtCompound();
-
-        newNbt.putString(ID_KEY, toCopy.getString(ID_KEY));
-
-        if (toCopy.contains(FLAIR_KEY)) {
-            newNbt.putInt(FLAIR_KEY, toCopy.getInt(FLAIR_KEY));
-        } else {
-            newNbt.putInt(FLAIR_KEY, random.nextInt(Util.FLAIRS.length));
+    /**
+     * since flair and strength can be automatically generated if they are not set,
+     * this method sets those two values if they are not already present
+     * @param ingredient an ingredient to update
+     * @param random a random generator to use for generating flair
+     */
+    private static void updateNbt(NbtCompound ingredient, RandomGenerator random) {
+        if (!ingredient.contains(FLAIR_KEY)) {
+            setFlair(ingredient, random.nextInt(Util.FLAIRS.length));
         }
 
-        if (toCopy.contains(COLOUR_KEY)) {
-            newNbt.putString(COLOUR_KEY, toCopy.getString(COLOUR_KEY));
+        if (!ingredient.contains(STRENGTH_KEY)) {
+            setStrength(ingredient, 1);
         }
-
-        if (toCopy.contains(STRENGTH_KEY)) {
-            newNbt.putInt(STRENGTH_KEY, toCopy.getInt(STRENGTH_KEY));
-        } else {
-            newNbt.putInt(STRENGTH_KEY, 1);
-        }
-
-        return newNbt;
     }
 
     public static boolean isTeaIngredient(NbtCompound ingredient) {
-        Identifier id = new Identifier(ingredient.getString(ID_KEY));
-        return Registry.ITEM.get(id).getDefaultStack().isIn(BoilingCauldron.TEA_INGREDIENTS);
+        Identifier id = getIngredientId(ingredient);
+        return Registry.ITEM.get(id).getDefaultStack().isIn(Util.TEA_INGREDIENTS);
     }
 
     public static void setNeedsUpdate(NbtCompound nbt) {
-        nbt.putBoolean(NEEDS_UPDATE_KEY, true);
+        setSafe(nbtCompound -> nbt.putBoolean(NEEDS_UPDATE_KEY, true), nbt);
     }
 
     public static void setUpdated(NbtCompound nbt) {
-        nbt.putBoolean(NEEDS_UPDATE_KEY, false);
+        setSafe(nbtCompound -> nbt.putBoolean(NEEDS_UPDATE_KEY, false), nbt);
     }
 
     public static boolean needsUpdate(NbtCompound nbt) {
@@ -200,15 +192,35 @@ public class NbtUtil {
         return ingredient.contains(COLOUR_KEY);
     }
 
+    private static void setSafeWithReturn(Function<NbtCompound, NbtElement> function, NbtCompound nbt) {
+        function.apply(createNbtIfNotPresent(nbt));
+    }
+
+    private static void setSafe(Consumer<NbtCompound> function, NbtCompound nbt) {
+        function.accept(createNbtIfNotPresent(nbt));
+    }
+
+    private static NbtCompound createNbtIfNotPresent(NbtCompound nbt) {
+        return Objects.requireNonNullElseGet(nbt, NbtCompound::new);
+    }
+
     public static void updateIngredients(NbtList ingredients, NbtCompound nbt) {
-        nbt.put(INGREDIENTS_KEY, ingredients);
+        setSafeWithReturn(nbtCompound -> nbtCompound.put(INGREDIENTS_KEY, ingredients), nbt);
     }
 
     public static void setColour(NbtCompound ingredient, TeaColour colour) {
-        ingredient.putString(COLOUR_KEY, colour.getId());
+        setSafe(nbtCompound -> nbtCompound.putString(COLOUR_KEY, colour.getId()), ingredient);
+    }
+
+    public static void setStrength(NbtCompound ingredient, int strength) {
+        setSafe(nbtCompound -> nbtCompound.putInt(STRENGTH_KEY, strength), ingredient);
+    }
+
+    public static void setFlair(NbtCompound ingredient, int flair) {
+        setSafe(nbtCompound -> nbtCompound.putInt(FLAIR_KEY, flair), ingredient);
     }
 
     public static void setId(NbtCompound ingredient, Identifier id) {
-        ingredient.putString(ID_KEY, id.toString());
+        setSafe(nbtCompound -> nbtCompound.putString(ID_KEY, id.toString()), ingredient);
     }
 }

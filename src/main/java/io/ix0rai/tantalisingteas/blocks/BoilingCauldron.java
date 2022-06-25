@@ -1,13 +1,12 @@
 package io.ix0rai.tantalisingteas.blocks;
 
 import io.ix0rai.tantalisingteas.data.NbtUtil;
-import io.ix0rai.tantalisingteas.items.TeaBottle;
+import io.ix0rai.tantalisingteas.data.Util;
 import io.ix0rai.tantalisingteas.mixin.BlockWithEntityInvoker;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.entity.BlockEntity;
@@ -23,12 +22,10 @@ import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.tag.TagKey;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Holder;
 import net.minecraft.util.HolderSet;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -40,7 +37,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class BoilingCauldron extends TantalisingCauldronBlock {
-    public static final TagKey<Item> TEA_INGREDIENTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "tea_ingredients"));
     public static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
 
     static {
@@ -64,7 +60,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
     }
 
     public static void addBehaviour() {
-        HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(TEA_INGREDIENTS);
+        HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(Util.TEA_INGREDIENTS);
         teaIngredients.forEach((Holder<Item> item) -> BEHAVIOUR.put(item.value(), BoilingCauldron::addIngredient));
     }
 
