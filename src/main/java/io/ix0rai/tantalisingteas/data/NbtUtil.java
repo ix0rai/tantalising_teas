@@ -23,6 +23,7 @@ public class NbtUtil {
     private static final String COLOUR_KEY = "colour";
     private static final String NEEDS_UPDATE_KEY = "needsUpdate";
     private static final String STRENGTH_KEY = "strength";
+    private static final String TICKS_SINCE_STRENGTH_INCREASE_KEY = "ticksSinceStrengthIncrease";
 
     /**
      * gets the primary ingredient of the provided stack's nbt
@@ -103,7 +104,7 @@ public class NbtUtil {
 
         for (int i = 0; i < ingredients.size(); i++) {
             NbtCompound ingredient = ingredients.getCompound(i);
-            averageStrength += ingredient.getInt(STRENGTH_KEY);
+            averageStrength += getStrength(ingredient);
         }
 
         // calculate average strength
@@ -156,8 +157,8 @@ public class NbtUtil {
     }
 
     /**
-     * since flair and strength can be automatically generated if they are not set,
-     * this method sets those two values if they are not already present
+     * since flair, strength, and ticks since last strength update can be automatically generated if they are not set,
+     * this method sets those values if they are not already present
      * @param ingredient an ingredient to update
      * @param random a random generator to use for generating flair
      */
@@ -169,11 +170,23 @@ public class NbtUtil {
         if (!ingredient.contains(STRENGTH_KEY)) {
             setStrength(ingredient, 1);
         }
+
+        if (!ingredient.contains(TICKS_SINCE_STRENGTH_INCREASE_KEY)) {
+            setTicksSinceStrengthIncrease(ingredient, 0);
+        }
     }
 
     public static boolean isTeaIngredient(NbtCompound ingredient) {
         Identifier id = getIngredientId(ingredient);
         return Registry.ITEM.get(id).getDefaultStack().isIn(Util.TEA_INGREDIENTS);
+    }
+
+    public static int getTicksSinceStrengthIncrease(NbtCompound ingredient) {
+        return ingredient.getInt(TICKS_SINCE_STRENGTH_INCREASE_KEY);
+    }
+
+    public static int getStrength(NbtCompound ingredient) {
+        return ingredient.getInt(STRENGTH_KEY);
     }
 
     public static void setNeedsUpdate(NbtCompound nbt) {
@@ -222,5 +235,9 @@ public class NbtUtil {
 
     public static void setId(NbtCompound ingredient, Identifier id) {
         setSafe(nbtCompound -> nbtCompound.putString(ID_KEY, id.toString()), ingredient);
+    }
+
+    public static void setTicksSinceStrengthIncrease(NbtCompound ingredient, int ticksSinceStrengthIncrease) {
+        setSafe(nbtCompound -> nbtCompound.putInt(TICKS_SINCE_STRENGTH_INCREASE_KEY, ticksSinceStrengthIncrease), ingredient);
     }
 }

@@ -56,7 +56,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return BlockWithEntityInvoker.invokeCheckType(type, TantalisingBlocks.BOILING_CAULDRON_ENTITY, BoilingCauldronBlockEntity::tick);
+        return BlockWithEntityInvoker.invokeCheckType(type, TantalisingBlocks.BOILING_CAULDRON_ENTITY, (w, pos, blockState, boilingCauldron) -> BoilingCauldronBlockEntity.tick(boilingCauldron));
     }
 
     public static void addBehaviour() {
@@ -117,12 +117,12 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
     private static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
         Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
 
-        if (isStateEmpty(state) || entity.isEmpty() || entity.get().getItems().isEmpty()) {
+        if (isStateEmpty(state) || entity.isEmpty() || entity.get().getIngredients().isEmpty()) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
-                for (int i = 0; i < entity.get().getItems().size(); i ++) {
-                    NbtUtil.addIngredient(output, entity.get().getItems().getCompound(i), world.random);
+                for (int i = 0; i < entity.get().getIngredients().size(); i ++) {
+                    NbtUtil.addIngredient(output, entity.get().getIngredients().getCompound(i), world.random);
                 }
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));

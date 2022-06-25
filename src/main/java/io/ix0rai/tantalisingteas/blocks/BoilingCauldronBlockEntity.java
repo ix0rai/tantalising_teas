@@ -12,14 +12,14 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 
 public class BoilingCauldronBlockEntity extends BlockEntity {
-    private final NbtList items;
+    private final NbtList ingredients = new NbtList();
+
+    private static final int TICKS_BEFORE_STRENGTH_INCREASE = 1500;
 
     public BoilingCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(TantalisingBlocks.BOILING_CAULDRON_ENTITY, blockPos, blockState);
-        items = new NbtList();
     }
 
     @Override
@@ -27,37 +27,50 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
         return BlockEntityUpdateS2CPacket.of(this);
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, BoilingCauldronBlockEntity boilingCauldron) {
-        // todo: tick function that increases ingredient strength as time passes
+    public static void tick(BoilingCauldronBlockEntity boilingCauldron) {
+        NbtList items = boilingCauldron.getIngredients();
+
+        for (int i = 0; i < items.size(); i++) {
+            NbtCompound ingredient = items.getCompound(i);
+            int strength = NbtUtil.getStrength(ingredient);
+            int ticks = NbtUtil.getTicksSinceStrengthIncrease(ingredient);
+
+            if (NbtUtil.getStrength(ingredient) < 6 && ticks >= TICKS_BEFORE_STRENGTH_INCREASE) {
+                NbtUtil.setStrength(ingredient, strength + 1);
+                NbtUtil.setTicksSinceStrengthIncrease(ingredient, 0);
+            } else {
+                NbtUtil.setTicksSinceStrengthIncrease(ingredient, ticks + 1);
+            }
+        }
     }
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
         NbtCompound nbt = new NbtCompound();
-        NbtUtil.updateIngredients(items, nbt);
+        NbtUtil.updateIngredients(ingredients, nbt);
         return nbt;
     }
 
     @Override
     public void readNbt(NbtCompound tag) {
-        items.clear();
+        ingredients.clear();
 
-        NbtList ingredients = NbtUtil.getIngredients(tag);
+        NbtList items = NbtUtil.getIngredients(tag);
 
-        for (int i = 0; i < ingredients.size(); i ++) {
-            NbtCompound compoundTag = ingredients.getCompound(i);
-            items.add(compoundTag);
+        for (int i = 0; i < items.size(); i ++) {
+            NbtCompound compoundTag = items.getCompound(i);
+            this.ingredients.add(compoundTag);
         }
     }
 
     @Override
     protected void writeNbt(NbtCompound tag) {
-        NbtUtil.updateIngredients(items, tag);
+        NbtUtil.updateIngredients(ingredients, tag);
     }
 
     public void addData(NbtCompound compound) {
         if (compound != null && !compound.isEmpty() && NbtUtil.isTeaIngredient(compound)) {
-            items.add(compound);
+            ingredients.add(compound);
         }
     }
 
@@ -69,7 +82,7 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
         }
     }
 
-    public NbtList getItems() {
-        return items;
+    public NbtList getIngredients() {
+        return ingredients;
     }
 }
