@@ -64,15 +64,12 @@ public class NbtUtil {
      * @param stack the stack to update
      */
     public static void updateCustomName(ItemStack stack) {
-        NbtCompound nbt = stack.getNbt();
-
-        if (nbt != null && needsUpdate(nbt)) {
-            NbtCompound primaryIngredient = getPrimaryIngredient(stack);
-            if (primaryIngredient != null) {
-                String name = Util.translate(Util.BOTTLE) + " " + Util.translate(Util.OF) + " "
-                        + Util.translate(Util.STRENGTHS[getOverallStrength(nbt)]) + " " + Util.translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + Util.translate(Util.TEA);
-                stack.setCustomName(Text.of(name));
-            }
+        NbtCompound primaryIngredient = getPrimaryIngredient(stack);
+        if (primaryIngredient != null) {
+            NbtCompound nbt = stack.getNbt();
+            String name = Util.translate(Util.BOTTLE) + " " + Util.translate(Util.OF) + " "
+                    + Util.translate(Util.STRENGTHS[getOverallStrength(nbt)]) + " " + Util.translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + Util.translate(Util.TEA);
+            stack.setCustomName(Text.of(name));
         }
     }
 
@@ -108,7 +105,9 @@ public class NbtUtil {
         }
 
         // calculate average strength
-        return (int) Math.round(averageStrength / ingredients.size() / 2) - 1;
+        averageStrength /= ingredients.size();
+        // return the index of the strength closest to the average
+        return (int) (Math.round(averageStrength / 2) - 1);
     }
 
     /**
@@ -152,7 +151,7 @@ public class NbtUtil {
             // write nbt
             ingredients.add(ingredient);
             updateIngredients(ingredients, nbt);
-            setUpdated(nbt);
+            setNeedsUpdate(nbt, true);
         }
     }
 
@@ -162,7 +161,7 @@ public class NbtUtil {
      * @param ingredient an ingredient to update
      * @param random a random generator to use for generating flair
      */
-    private static void updateNbt(NbtCompound ingredient, RandomGenerator random) {
+    public static void updateNbt(NbtCompound ingredient, RandomGenerator random) {
         if (!ingredient.contains(FLAIR_KEY)) {
             setFlair(ingredient, random.nextInt(Util.FLAIRS.length));
         }
@@ -189,12 +188,8 @@ public class NbtUtil {
         return ingredient.getInt(STRENGTH_KEY);
     }
 
-    public static void setNeedsUpdate(NbtCompound nbt) {
-        setSafe(nbtCompound -> nbt.putBoolean(NEEDS_UPDATE_KEY, true), nbt);
-    }
-
-    public static void setUpdated(NbtCompound nbt) {
-        setSafe(nbtCompound -> nbt.putBoolean(NEEDS_UPDATE_KEY, false), nbt);
+    public static void setNeedsUpdate(NbtCompound nbt, boolean value) {
+        setSafe(nbtCompound -> nbt.putBoolean(NEEDS_UPDATE_KEY, value), nbt);
     }
 
     public static boolean needsUpdate(NbtCompound nbt) {
@@ -203,22 +198,6 @@ public class NbtUtil {
 
     public static boolean hasColour(NbtCompound ingredient) {
         return ingredient.contains(COLOUR_KEY);
-    }
-
-    private static void setSafeWithReturn(Function<NbtCompound, NbtElement> function, NbtCompound nbt) {
-        function.apply(createNbtIfNotPresent(nbt));
-    }
-
-    private static void setSafe(Consumer<NbtCompound> function, NbtCompound nbt) {
-        function.accept(createNbtIfNotPresent(nbt));
-    }
-
-    private static NbtCompound createNbtIfNotPresent(NbtCompound nbt) {
-        return Objects.requireNonNullElseGet(nbt, NbtCompound::new);
-    }
-
-    public static void updateIngredients(NbtList ingredients, NbtCompound nbt) {
-        setSafeWithReturn(nbtCompound -> nbtCompound.put(INGREDIENTS_KEY, ingredients), nbt);
     }
 
     public static void setColour(NbtCompound ingredient, TeaColour colour) {
@@ -239,5 +218,21 @@ public class NbtUtil {
 
     public static void setTicksSinceStrengthIncrease(NbtCompound ingredient, int ticksSinceStrengthIncrease) {
         setSafe(nbtCompound -> nbtCompound.putInt(TICKS_SINCE_STRENGTH_INCREASE_KEY, ticksSinceStrengthIncrease), ingredient);
+    }
+
+    private static void setSafeWithReturn(Function<NbtCompound, NbtElement> function, NbtCompound nbt) {
+        function.apply(createNbtIfNotPresent(nbt));
+    }
+
+    private static void setSafe(Consumer<NbtCompound> function, NbtCompound nbt) {
+        function.accept(createNbtIfNotPresent(nbt));
+    }
+
+    private static NbtCompound createNbtIfNotPresent(NbtCompound nbt) {
+        return Objects.requireNonNullElseGet(nbt, NbtCompound::new);
+    }
+
+    public static void updateIngredients(NbtList ingredients, NbtCompound nbt) {
+        setSafeWithReturn(nbtCompound -> nbtCompound.put(INGREDIENTS_KEY, ingredients), nbt);
     }
 }

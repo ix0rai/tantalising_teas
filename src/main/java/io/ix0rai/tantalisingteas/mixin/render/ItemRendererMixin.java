@@ -27,7 +27,8 @@ public class ItemRendererMixin {
         if (stack.isOf(TantalisingItems.TEA_BOTTLE) && stack.getNbt() != null && NbtUtil.needsUpdate(stack.getNbt())) {
             TeaColour.updateColourValues(stack, this.models.getModelManager());
             NbtUtil.updateCustomName(stack);
-            NbtUtil.setNeedsUpdate(stack.getNbt());
+            NbtUtil.setNeedsUpdate(stack.getNbt(), false);
+            stack.setNbt(stack.getNbt());
         }
     }
 }
