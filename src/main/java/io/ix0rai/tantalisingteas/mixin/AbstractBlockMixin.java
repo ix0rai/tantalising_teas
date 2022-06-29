@@ -15,6 +15,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractBlock.class)
 public class AbstractBlockMixin {
+    /**
+     * @reason create boiling cauldrons
+     */
     @Inject(method = "getStateForNeighborUpdate", at = @At("HEAD"), cancellable = true)
     public void getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> cir) {
         // when a water cauldron receives a neighbor update and the neighbor is a fire block, as well as directly below the cauldron, it will begin boiling
@@ -23,6 +26,9 @@ public class AbstractBlockMixin {
         }
     }
 
+    /**
+     * @reason create boiling cauldrons
+     */
     @Inject(method = "neighborUpdate", at = @At("HEAD"))
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify, CallbackInfo ci) {
         // when a fire block receives a neighbor update and the neighbor is water cauldron, as well as directly above the fire, the cauldron will begin boiling

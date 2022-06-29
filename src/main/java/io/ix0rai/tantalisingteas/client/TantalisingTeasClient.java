@@ -13,6 +13,9 @@ import net.minecraft.util.Identifier;
 public class TantalisingTeasClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        ModelPredicateProviderRegistry.register(TantalisingItems.TEA_BOTTLE, new Identifier("id"), (stack, world, entity, seed) -> TeaColour.getFromIngredients(NbtUtil.getIngredients(stack.getNbt())).getNumericalId());
+        ModelPredicateProviderRegistry.register(
+                TantalisingItems.TEA_BOTTLE, new Identifier("id"),
+                (stack, world, entity, seed) -> TeaColour.getFromIngredients(NbtUtil.getIngredients(stack.getNbt())).getNumericalId()
+        );
     }
 }

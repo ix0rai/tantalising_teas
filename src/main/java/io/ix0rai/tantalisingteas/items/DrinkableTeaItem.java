@@ -15,14 +15,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class TeaBottle extends HoneyBottleItem {
-    public TeaBottle(Settings settings) {
+public class DrinkableTeaItem extends HoneyBottleItem {
+    public DrinkableTeaItem(Settings settings) {
         super(settings);
     }
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        // we handle changing the stack
         ItemStack stack1 = stack.copy();
         super.finishUsing(stack, world, user);
         stack = stack1;
@@ -31,8 +30,6 @@ public class TeaBottle extends HoneyBottleItem {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
         }
 
-        // return empty bottle, or throw it away if it does not fit
-        // also decrement the stack size if it will not be entirely consumed
         if (stack.isEmpty()) {
             return new ItemStack(Items.GLASS_BOTTLE);
         } else {
@@ -57,6 +54,6 @@ public class TeaBottle extends HoneyBottleItem {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        Util.appendNbt(stack, tooltip);
+        Util.appendTeaNbt(stack, tooltip);
     }
 }

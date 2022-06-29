@@ -19,11 +19,11 @@ import java.util.function.Function;
 public class NbtUtil {
     private static final String INGREDIENTS_KEY = "Ingredients";
     private static final String ID_KEY = "id";
-    private static final String FLAIR_KEY = "flair";
-    private static final String COLOUR_KEY = "colour";
-    private static final String NEEDS_UPDATE_KEY = "needsUpdate";
-    private static final String STRENGTH_KEY = "strength";
-    private static final String TICKS_SINCE_STRENGTH_INCREASE_KEY = "ticksSinceStrengthIncrease";
+    private static final String FLAIR_KEY = "Flair";
+    private static final String COLOUR_KEY = "Colour";
+    private static final String NEEDS_UPDATE_KEY = "NeedsUpdate";
+    private static final String STRENGTH_KEY = "Strength";
+    private static final String TICKS_SINCE_STRENGTH_INCREASE_KEY = "TicksSinceStrengthIncrease";
 
     /**
      * gets the primary ingredient of the provided stack's nbt

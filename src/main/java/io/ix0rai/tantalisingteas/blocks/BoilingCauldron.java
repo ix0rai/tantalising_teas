@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class BoilingCauldron extends TantalisingCauldronBlock {
-    public static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
+    protected static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
 
     static {
         BEHAVIOUR.put(Items.GLASS_BOTTLE, (state, world, pos, player, hand, stack) -> decreaseLevel(state, world, pos, player, hand, stack, new ItemStack(TantalisingItems.TEA_BOTTLE)));
@@ -45,8 +45,8 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
         BEHAVIOUR.put(Items.POTION, (BoilingCauldron::increaseLevel));
     }
 
-    public BoilingCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviour) {
-        super(settings, precipitationPredicate, behaviour);
+    public BoilingCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate) {
+        super(settings, precipitationPredicate, BEHAVIOUR);
     }
 
     @Override
@@ -75,6 +75,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
                 }
 
                 world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                useCauldronWith(player, stack);
             }
         }
 
@@ -94,6 +95,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
             world.setBlockState(pos, state.with(LEVEL, level + 1));
             world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
             world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
+            useCauldronWith(player, stack);
         }
         return ActionResult.success(world.isClient);
     }
@@ -126,18 +128,22 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
                 }
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
-                player.incrementStat(Stats.USE_CAULDRON);
-                player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
 
                 int level = state.get(LEVEL);
                 world.setBlockState(pos, level <= 1 ? Blocks.CAULDRON.getDefaultState() : state.with(LEVEL, level - 1), 2);
 
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 world.emitGameEvent(null, GameEvent.FLUID_PICKUP, pos);
+                useCauldronWith(player, stack);
             }
 
             return ActionResult.success(world.isClient);
         }
+    }
+
+    private static void useCauldronWith(PlayerEntity player, ItemStack stack) {
+        player.incrementStat(Stats.USE_CAULDRON);
+        player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
     }
 
     public static boolean isStateFull(BlockState state) {

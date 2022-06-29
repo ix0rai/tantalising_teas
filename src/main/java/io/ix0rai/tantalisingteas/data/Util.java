@@ -46,7 +46,7 @@ public class Util {
         return Util.translate(Util.FLAIRS[index]) + " " + Util.translate(Util.OF).toLowerCase();
     }
 
-    public static void appendNbt(ItemStack stack, List<Text> tooltip) {
+    public static void appendTeaNbt(ItemStack stack, List<Text> tooltip) {
         NbtCompound nbt = stack.getNbt();
 
         if (nbt == null) {

@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class TantalisingBlocks {
-    public static final BoilingCauldron BOILING_CAULDRON = new BoilingCauldron(AbstractBlock.Settings.copy(Blocks.CAULDRON), LeveledCauldronBlock.RAIN_PREDICATE, BoilingCauldron.BEHAVIOUR);
+    public static final BoilingCauldron BOILING_CAULDRON = new BoilingCauldron(AbstractBlock.Settings.copy(Blocks.CAULDRON), LeveledCauldronBlock.RAIN_PREDICATE);
     public static final BlockEntityType<BoilingCauldronBlockEntity> BOILING_CAULDRON_ENTITY = FabricBlockEntityTypeBuilder.create(BoilingCauldronBlockEntity::new, BOILING_CAULDRON).build(null);
 
     public static void register() {

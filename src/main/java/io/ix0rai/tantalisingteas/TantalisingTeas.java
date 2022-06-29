@@ -20,7 +20,7 @@ public class TantalisingTeas implements ModInitializer {
 
     public static Text translatableText(String key) {
         if (!key.contains(".")) {
-            LOGGER.warn("creating translation key with no category");
+            throw new UnsupportedOperationException("translatable text must be in the format 'category.key'");
         }
         return Text.of(MOD_ID + "." + key);
     }
@@ -30,6 +30,8 @@ public class TantalisingTeas implements ModInitializer {
         TantalisingBlocks.register();
         TantalisingItems.registerItems();
 
+        // ensure that boiling cauldron behaviour is registered for all tea ingredients
+        // we call this on server start because that is when tags are finished being loaded
         ServerLifecycleEvents.SERVER_STARTED.register(server -> BoilingCauldron.addBehaviour());
     }
 }

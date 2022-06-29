@@ -14,9 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
 public class BoilingCauldronBlockEntity extends BlockEntity {
-    private final NbtList ingredients = new NbtList();
-
     private static final int TICKS_BEFORE_STRENGTH_INCREASE = 1500;
+    private final NbtList ingredients = new NbtList();
 
     public BoilingCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(TantalisingBlocks.BOILING_CAULDRON_ENTITY, blockPos, blockState);
