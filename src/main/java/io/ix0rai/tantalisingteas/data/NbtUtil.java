@@ -67,8 +67,11 @@ public class NbtUtil {
         NbtCompound primaryIngredient = getPrimaryIngredient(stack);
         if (primaryIngredient != null) {
             NbtCompound nbt = stack.getNbt();
-            String name = Util.translate(Util.BOTTLE) + " " + Util.translate(Util.OF) + " "
-                    + Util.translate(Util.STRENGTHS[getOverallStrength(nbt)]) + " " + Util.translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + Util.translate(Util.TEA);
+            int strength = getOverallStrength(nbt);
+
+            String name = Util.translate(Util.BOTTLE) + " " + Util.translate(Util.OF)
+                    + (strength == 1 ? "" : " " + Util.translate(Util.STRENGTHS[strength]))
+                    + " " + Util.translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + Util.translate(Util.TEA);
             stack.setCustomName(Text.of(name));
         }
     }
