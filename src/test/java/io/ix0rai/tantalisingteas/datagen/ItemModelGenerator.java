@@ -100,7 +100,7 @@ public class ItemModelGenerator {
         return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":tea_overlay/" + getName(colour, strength)), null);
     }
 
-    private static String getName(TeaColour colour, int strength) {
+    static String getName(TeaColour colour, int strength) {
         return colour.getId() + (strength != NbtUtil.MAX_STRENGTH ? "_s" + strength : "");
     }
 

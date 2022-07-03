@@ -1,6 +1,7 @@
 package io.ix0rai.tantalisingteas.datagen;
 
 import io.ix0rai.tantalisingteas.TantalisingTeas;
+import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 
 import java.io.File;
@@ -18,8 +19,10 @@ public class DataValidator {
 
     private static void validateJsonData() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
-            File file = new File(ItemModelGenerator.MODEL_PATH + "/item/" + colour.getId() + "_tea_model.json");
-            validateJson(file, ItemModelGenerator.getJson(colour, 0));
+            for (int strength = 1; strength < NbtUtil.MAX_STRENGTH; strength ++) {
+                File file = new File(ItemModelGenerator.MODEL_PATH + "/item/" + ItemModelGenerator.getName(colour, strength) + "_tea_model.json");
+                validateJson(file, ItemModelGenerator.getJson(colour, strength));
+            }
         }
 
         File file = new File(ItemModelGenerator.MODEL_PATH + "item/tea_bottle.json");
