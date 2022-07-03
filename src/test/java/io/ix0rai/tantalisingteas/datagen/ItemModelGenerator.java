@@ -3,12 +3,17 @@ package io.ix0rai.tantalisingteas.datagen;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.ix0rai.tantalisingteas.TantalisingTeas;
+import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,7 +27,47 @@ public class ItemModelGenerator {
 
     public static void main(String[] args) throws IOException {
         generateTeaColourModels();
+        generateAlternateTransparencyImages();
         generateTeaBottleModel();
+    }
+
+    private static void generateAlternateTransparencyImages() {
+        for (TeaColour colour : TeaColour.values()) {
+            for (int i = 1; i < NbtUtil.MAX_STRENGTH; i ++) {
+                try {
+                    String path = "src/main/resources/assets/" + TantalisingTeas.MOD_ID + "/textures/tea_overlay/" + colour.getId();
+                    File file = new File(path + ".png");
+                    BufferedImage image = ImageIO.read(file);
+
+                    // we don't talk about it.
+                    // we really don't.
+                    int alpha = 255 / Math.abs(i - NbtUtil.MAX_STRENGTH);
+                    for (int x = 0; x < image.getWidth(); x ++) {
+                        for (int y = 0; y < image.getHeight(); y ++) {
+                            int rgb = image.getRGB(x, y);
+
+                            // ensure that we don't set the rgb of already-transparent pixels
+                            if (rgb != 0) {
+                                // we need to reconstruct the entire rgb value so that we can modify the alpha
+                                int blue = rgb & 0xff;
+                                int green = (rgb & 0xff00) >> 8;
+                                int red = (rgb & 0xff0000) >> 16;
+
+                                int newRgb = (alpha << 24) | (red << 16) | (green << 8) | blue;
+
+                                // set the rgb of the pixel with the new rgb
+                                image.setRGB(x, y, newRgb);
+                            }
+                        }
+                    }
+
+                    ImageIO.write(image, "png", new File(path + "_s" + i + ".png"));
+                } catch (IOException ignored) {
+                    // this just means we either can't find the source image or can't save the image
+                    // in either case we expect the image to be generated manually later
+                }
+            }
+        }
     }
 
     private static void generateTeaBottleModel() throws IOException {
@@ -37,27 +82,38 @@ public class ItemModelGenerator {
         return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":item/tea_bottle_overlay"), generateLatestOverrides());
     }
 
-    static JsonOverride[] generateLatestOverrides() {
-        JsonOverride[] jsonOverrides = new JsonOverride[TeaColour.values().length];
+    static List<JsonOverride> generateLatestOverrides() {
+        List<JsonOverride> jsonOverrides = new ArrayList<>();
 
         for (int i = 0; i < TeaColour.values().length; i ++) {
             TeaColour colour = TeaColour.values()[i];
-            jsonOverrides[i] = new JsonOverride(new Predicate(colour.getNumericalId()), colour.getId());
+            jsonOverrides.add(new JsonOverride(new Predicate(colour.getNumericalId()), colour.getId()));
+            for (int strength = 1; strength < NbtUtil.MAX_STRENGTH; strength ++) {
+                jsonOverrides.add(new JsonOverride(new Predicate(TeaColour.getModelId(colour, strength)), getName(colour, strength)));
+            }
         }
 
         return jsonOverrides;
     }
 
-    static ItemModelJson getJson(TeaColour colour) {
-        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":tea_overlay/" + colour.getId()), null);
+    static ItemModelJson getJson(TeaColour colour, int strength) {
+        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":tea_overlay/" + getName(colour, strength)), null);
+    }
+
+    private static String getName(TeaColour colour, int strength) {
+        return colour.getId() + (strength != NbtUtil.MAX_STRENGTH ? "_s" + strength : "");
     }
 
     private static void generateTeaColourModels() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
-            File file = new File(MODEL_PATH + "item/" + colour.getId() + "_tea_model.json");
-            if (file.createNewFile()) {
-                try (FileWriter writer = new FileWriter(file)) {
-                    GSON.toJson(getJson(colour), writer);
+            for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
+                String modelName = "item/" + getName(colour, strength) + "_tea_model.json";
+                File file = new File(MODEL_PATH + modelName);
+
+                if (file.createNewFile()) {
+                    try (FileWriter writer = new FileWriter(file)) {
+                        GSON.toJson(getJson(colour, strength), writer);
+                    }
                 }
             }
         }
@@ -68,10 +124,10 @@ public class ItemModelGenerator {
         private final Textures textures;
         private final JsonOverride[] overrides;
 
-        public ItemModelJson(String parent, Textures textures, JsonOverride[] overrides) {
+        public ItemModelJson(String parent, Textures textures, List<JsonOverride> overrides) {
             this.parent = parent;
             this.textures = textures;
-            this.overrides = overrides;
+            this.overrides = overrides == null ? null :  overrides.toArray(new JsonOverride[TeaColour.values().length * NbtUtil.MAX_STRENGTH]);
         }
 
         @Override
@@ -127,9 +183,9 @@ public class ItemModelGenerator {
     }
 
     private static final class Predicate {
-        private final int id;
+        private final float id;
 
-        public Predicate(int id) {
+        public Predicate(float id) {
             this.id = id;
         }
 

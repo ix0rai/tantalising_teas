@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class DataValidator {
+    //todo: fix validator
     public static void main(String[] args) throws IOException {
         validateTeaColours();
         validateJsonData();
@@ -18,7 +19,7 @@ public class DataValidator {
     private static void validateJsonData() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
             File file = new File(ItemModelGenerator.MODEL_PATH + "/item/" + colour.getId() + "_tea_model.json");
-            validateJson(file, ItemModelGenerator.getJson(colour));
+            validateJson(file, ItemModelGenerator.getJson(colour, 0));
         }
 
         File file = new File(ItemModelGenerator.MODEL_PATH + "item/tea_bottle.json");

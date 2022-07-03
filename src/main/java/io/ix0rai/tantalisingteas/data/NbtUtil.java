@@ -17,6 +17,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class NbtUtil {
+    public static final int MAX_STRENGTH = 6;
+
     private static final String INGREDIENTS_KEY = "Ingredients";
     private static final String ID_KEY = "id";
     private static final String FLAIR_KEY = "Flair";
@@ -67,10 +69,11 @@ public class NbtUtil {
         NbtCompound primaryIngredient = getPrimaryIngredient(stack);
         if (primaryIngredient != null) {
             NbtCompound nbt = stack.getNbt();
-            int strength = getOverallStrength(nbt);
+            // format strength so that it can be used to pull from the array of strings
+            int strength = (int) (Math.round((double) getOverallStrength(nbt) / 2) - 1);
 
             String name = Util.translate(Util.BOTTLE) + " " + Util.translate(Util.OF)
-                    + (strength == 1 ? "" : " " + Util.translate(Util.STRENGTHS[strength]))
+                    + (strength == 2 ? "" : " " + Util.translate(Util.STRENGTHS[strength]))
                     + " " + Util.translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + Util.translate(Util.TEA);
             stack.setCustomName(Text.of(name));
         }
@@ -97,10 +100,15 @@ public class NbtUtil {
      * @param nbt the nbt to get the strength of
      * @return the overall strength of the nbt, formatted as an index of {@link Util#STRENGTHS}
      */
-    private static int getOverallStrength(NbtCompound nbt) {
+    public static int getOverallStrength(NbtCompound nbt) {
         NbtList ingredients = getIngredients(nbt);
 
-        double averageStrength = 0;
+        // protect from / by zero error
+        if (ingredients.isEmpty()) {
+            return 1;
+        }
+
+        int averageStrength = 0;
 
         for (int i = 0; i < ingredients.size(); i++) {
             NbtCompound ingredient = ingredients.getCompound(i);
@@ -109,8 +117,7 @@ public class NbtUtil {
 
         // calculate average strength
         averageStrength /= ingredients.size();
-        // return the index of the strength closest to the average
-        return (int) (Math.round(averageStrength / 2) - 1);
+        return averageStrength;
     }
 
     /**
@@ -208,6 +215,9 @@ public class NbtUtil {
     }
 
     public static void setStrength(NbtCompound ingredient, int strength) {
+        if (strength > MAX_STRENGTH) {
+            return;
+        }
         setSafe(nbtCompound -> nbtCompound.putInt(STRENGTH_KEY, strength), ingredient);
     }
 
