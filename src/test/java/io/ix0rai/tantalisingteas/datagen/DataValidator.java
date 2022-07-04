@@ -11,7 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class DataValidator {
-    //todo: fix validator
     public static void main(String[] args) throws IOException {
         validateTeaColours();
         validateJsonData();
@@ -20,12 +19,12 @@ public class DataValidator {
     private static void validateJsonData() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
             for (int strength = 1; strength < NbtUtil.MAX_STRENGTH; strength ++) {
-                File file = new File(ItemModelGenerator.MODEL_PATH + "/item/" + ItemModelGenerator.getName(colour, strength) + "_tea_model.json");
+                File file = new File(ItemModelGenerator.MODELS + "/item/" + ItemModelGenerator.getName(colour, strength) + "_tea_model.json");
                 validateJson(file, ItemModelGenerator.getJson(colour, strength));
             }
         }
 
-        File file = new File(ItemModelGenerator.MODEL_PATH + "item/tea_bottle.json");
+        File file = new File(ItemModelGenerator.MODELS + "/item/tea_bottle.json");
         validateJson(file, ItemModelGenerator.getLatestTeaBottleJson());
     }
 
@@ -42,7 +41,7 @@ public class DataValidator {
     }
 
     private static void validateTeaColours() throws IOException {
-        File file = new File("src/test/resources/data/" + TantalisingTeas.MOD_ID + "/validation/tea_colours.json");
+        File file = new File(ItemModelGenerator.TEST + "/resources/data/" + TantalisingTeas.MOD_ID + "/validation/tea_colours.json");
         JsonTeaColour[] colours = ItemModelGenerator.GSON.fromJson(new FileReader(file), JsonTeaColour[].class);
 
         for (int i = 0; i < colours.length; i ++) {

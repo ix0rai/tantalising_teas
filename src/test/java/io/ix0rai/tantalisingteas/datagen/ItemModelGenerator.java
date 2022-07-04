@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import io.ix0rai.tantalisingteas.TantalisingTeas;
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
+import net.minecraft.util.Pair;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,7 +24,12 @@ import java.util.Objects;
  */
 public class ItemModelGenerator {
     static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    static final String MODEL_PATH = "src/main/resources/assets/" + TantalisingTeas.MOD_ID + "/models/";
+    static final String SRC = "src";
+    static final String MAIN = SRC + "/" + "main";
+    static final String TEST = SRC + "/" + "test";
+    static final String ASSETS = MAIN + "/resources/assets/" + TantalisingTeas.MOD_ID;
+    static final String MODELS = ASSETS + "/models";
+    static final String TEXTURES = ASSETS + "/textures";
 
     public static void main(String[] args) throws IOException {
         generateTeaColourModels();
@@ -35,13 +41,14 @@ public class ItemModelGenerator {
         for (TeaColour colour : TeaColour.values()) {
             for (int i = 1; i < NbtUtil.MAX_STRENGTH; i ++) {
                 try {
-                    String path = "src/main/resources/assets/" + TantalisingTeas.MOD_ID + "/textures/tea_overlay/" + colour.getId();
-                    File file = new File(path + ".png");
+                    String path = TEXTURES + "/tea_overlay/" + colour.getId();
+                    String format = "png";
+                    File file = new File(path + "." + format);
                     BufferedImage image = ImageIO.read(file);
 
                     // we don't talk about it.
                     // we really don't.
-                    int alpha = 255 / Math.abs(i - NbtUtil.MAX_STRENGTH);
+                    int alpha = (int) (255 / (Math.abs(i - NbtUtil.MAX_STRENGTH) + 0.5));
                     for (int x = 0; x < image.getWidth(); x ++) {
                         for (int y = 0; y < image.getHeight(); y ++) {
                             int rgb = image.getRGB(x, y);
@@ -49,9 +56,9 @@ public class ItemModelGenerator {
                             // ensure that we don't set the rgb of already-transparent pixels
                             if (rgb != 0) {
                                 // we need to reconstruct the entire rgb value so that we can modify the alpha
-                                int blue = rgb & 0xff;
-                                int green = (rgb & 0xff00) >> 8;
-                                int red = (rgb & 0xff0000) >> 16;
+                                int blue = rgb & 0x00ff;
+                                int green = (rgb & 0x00ff00) >> 8;
+                                int red = (rgb & 0x00ff0000) >> 16;
 
                                 int newRgb = (alpha << 24) | (red << 16) | (green << 8) | blue;
 
@@ -61,7 +68,7 @@ public class ItemModelGenerator {
                         }
                     }
 
-                    ImageIO.write(image, "png", new File(path + "_s" + i + ".png"));
+                    ImageIO.write(image, format, new File(path + "_s" + i + "." + format));
                 } catch (IOException ignored) {
                     // this just means we either can't find the source image or can't save the image
                     // in either case we expect the image to be generated manually later
@@ -71,7 +78,7 @@ public class ItemModelGenerator {
     }
 
     private static void generateTeaBottleModel() throws IOException {
-        File file = new File(MODEL_PATH + "item/tea_bottle.json");
+        File file = new File(MODELS + "/item/tea_bottle.json");
 
         try (FileWriter writer = new FileWriter(file)) {
             GSON.toJson(getLatestTeaBottleJson(), writer);
@@ -108,7 +115,7 @@ public class ItemModelGenerator {
         for (TeaColour colour : TeaColour.values()) {
             for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
                 String modelName = "item/" + getName(colour, strength) + "_tea_model.json";
-                File file = new File(MODEL_PATH + modelName);
+                File file = new File(MODELS + "/" + modelName);
 
                 if (file.createNewFile()) {
                     try (FileWriter writer = new FileWriter(file)) {
@@ -127,7 +134,7 @@ public class ItemModelGenerator {
         public ItemModelJson(String parent, Textures textures, List<JsonOverride> overrides) {
             this.parent = parent;
             this.textures = textures;
-            this.overrides = overrides == null ? null :  overrides.toArray(new JsonOverride[TeaColour.values().length * NbtUtil.MAX_STRENGTH]);
+            this.overrides = overrides == null ? null : overrides.toArray(new JsonOverride[TeaColour.values().length * NbtUtil.MAX_STRENGTH]);
         }
 
         @Override
