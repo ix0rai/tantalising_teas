@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import io.ix0rai.tantalisingteas.TantalisingTeas;
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
-import net.minecraft.util.Pair;
+import oshi.util.tuples.Pair;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -33,25 +33,32 @@ public class ItemModelGenerator {
 
     public static void main(String[] args) throws IOException {
         generateTeaColourModels();
-        generateAlternateTransparencyImages();
+        generateImages();
         generateTeaBottleModel();
     }
 
-    private static void generateAlternateTransparencyImages() {
-        for (TeaColour colour : TeaColour.values()) {
-            for (int i = 1; i < NbtUtil.MAX_STRENGTH; i ++) {
-                try {
-                    String path = TEXTURES + "/tea_overlay/" + colour.getId();
-                    String format = "png";
-                    File file = new File(path + "." + format);
-                    BufferedImage image = ImageIO.read(file);
+    private static void generateImages() throws IOException {
+        final List<Pair<Integer, Integer>> doNotSet = new ArrayList<>();
+        doNotSet.add(new Pair<>(10, 10));
+        doNotSet.add(new Pair<>(6, 12));
 
-                    // we don't talk about it.
-                    // we really don't.
-                    int alpha = (int) (255 / (Math.abs(i - NbtUtil.MAX_STRENGTH) + 0.5));
-                    for (int x = 0; x < image.getWidth(); x ++) {
-                        for (int y = 0; y < image.getHeight(); y ++) {
-                            int rgb = image.getRGB(x, y);
+        for (TeaColour colour : TeaColour.values()) {
+            String path = TEXTURES + "/tea_overlay/" + colour.getId();
+            String format = "png";
+
+            BufferedImage originalImage = ImageIO.read(new File(path + "." + format));
+            BufferedImage newImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+            // we don't talk about it.
+            // we really don't.
+            for (int strength = 1; strength < NbtUtil.MAX_STRENGTH; strength ++) {
+                int alpha = (int) (255 / (Math.abs(strength - NbtUtil.MAX_STRENGTH) + 0.5));
+
+                // iterate over every pixel in the image
+                for (int x = 0; x < originalImage.getWidth(); x++) {
+                    for (int y = 0; y < originalImage.getHeight(); y++) {
+                        if (!doNotSet.contains(new Pair<>(x, y))) {
+                            int rgb = originalImage.getRGB(x, y);
 
                             // ensure that we don't set the rgb of already-transparent pixels
                             if (rgb != 0) {
@@ -63,16 +70,13 @@ public class ItemModelGenerator {
                                 int newRgb = (alpha << 24) | (red << 16) | (green << 8) | blue;
 
                                 // set the rgb of the pixel with the new rgb
-                                image.setRGB(x, y, newRgb);
+                                newImage.setRGB(x, y, newRgb);
                             }
                         }
                     }
-
-                    ImageIO.write(image, format, new File(path + "_s" + i + "." + format));
-                } catch (IOException ignored) {
-                    // this just means we either can't find the source image or can't save the image
-                    // in either case we expect the image to be generated manually later
                 }
+
+                ImageIO.write(newImage, format, new File(path + "_s" + strength + "." + format));
             }
         }
     }
