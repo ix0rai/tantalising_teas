@@ -43,16 +43,17 @@ public class ItemModelGenerator {
         doNotSet.add(new Pair<>(6, 12));
 
         for (TeaColour colour : TeaColour.values()) {
-            String path = TEXTURES + "/tea_overlay/" + colour.getId();
+            String path = TEXTURES + "/overlay/generated/" + colour.getId();
+            String sourcePath = TEST + "/resources/assets/" + TantalisingTeas.MOD_ID + "/textures/overlay/source/" + colour.getId();
             String format = "png";
 
-            BufferedImage originalImage = ImageIO.read(new File(path + "." + format));
+            BufferedImage originalImage = ImageIO.read(new File(sourcePath + "." + format));
             BufferedImage newImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
             // we don't talk about it.
             // we really don't.
-            for (int strength = 1; strength < NbtUtil.MAX_STRENGTH; strength ++) {
-                int alpha = (int) (255 / (Math.abs(strength - NbtUtil.MAX_STRENGTH) + 0.5));
+            for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
+                int alpha = (int) (255 / (Math.abs(strength - NbtUtil.MAX_STRENGTH) + (strength != NbtUtil.MAX_STRENGTH ? 0.5 : 0)));
 
                 // iterate over every pixel in the image
                 for (int x = 0; x < originalImage.getWidth(); x++) {
@@ -98,8 +99,7 @@ public class ItemModelGenerator {
 
         for (int i = 0; i < TeaColour.values().length; i ++) {
             TeaColour colour = TeaColour.values()[i];
-            jsonOverrides.add(new JsonOverride(new Predicate(colour.getNumericalId(), NbtUtil.MAX_STRENGTH), colour.getId()));
-            for (int strength = 1; strength < NbtUtil.MAX_STRENGTH; strength ++) {
+            for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
                 jsonOverrides.add(new JsonOverride(new Predicate(colour.getNumericalId(), strength), getName(colour, strength)));
             }
         }
@@ -108,11 +108,11 @@ public class ItemModelGenerator {
     }
 
     static ItemModelJson getJson(TeaColour colour, int strength) {
-        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":tea_overlay/" + getName(colour, strength)), null);
+        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":overlay/generated/" + getName(colour, strength)), null);
     }
 
     static String getName(TeaColour colour, int strength) {
-        return colour.getId() + (strength != NbtUtil.MAX_STRENGTH ? "_s" + strength : "");
+        return colour.getId() + "_s" + strength;
     }
 
     private static void generateTeaColourModels() throws IOException {
