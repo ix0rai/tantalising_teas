@@ -87,9 +87,9 @@ public class ItemModelGenerator {
 
         for (int i = 0; i < TeaColour.values().length; i ++) {
             TeaColour colour = TeaColour.values()[i];
-            jsonOverrides.add(new JsonOverride(new Predicate(colour.getNumericalId()), colour.getId()));
+            jsonOverrides.add(new JsonOverride(new Predicate(colour.getNumericalId(), NbtUtil.MAX_STRENGTH), colour.getId()));
             for (int strength = 1; strength < NbtUtil.MAX_STRENGTH; strength ++) {
-                jsonOverrides.add(new JsonOverride(new Predicate(TeaColour.getModelId(colour, strength)), getName(colour, strength)));
+                jsonOverrides.add(new JsonOverride(new Predicate(colour.getNumericalId(), strength), getName(colour, strength)));
             }
         }
 
@@ -183,10 +183,12 @@ public class ItemModelGenerator {
     }
 
     private static final class Predicate {
-        private final float id;
+        private final int id;
+        private final int strength;
 
-        public Predicate(float id) {
+        public Predicate(int id, int strength) {
             this.id = id;
+            this.strength = strength;
         }
 
         @Override
@@ -194,7 +196,7 @@ public class ItemModelGenerator {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Predicate predicate = (Predicate) o;
-            return id == predicate.id;
+            return id == predicate.id && strength == predicate.strength;
         }
     }
 }

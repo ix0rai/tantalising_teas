@@ -15,13 +15,19 @@ public class TantalisingTeasClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModelPredicateProviderRegistry.register(
-                // fixme
                 TantalisingItems.TEA_BOTTLE, new Identifier("id"),
                 (stack, world, entity, seed) -> {
                     NbtCompound nbt = stack.getNbt();
-                    int strength = NbtUtil.getOverallStrength(nbt);
                     TeaColour colour = TeaColour.getFromIngredients(NbtUtil.getIngredients(nbt));
-                    return TeaColour.getModelId(colour, strength);
+                    return colour.getNumericalId();
+                }
+        );
+
+        ModelPredicateProviderRegistry.register(
+                TantalisingItems.TEA_BOTTLE, new Identifier("strength"),
+                (stack, world, entity, seed) -> {
+                    NbtCompound nbt = stack.getNbt();
+                    return NbtUtil.getOverallStrength(nbt);
                 }
         );
     }
