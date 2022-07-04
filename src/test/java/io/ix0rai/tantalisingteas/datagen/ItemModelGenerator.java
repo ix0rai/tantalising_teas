@@ -121,10 +121,14 @@ public class ItemModelGenerator {
                 String modelName = "item/" + getName(colour, strength) + "_tea_model.json";
                 File file = new File(MODELS + "/" + modelName);
 
-                if (file.createNewFile()) {
-                    try (FileWriter writer = new FileWriter(file)) {
-                        GSON.toJson(getJson(colour, strength), writer);
-                    }
+                if (!file.exists()) {
+                    // suppress wack "return value unused" inspection
+                    // noinspection all
+                    file.createNewFile();
+                }
+
+                try (FileWriter writer = new FileWriter(file)) {
+                    GSON.toJson(getJson(colour, strength), writer);
                 }
             }
         }
