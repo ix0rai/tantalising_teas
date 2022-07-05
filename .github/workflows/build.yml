@@ -17,7 +17,6 @@ jobs:
         run: chmod +x gradlew
       - name: build project
         run: ./gradlew build
-      - name: add files to git
-        run: git add .
-      - name: commit generated files
-        run: git commit -m "update automatically generated files"
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: update automatically generated files
