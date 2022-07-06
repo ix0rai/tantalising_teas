@@ -51,22 +51,23 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new BoilingCauldronBlockEntity(pos, state);
+        return new TantalisingCauldronBlockEntity(pos, state);
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return BlockWithEntityInvoker.invokeCheckType(type, TantalisingBlocks.BOILING_CAULDRON_ENTITY, (w, pos, blockState, boilingCauldron) -> BoilingCauldronBlockEntity.tick(boilingCauldron));
+        return BlockWithEntityInvoker.invokeCheckType(type, TantalisingBlocks.BOILING_CAULDRON_ENTITY, (w, pos, blockState, boilingCauldron) -> TantalisingCauldronBlockEntity.tick(boilingCauldron));
     }
 
     public static void addBehaviour() {
         HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(Util.TEA_INGREDIENTS);
         teaIngredients.forEach((Holder<Item> item) -> BEHAVIOUR.put(item.value(), BoilingCauldron::addIngredient));
+        CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(TantalisingItems.TEA_BOTTLE, StillCauldron::increaseLevel);
     }
 
     public static ActionResult addIngredient(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if (!world.isClient) {
-            Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
+            Optional<TantalisingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
             if (entity.isPresent()) {
                 entity.get().addStack(stack);
 
@@ -116,8 +117,12 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
         }
     }
 
-    private static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
-        Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
+    static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
+        //todo: investigate jank with still cauldron
+        Optional<TantalisingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
+        if (entity.isEmpty()) {
+            entity = world.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);
+        }
 
         if (isStateEmpty(state) || entity.isEmpty() || entity.get().getIngredients().isEmpty()) {
             return ActionResult.PASS;
@@ -138,27 +143,6 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
             }
 
             return ActionResult.success(world.isClient);
-        }
-    }
-
-    private static void useCauldronWith(PlayerEntity player, ItemStack stack) {
-        player.incrementStat(Stats.USE_CAULDRON);
-        player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
-    }
-
-    public static boolean isStateFull(BlockState state) {
-        try {
-            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) >= 3;
-        } catch (IllegalArgumentException ignored) {
-            return false;
-        }
-    }
-
-    public static boolean isStateEmpty(BlockState state) {
-        try {
-            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) <= 0;
-        } catch (IllegalArgumentException ignored) {
-            return true;
         }
     }
 }

@@ -3,8 +3,11 @@ package io.ix0rai.tantalisingteas.blocks;
 import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -42,5 +45,27 @@ public abstract class TantalisingCauldronBlock extends LeveledCauldronBlock impl
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    protected static void useCauldronWith(PlayerEntity player, ItemStack stack) {
+        player.incrementStat(Stats.USE_CAULDRON);
+        player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+    }
+
+
+    protected static boolean isStateFull(BlockState state) {
+        try {
+            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) >= 3;
+        } catch (IllegalArgumentException ignored) {
+            return false;
+        }
+    }
+
+    protected static boolean isStateEmpty(BlockState state) {
+        try {
+            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) <= 0;
+        } catch (IllegalArgumentException ignored) {
+            return true;
+        }
     }
 }

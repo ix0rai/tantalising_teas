@@ -190,6 +190,10 @@ public class NbtUtil {
         return Registry.ITEM.get(id).getDefaultStack().isIn(Util.TEA_INGREDIENTS);
     }
 
+    public static boolean containsIngredientKey(NbtCompound nbt) {
+        return nbt.contains(INGREDIENTS_KEY);
+    }
+
     public static int getTicksSinceStrengthIncrease(NbtCompound ingredient) {
         return ingredient.getInt(TICKS_SINCE_STRENGTH_INCREASE_KEY);
     }

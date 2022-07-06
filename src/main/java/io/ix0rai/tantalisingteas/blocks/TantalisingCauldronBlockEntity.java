@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
@@ -13,11 +14,11 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
-public class BoilingCauldronBlockEntity extends BlockEntity {
+public class TantalisingCauldronBlockEntity extends BlockEntity {
     private static final int TICKS_BEFORE_STRENGTH_INCREASE = 1500;
     private final NbtList ingredients = new NbtList();
 
-    public BoilingCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public TantalisingCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(TantalisingBlocks.BOILING_CAULDRON_ENTITY, blockPos, blockState);
     }
 
@@ -26,7 +27,7 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
         return BlockEntityUpdateS2CPacket.of(this);
     }
 
-    public static void tick(BoilingCauldronBlockEntity boilingCauldron) {
+    public static void tick(TantalisingCauldronBlockEntity boilingCauldron) {
         NbtList items = boilingCauldron.getIngredients();
 
         for (int i = 0; i < items.size(); i++) {
@@ -68,8 +69,12 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
     }
 
     public void addData(NbtCompound compound) {
-        if (compound != null && !compound.isEmpty() && NbtUtil.isTeaIngredient(compound)) {
-            ingredients.add(compound);
+        if (compound != null && !compound.isEmpty()) {
+            if (NbtUtil.containsIngredientKey(compound)) {
+                ingredients.addAll(NbtUtil.getIngredients(compound));
+            } else if (NbtUtil.isTeaIngredient(compound)) {
+                ingredients.add(compound);
+            }
         }
     }
 
