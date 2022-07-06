@@ -17,8 +17,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.WorldChunk;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -50,15 +52,13 @@ public class StillCauldron extends TantalisingCauldronBlock {
                 world.setBlockState(pos, state.with(LEVEL, level + 1));
             } else {
                 world.setBlockState(pos, TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1));
-                entity = world.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);
+                entity = Optional.of((TantalisingCauldronBlockEntity) Objects.requireNonNull(world.getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE)));
             }
 
-            if (entity.isPresent()) {
-                entity.get().addData(stack.getNbt());
+            entity.get().addData(stack.getNbt());
 
-                world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                useCauldronWith(player, stack);
-            }
+            world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+            useCauldronWith(player, stack);
         }
 
         return ActionResult.success(world.isClient);

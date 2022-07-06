@@ -5,7 +5,6 @@ import io.ix0rai.tantalisingteas.data.Util;
 import io.ix0rai.tantalisingteas.mixin.BlockWithEntityInvoker;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
-import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -21,7 +20,6 @@ import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Holder;
@@ -118,7 +116,6 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
     }
 
     static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
-        //todo: investigate jank with still cauldron
         Optional<TantalisingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
         if (entity.isEmpty()) {
             entity = world.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);

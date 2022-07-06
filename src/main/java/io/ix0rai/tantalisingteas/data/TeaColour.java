@@ -69,14 +69,6 @@ public enum TeaColour {
         }
     }
 
-    public static float getModelId(TeaColour colour, int strength) {
-        if (strength == NbtUtil.MAX_STRENGTH) {
-            return colour.numericalId;
-        } else {
-            return (float) (colour.numericalId + (strength / 10.0));
-        }
-    }
-
     public static TeaColour get(String id) {
         return TeaColour.valueOf(id.toUpperCase());
     }

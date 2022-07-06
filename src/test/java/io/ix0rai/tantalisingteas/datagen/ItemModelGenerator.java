@@ -94,7 +94,7 @@ public class ItemModelGenerator {
         return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":item/tea_bottle_overlay"), generateLatestOverrides());
     }
 
-    static List<JsonOverride> generateLatestOverrides() {
+    static JsonOverride[] generateLatestOverrides() {
         List<JsonOverride> jsonOverrides = new ArrayList<>();
 
         for (int i = 0; i < TeaColour.values().length; i ++) {
@@ -104,7 +104,7 @@ public class ItemModelGenerator {
             }
         }
 
-        return jsonOverrides;
+        return jsonOverrides.toArray(new JsonOverride[TeaColour.values().length * NbtUtil.MAX_STRENGTH]);
     }
 
     static ItemModelJson getJson(TeaColour colour, int strength) {
@@ -134,15 +134,17 @@ public class ItemModelGenerator {
         }
     }
 
+    // classes cannot be records because gson cannot decode to a record
+
     static class ItemModelJson {
         private final String parent;
         private final Textures textures;
         private final JsonOverride[] overrides;
 
-        public ItemModelJson(String parent, Textures textures, List<JsonOverride> overrides) {
+        public ItemModelJson(String parent, Textures textures, JsonOverride[] overrides) {
             this.parent = parent;
             this.textures = textures;
-            this.overrides = overrides == null ? null : overrides.toArray(new JsonOverride[TeaColour.values().length * NbtUtil.MAX_STRENGTH]);
+            this.overrides = overrides;
         }
 
         @Override
@@ -151,13 +153,6 @@ public class ItemModelGenerator {
             if (o == null || getClass() != o.getClass()) return false;
             ItemModelJson that = (ItemModelJson) o;
             return Objects.equals(parent, that.parent) && Objects.equals(textures, that.textures) && Arrays.equals(overrides, that.overrides);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = Objects.hash(parent, textures);
-            result = 31 * result + Arrays.hashCode(overrides);
-            return result;
         }
     }
 
