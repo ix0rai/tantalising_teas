@@ -51,10 +51,12 @@ public class StillCauldron extends TantalisingCauldronBlock {
                 int level = state.get(LEVEL);
                 world.setBlockState(pos, state.with(LEVEL, level + 1));
             } else {
-                //todo the problem with tea cauldrons rendering sans data may be because we set this before creating the block entity
-                //todo can we force a reload of the colour provider when the block entity is created?
-                world.setBlockState(pos, TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1));
+                BlockState newState = TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1);
+                // we have to set the block state before getting the block entity because otherwise minecraft will not know what type to create
+                world.setBlockState(pos, newState);
                 entity = Optional.of((StillCauldronBlockEntity) Objects.requireNonNull(world.getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE)));
+                // hack: force the colour provider to be reloaded
+                world.setBlockState(pos, TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1));
             }
 
             entity.get().addData(stack.getNbt());
