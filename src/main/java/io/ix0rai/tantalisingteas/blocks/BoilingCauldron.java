@@ -16,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundCategory;
@@ -25,6 +26,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Holder;
 import net.minecraft.util.HolderSet;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -49,12 +51,12 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TantalisingCauldronBlockEntity(pos, state);
+        return new BoilingCauldronBlockEntity(pos, state);
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return BlockWithEntityInvoker.invokeCheckType(type, TantalisingBlocks.BOILING_CAULDRON_ENTITY, (w, pos, blockState, boilingCauldron) -> TantalisingCauldronBlockEntity.tick(boilingCauldron));
+        return BlockWithEntityInvoker.invokeCheckType(type, TantalisingBlocks.BOILING_CAULDRON_ENTITY, (w, pos, blockState, boilingCauldron) -> BoilingCauldronBlockEntity.tick(boilingCauldron));
     }
 
     public static void addBehaviour() {
@@ -65,7 +67,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
 
     public static ActionResult addIngredient(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if (!world.isClient) {
-            Optional<TantalisingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
+            Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
             if (entity.isPresent()) {
                 entity.get().addStack(stack);
 
@@ -116,19 +118,19 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
     }
 
     static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
-        Optional<TantalisingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
-        if (entity.isEmpty()) {
-            entity = world.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);
+        Optional<BoilingCauldronBlockEntity> boilingEntity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
+        Optional<StillCauldronBlockEntity> stillEntity = Optional.empty();
+        if (boilingEntity.isEmpty()) {
+            stillEntity = world.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);
         }
 
-        if (isStateEmpty(state) || entity.isEmpty() || entity.get().getIngredients().isEmpty()) {
+        if (isStateEmpty(state)
+                || (boilingEntity.isEmpty() || boilingEntity.get().getIngredients().isEmpty())
+                && (stillEntity.isEmpty() || stillEntity.get().getIngredients().isEmpty())) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
-                for (int i = 0; i < entity.get().getIngredients().size(); i ++) {
-                    NbtUtil.addIngredient(output, entity.get().getIngredients().getCompound(i), world.random);
-                }
-
+                appendIngredients(output, stillEntity.isPresent() ? stillEntity.get().getIngredients() : boilingEntity.get().getIngredients(), world.random);
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
 
                 int level = state.get(LEVEL);
@@ -140,6 +142,12 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
             }
 
             return ActionResult.success(world.isClient);
+        }
+    }
+
+    private static void appendIngredients(ItemStack output, NbtList ingredients, RandomGenerator random) {
+        for (int i = 0; i < ingredients.size(); i ++) {
+            NbtUtil.addIngredient(output, ingredients.getCompound(i), random);
         }
     }
 }

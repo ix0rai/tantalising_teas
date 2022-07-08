@@ -1,6 +1,6 @@
 package io.ix0rai.tantalisingteas.client;
 
-import io.ix0rai.tantalisingteas.blocks.TantalisingCauldronBlockEntity;
+import io.ix0rai.tantalisingteas.blocks.StillCauldronBlockEntity;
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
@@ -39,9 +39,12 @@ public class TantalisingTeasClient implements ClientModInitializer {
 
             if (view != null) {
                 //todo: reliably get the block entity - it's not always present and we need to find a way to fix that
-                var entity = (TantalisingCauldronBlockEntity) view.getBlockEntity(pos);
-                String hexString = TeaColour.getFromIngredients(entity.getIngredients()).getHex(NbtUtil.getOverallStrength(entity.getIngredients()));
-                hex = Long.parseLong(hexString, 16);
+                var entity = view.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);
+                if (entity.isPresent()) {
+                    StillCauldronBlockEntity blockEntity = entity.get();
+                    String hexString = TeaColour.getFromIngredients(blockEntity.getIngredients()).getHex(NbtUtil.getOverallStrength(blockEntity.getIngredients()));
+                    hex = Long.parseLong(hexString, 16);
+                }
             }
 
             return (int) hex;

@@ -4,6 +4,7 @@ import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -13,12 +14,16 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
-public class TantalisingCauldronBlockEntity extends BlockEntity {
+public class BoilingCauldronBlockEntity extends BlockEntity {
     private static final int TICKS_BEFORE_STRENGTH_INCREASE = 1500;
     private final NbtList ingredients = new NbtList();
 
-    public TantalisingCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public BoilingCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(TantalisingBlocks.BOILING_CAULDRON_ENTITY, blockPos, blockState);
+    }
+
+    protected BoilingCauldronBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState) {
+        super(type, blockPos, blockState);
     }
 
     @Override
@@ -26,7 +31,7 @@ public class TantalisingCauldronBlockEntity extends BlockEntity {
         return BlockEntityUpdateS2CPacket.of(this);
     }
 
-    public static void tick(TantalisingCauldronBlockEntity boilingCauldron) {
+    public static void tick(BoilingCauldronBlockEntity boilingCauldron) {
         NbtList items = boilingCauldron.getIngredients();
 
         for (int i = 0; i < items.size(); i++) {
@@ -67,12 +72,12 @@ public class TantalisingCauldronBlockEntity extends BlockEntity {
         NbtUtil.updateIngredients(ingredients, tag);
     }
 
-    public void addData(NbtCompound compound) {
-        if (compound != null && !compound.isEmpty()) {
-            if (NbtUtil.containsIngredientKey(compound)) {
-                ingredients.addAll(NbtUtil.getIngredients(compound));
-            } else if (NbtUtil.isTeaIngredient(compound)) {
-                ingredients.add(compound);
+    public void addData(NbtCompound data) {
+        if (data != null && !data.isEmpty()) {
+            if (NbtUtil.containsIngredientKey(data)) {
+                ingredients.addAll(NbtUtil.getIngredients(data));
+            } else if (NbtUtil.isTeaIngredient(data)) {
+                ingredients.add(data);
             }
         }
     }

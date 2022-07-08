@@ -38,12 +38,12 @@ public class StillCauldron extends TantalisingCauldronBlock {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TantalisingCauldronBlockEntity(pos, state);
+        return new StillCauldronBlockEntity(pos, state);
     }
 
     public static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if (!world.isClient && !isStateFull(state)) {
-            Optional<TantalisingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
+            Optional<StillCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);
 
             player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 
@@ -51,8 +51,10 @@ public class StillCauldron extends TantalisingCauldronBlock {
                 int level = state.get(LEVEL);
                 world.setBlockState(pos, state.with(LEVEL, level + 1));
             } else {
+                //todo the problem with tea cauldrons rendering sans data may be because we set this before creating the block entity
+                //todo can we force a reload of the colour provider when the block entity is created?
                 world.setBlockState(pos, TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1));
-                entity = Optional.of((TantalisingCauldronBlockEntity) Objects.requireNonNull(world.getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE)));
+                entity = Optional.of((StillCauldronBlockEntity) Objects.requireNonNull(world.getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE)));
             }
 
             entity.get().addData(stack.getNbt());
