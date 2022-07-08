@@ -70,7 +70,7 @@ public class NbtUtil {
         if (primaryIngredient != null) {
             NbtCompound nbt = stack.getNbt();
             // format strength so that it can be used to pull from the array of strings
-            int strength = (int) (Math.round((double) getOverallStrength(nbt) / 2) - 1);
+            int strength = (int) (Math.round((double) getOverallStrength(getIngredients(nbt)) / 2) - 1);
 
             String name = Util.translate(Util.BOTTLE) + " " + Util.translate(Util.OF)
                     + (strength == 2 ? "" : " " + Util.translate(Util.STRENGTHS[strength]))
@@ -97,12 +97,10 @@ public class NbtUtil {
 
     /**
      * gets the overall strength of the nbt's ingredient values
-     * @param nbt the nbt to get the strength of
+     * @param ingredients the nbt ingredients to get the strength of
      * @return the overall strength of the nbt, formatted as an index of {@link Util#STRENGTHS}
      */
-    public static int getOverallStrength(NbtCompound nbt) {
-        NbtList ingredients = getIngredients(nbt);
-
+    public static int getOverallStrength(NbtList ingredients) {
         // protect from / by zero error
         if (ingredients.isEmpty()) {
             return 1;

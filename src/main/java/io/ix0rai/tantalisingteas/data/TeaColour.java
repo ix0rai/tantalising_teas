@@ -279,6 +279,14 @@ public enum TeaColour {
         return Math.abs(this.red - r) + Math.abs(this.green - g) + Math.abs(this.blue - b);
     }
 
+    public String getHex(int strength) {
+        return String.format("%02x%02x%02x%02x", getAlpha(strength), red, green, blue);
+    }
+
+    public static int getAlpha(int strength) {
+        return (int) (255 / (Math.abs(strength - NbtUtil.MAX_STRENGTH) + (strength != NbtUtil.MAX_STRENGTH ? 0.5 : 0)));
+    }
+
     public String getId() {
         return this.id;
     }

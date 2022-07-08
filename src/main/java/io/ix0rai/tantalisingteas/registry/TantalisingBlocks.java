@@ -28,6 +28,6 @@ public class TantalisingBlocks {
     private static void registerBlockWithEntity(String id, Block block, BlockEntityType<?> entityType) {
         Identifier identifier = TantalisingTeas.id(id);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, TantalisingTeas.id(identifier.getPath() + "_entity"), entityType);
-        Registry.register(Registry.BLOCK, id, block);
+        Registry.register(Registry.BLOCK, identifier, block);
     }
 }

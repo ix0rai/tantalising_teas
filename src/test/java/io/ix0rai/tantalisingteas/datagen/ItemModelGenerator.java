@@ -53,7 +53,7 @@ public class ItemModelGenerator {
             // we don't talk about it.
             // we really don't.
             for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
-                int alpha = (int) (255 / (Math.abs(strength - NbtUtil.MAX_STRENGTH) + (strength != NbtUtil.MAX_STRENGTH ? 0.5 : 0)));
+                int alpha = TeaColour.getAlpha(strength);
 
                 // iterate over every pixel in the image
                 for (int x = 0; x < originalImage.getWidth(); x++) {
