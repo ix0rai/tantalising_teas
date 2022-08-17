@@ -26,10 +26,14 @@ public class ItemModelGenerator {
     static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     static final String SRC = "src";
     static final String MAIN = SRC + "/" + "main";
-    static final String TEST = SRC + "/" + "test";
     static final String ASSETS = MAIN + "/resources/assets/" + TantalisingTeas.MOD_ID;
     static final String MODELS = ASSETS + "/models";
+    static final String ITEM_MODELS = MODELS + "/item";
     static final String TEXTURES = ASSETS + "/textures";
+    static final String OVERLAY = TEXTURES + "/overlay";
+    static final String OVERLAY_GENERATED = TEXTURES + "/overlay/generated";
+
+    static final String TEST_VALIDATION = SRC + "/" + "test/resources/data/" + TantalisingTeas.MOD_ID + "/validation";
 
     public static void main(String[] args) throws IOException {
         generateTeaColourModels();
@@ -43,8 +47,8 @@ public class ItemModelGenerator {
         doNotSet.add(new Pair<>(6, 12));
 
         for (TeaColour colour : TeaColour.values()) {
-            String path = TEXTURES + "/overlay/generated/" + colour.getId();
-            String sourcePath = TEST + "/resources/assets/" + TantalisingTeas.MOD_ID + "/textures/overlay/source/" + colour.getId();
+            String path = OVERLAY_GENERATED + "/" + colour.getId();
+            String sourcePath = OVERLAY + "/" + colour.getId();
             String format = "png";
 
             BufferedImage originalImage = ImageIO.read(new File(sourcePath + "." + format));
@@ -83,7 +87,7 @@ public class ItemModelGenerator {
     }
 
     private static void generateTeaBottleModel() throws IOException {
-        File file = new File(MODELS + "/item/tea_bottle.json");
+        File file = new File(ITEM_MODELS + "/tea_bottle.json");
 
         try (FileWriter writer = new FileWriter(file)) {
             GSON.toJson(getLatestTeaBottleJson(), writer);
@@ -134,8 +138,6 @@ public class ItemModelGenerator {
         }
     }
 
-    // classes cannot be records because gson cannot decode to a record
-
     static class ItemModelJson {
         private final String parent;
         private final Textures textures;
@@ -155,6 +157,8 @@ public class ItemModelGenerator {
             return Objects.equals(parent, that.parent) && Objects.equals(textures, that.textures) && Arrays.equals(overrides, that.overrides);
         }
     }
+
+    // classes cannot be records because gson cannot decode to a record
 
     private static final class Textures {
         private final String layer0;

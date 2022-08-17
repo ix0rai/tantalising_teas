@@ -17,6 +17,8 @@ jobs:
           java-version: '17'
       - name: grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: generate item models
+        run: ./gradlew generateItemModels
       - name: build project
         run: ./gradlew build
       - uses: stefanzweifel/git-auto-commit-action@v4
