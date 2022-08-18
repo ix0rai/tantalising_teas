@@ -124,13 +124,21 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
             stillEntity = world.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);
         }
 
-        if (isStateEmpty(state)
-                || (boilingEntity.isEmpty() || boilingEntity.get().getIngredients().isEmpty())
-                && (stillEntity.isEmpty() || stillEntity.get().getIngredients().isEmpty())) {
+        if (isStateEmpty(state)) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
-                appendIngredients(output, stillEntity.isPresent() ? stillEntity.get().getIngredients() : boilingEntity.get().getIngredients(), world.random);
+                // return water bottle if no ingredients are present
+                if ((boilingEntity.isEmpty() || boilingEntity.get().getIngredients().isEmpty())
+                        && (stillEntity.isEmpty() || stillEntity.get().getIngredients().isEmpty())) {
+                    player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
+                    output = PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.WATER);
+                } else {
+                    // otherwise, append ingredients from previously existing block entity
+                    appendIngredients(output, stillEntity.isPresent() ? stillEntity.get().getIngredients() : boilingEntity.get().getIngredients(), world.random);
+                }
+
+
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
 
                 int level = state.get(LEVEL);
