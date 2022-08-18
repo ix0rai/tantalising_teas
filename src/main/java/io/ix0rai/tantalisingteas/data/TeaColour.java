@@ -63,7 +63,8 @@ public enum TeaColour {
         for (TeaColour colour : TeaColour.values()) {
             for (TeaColour colour2 : TeaColour.values()) {
                 if (colour.numericalId == colour2.numericalId && !colour.getId().equals(colour2.getId())) {
-                    throw new InvalidParameterException("cannot have two TeaColours with the same numerical id (offenders: " + colour.getId() + ", " + colour.numericalId + " and " + colour2.getId() + ", " + colour2.numericalId);
+                    throw new InvalidParameterException("cannot have two TeaColours with the same numerical id "
+                            + "(offenders: " + colour.getId() + ", " + colour.numericalId + " and " + colour2.getId() + ", " + colour2.numericalId);
                 }
             }
         }
