@@ -4,7 +4,6 @@ import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -20,10 +19,6 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
 
     public BoilingCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(TantalisingBlocks.BOILING_CAULDRON_ENTITY, blockPos, blockState);
-    }
-
-    protected BoilingCauldronBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState) {
-        super(type, blockPos, blockState);
     }
 
     @Override

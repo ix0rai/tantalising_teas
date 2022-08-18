@@ -118,26 +118,20 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
     }
 
     static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
-        Optional<BoilingCauldronBlockEntity> boilingEntity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
-        Optional<StillCauldronBlockEntity> stillEntity = Optional.empty();
-        if (boilingEntity.isEmpty()) {
-            stillEntity = world.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);
-        }
+        Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
 
         if (isStateEmpty(state)) {
             return ActionResult.PASS;
         } else {
             if (!world.isClient) {
                 // return water bottle if no ingredients are present
-                if ((boilingEntity.isEmpty() || boilingEntity.get().getIngredients().isEmpty())
-                        && (stillEntity.isEmpty() || stillEntity.get().getIngredients().isEmpty())) {
+                if (entity.isEmpty() || entity.get().getIngredients().isEmpty()) {
                     player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
                     output = PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.WATER);
                 } else {
                     // otherwise, append ingredients from previously existing block entity
-                    appendIngredients(output, stillEntity.isPresent() ? stillEntity.get().getIngredients() : boilingEntity.get().getIngredients(), world.random);
+                    appendIngredients(output, entity.get().getIngredients(), world.random);
                 }
-
 
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
 

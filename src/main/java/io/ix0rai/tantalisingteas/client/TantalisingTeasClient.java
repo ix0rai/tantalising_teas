@@ -1,6 +1,5 @@
 package io.ix0rai.tantalisingteas.client;
 
-import io.ix0rai.tantalisingteas.blocks.BoilingCauldronBlockEntity;
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
@@ -9,7 +8,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.nbt.NbtCompound;
@@ -39,18 +37,18 @@ public class TantalisingTeasClient implements ClientModInitializer {
                 }
         );
 
-        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getHexFor(view, pos, TantalisingBlocks.STILL_CAULDRON_ENTITY), TantalisingBlocks.STILL_CAULDRON);
-        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getHexFor(view, pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY), TantalisingBlocks.BOILING_CAULDRON);
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getHexFor(view, pos), TantalisingBlocks.STILL_CAULDRON);
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getHexFor(view, pos), TantalisingBlocks.BOILING_CAULDRON);
     }
 
-    private int getHexFor(BlockRenderView view, BlockPos pos, BlockEntityType<?> blockEntityType) {
+    private int getHexFor(BlockRenderView view, BlockPos pos) {
         long hex = 0xff000000;
 
         if (view != null) {
-            var entity = view.getBlockEntity(pos, blockEntityType);
+            var entity = view.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
             if (entity.isPresent()) {
                 var blockEntity = entity.get();
-                NbtList ingredients = ((BoilingCauldronBlockEntity) blockEntity).getIngredients();
+                NbtList ingredients = blockEntity.getIngredients();
                 if (ingredients.isEmpty()) {
                     return BiomeColors.getWaterColor(view, pos);
                 }

@@ -4,7 +4,6 @@ import io.ix0rai.tantalisingteas.TantalisingTeas;
 import io.ix0rai.tantalisingteas.blocks.BoilingCauldron;
 import io.ix0rai.tantalisingteas.blocks.BoilingCauldronBlockEntity;
 import io.ix0rai.tantalisingteas.blocks.StillCauldron;
-import io.ix0rai.tantalisingteas.blocks.StillCauldronBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -19,16 +18,17 @@ public class TantalisingBlocks {
     public static final BlockEntityType<BoilingCauldronBlockEntity> BOILING_CAULDRON_ENTITY = FabricBlockEntityTypeBuilder.create(BoilingCauldronBlockEntity::new, BOILING_CAULDRON).build(null);
 
     public static final StillCauldron STILL_CAULDRON = new StillCauldron(AbstractBlock.Settings.copy(Blocks.CAULDRON), LeveledCauldronBlock.RAIN_PREDICATE);
-    public static final BlockEntityType<StillCauldronBlockEntity> STILL_CAULDRON_ENTITY = FabricBlockEntityTypeBuilder.create(StillCauldronBlockEntity::new, STILL_CAULDRON).build(null);
 
     public static void register() {
-        registerBlockWithEntity("boiling_cauldron", BOILING_CAULDRON, BOILING_CAULDRON_ENTITY);
-        registerBlockWithEntity("still_cauldron", STILL_CAULDRON, STILL_CAULDRON_ENTITY);
+        String boilingCauldron = "boiling_cauldron";
+        registerBlock(boilingCauldron, BOILING_CAULDRON);
+        registerBlock("still_cauldron", STILL_CAULDRON);
+
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, TantalisingTeas.id(boilingCauldron + "_entity"), BOILING_CAULDRON_ENTITY);
     }
 
-    private static void registerBlockWithEntity(String id, Block block, BlockEntityType<?> entityType) {
+    private static void registerBlock(String id, Block block) {
         Identifier identifier = TantalisingTeas.id(id);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, TantalisingTeas.id(identifier.getPath() + "_entity"), entityType);
         Registry.register(Registry.BLOCK, identifier, block);
     }
 }

@@ -38,12 +38,12 @@ public class StillCauldron extends TantalisingCauldronBlock {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new StillCauldronBlockEntity(pos, state);
+        return new BoilingCauldronBlockEntity(pos, state);
     }
 
     public static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if (!world.isClient && !isStateFull(state)) {
-            Optional<StillCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.STILL_CAULDRON_ENTITY);
+            Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
 
             player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 
@@ -54,7 +54,7 @@ public class StillCauldron extends TantalisingCauldronBlock {
                 BlockState newState = TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1);
                 // we have to set the block state before getting the block entity because otherwise minecraft will not know what type to create
                 world.setBlockState(pos, newState);
-                entity = Optional.of((StillCauldronBlockEntity) Objects.requireNonNull(world.getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE)));
+                entity = Optional.of((BoilingCauldronBlockEntity) Objects.requireNonNull(world.getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE)));
                 // hack: force the colour provider to be reloaded
                 world.setBlockState(pos, TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1));
             }
