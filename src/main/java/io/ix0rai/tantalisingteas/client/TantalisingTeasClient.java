@@ -10,12 +10,13 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.BlockRenderView;
 
 @Environment(EnvType.CLIENT)
 public class TantalisingTeasClient implements ClientModInitializer {
@@ -42,7 +43,7 @@ public class TantalisingTeasClient implements ClientModInitializer {
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getHexFor(view, pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY), TantalisingBlocks.BOILING_CAULDRON);
     }
 
-    private int getHexFor(BlockView view, BlockPos pos, BlockEntityType<?> blockEntityType) {
+    private int getHexFor(BlockRenderView view, BlockPos pos, BlockEntityType<?> blockEntityType) {
         long hex = 0xff000000;
 
         if (view != null) {
@@ -50,6 +51,9 @@ public class TantalisingTeasClient implements ClientModInitializer {
             if (entity.isPresent()) {
                 var blockEntity = entity.get();
                 NbtList ingredients = ((BoilingCauldronBlockEntity) blockEntity).getIngredients();
+                if (ingredients.isEmpty()) {
+                    return BiomeColors.getWaterColor(view, pos);
+                }
                 String hexString = TeaColour.getFromIngredients(ingredients).getHex(NbtUtil.getOverallStrength(ingredients));
                 hex = Long.parseLong(hexString, 16);
             }
