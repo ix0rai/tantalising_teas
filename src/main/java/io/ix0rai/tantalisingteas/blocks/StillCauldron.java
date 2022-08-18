@@ -1,8 +1,11 @@
 package io.ix0rai.tantalisingteas.blocks;
 
+import io.ix0rai.tantalisingteas.mixin.ChunkAccessor;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +23,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.WorldChunk;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -41,6 +43,7 @@ public class StillCauldron extends TantalisingCauldronBlock {
         return new BoilingCauldronBlockEntity(pos, state);
     }
 
+    @SuppressWarnings("deprecation")
     public static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if (!world.isClient && !isStateFull(state)) {
             Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
@@ -52,14 +55,19 @@ public class StillCauldron extends TantalisingCauldronBlock {
                 world.setBlockState(pos, state.with(LEVEL, level + 1));
             } else {
                 BlockState newState = TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1);
-                // we have to set the block state before getting the block entity because otherwise minecraft will not know what type to create
-                world.setBlockState(pos, newState);
-                entity = Optional.of((BoilingCauldronBlockEntity) Objects.requireNonNull(world.getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE)));
-                // hack: force the colour provider to be reloaded
-                world.setBlockState(pos, TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1));
-            }
 
-            entity.get().addData(stack.getNbt());
+                // create block entity
+                WorldChunk chunk = world.getWorldChunk(pos);
+                BoilingCauldronBlockEntity blockEntity = new BoilingCauldronBlockEntity(pos, newState);
+                blockEntity.addData(stack.getNbt());
+                ((ChunkAccessor) chunk).getBlockEntities().put(pos, blockEntity);
+
+                // set block state
+                world.setBlockState(pos, newState, Block.NOTIFY_ALL);
+
+                // this reloads the block's colour provider
+                world.getBlockState(pos).getBlock().neighborUpdate(newState, world, pos, Blocks.AIR, pos.up(), false);
+            }
 
             world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
             useCauldronWith(player, stack);
