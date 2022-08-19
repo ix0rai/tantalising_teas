@@ -38,7 +38,6 @@ public enum TeaColour {
     BROWN(76, 50, 40, 11, 24);
 
     private final int numericalId;
-    private final String id;
     private final int red;
     private final int green;
     private final int blue;
@@ -46,7 +45,6 @@ public enum TeaColour {
 
     TeaColour(int r, int g, int b, int priority, int numericalId) {
         this.numericalId = numericalId;
-        this.id = this.name().toLowerCase();
         this.red = r;
         this.green = g;
         this.blue = b;
@@ -63,10 +61,6 @@ public enum TeaColour {
                 }
             }
         }
-    }
-
-    public static TeaColour get(String id) {
-        return TeaColour.valueOf(id.toUpperCase());
     }
 
     public static TeaColour getHighestPriority(TeaColour[] colours) {
@@ -229,7 +223,7 @@ public enum TeaColour {
     }
 
     public String getId() {
-        return this.id;
+        return this.name().toLowerCase();
     }
 
     public int getNumericalId() {
