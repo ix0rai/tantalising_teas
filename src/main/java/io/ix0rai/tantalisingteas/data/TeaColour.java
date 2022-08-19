@@ -64,13 +64,11 @@ public enum TeaColour {
     }
 
     public static TeaColour getHighestPriority(TeaColour[] colours) {
-        TeaColour highestPriority = BLACK;
+        TeaColour highestPriority = colours[0];
 
-        if (colours != null) {
-            for (TeaColour colour : colours) {
-                if (colour != null && colour.priority < highestPriority.priority) {
-                    highestPriority = colour;
-                }
+        for (TeaColour colour : colours) {
+            if (colour != null && colour.priority < highestPriority.priority) {
+                highestPriority = colour;
             }
         }
 
@@ -83,18 +81,14 @@ public enum TeaColour {
         // assemble a map of colours and their number of occurrences
         for (int x = 0; x < texture.getWidth(); x ++) {
             for (int y = 0; y < texture.getHeight(); y ++) {
-                int r = texture.getRed(x, y);
-                int g = texture.getGreen(x, y);
-                int b = texture.getBlue(x, y);
+                // get the colour of the pixels and convert them to 0 - 255 values
+                int r = texture.getRed(x, y) & 0xFF;
+                int g = texture.getGreen(x, y) & 0xFF;
+                int b = texture.getBlue(x, y) & 0xFF;
 
                 // calculate transparency
                 try {
-                    int t = texture.getPixelOpacity(x, y);
-                    r -= t;
-                    g -= t;
-                    b -= t;
-
-                    // filter out entirely transparent pixels
+                    // ignore really light pixels
                     if (r == 0 && g == 0 && b == 0) {
                         continue;
                     }
@@ -228,5 +222,10 @@ public enum TeaColour {
 
     public int getNumericalId() {
         return this.numericalId;
+    }
+
+    @Override
+    public String toString() {
+        return this.getId();
     }
 }
