@@ -1,14 +1,9 @@
 package io.ix0rai.tantalisingteas.data;
 
 import com.mojang.blaze3d.texture.NativeImage;
-import io.ix0rai.tantalisingteas.mixin.render.SpriteAccessor;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.BakedModelManager;
-import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.item.ItemStack;
+import io.ix0rai.tantalisingteas.client.TantalisingTeasClient;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.util.Identifier;
 
 import java.security.InvalidParameterException;
 import java.util.EnumMap;
@@ -88,7 +83,7 @@ public enum TeaColour {
         return highestPriority;
     }
 
-    private static Map<TeaColour, Integer> getColourOccurrences(NativeImage texture) {
+    public static Map<TeaColour, Integer> getColourOccurrences(NativeImage texture) {
         Map<TeaColour, Integer> colours = new EnumMap<>(TeaColour.class);
 
         // assemble a map of colours and their number of occurrences
@@ -121,7 +116,7 @@ public enum TeaColour {
         return colours;
     }
 
-    private static void cleanupRareColours(Map<TeaColour, Integer> colours) {
+    public static void cleanupRareColours(Map<TeaColour, Integer> colours) {
         // get average reoccurrences of colour
         int averageOccurrences = 0;
         for (int number : colours.values()) {
@@ -139,7 +134,7 @@ public enum TeaColour {
         }
     }
 
-    private static TeaColour[] collectMostSaturatedColours(Map<TeaColour, Integer> colours) {
+    public static TeaColour[] collectMostSaturatedColours(Map<TeaColour, Integer> colours) {
         // assemble top three most saturated colours
         TeaColour[] mostSaturatedColours = new TeaColour[3];
         boolean full = false;
@@ -178,54 +173,6 @@ public enum TeaColour {
     }
 
     /**
-     * {@code WARNING: RATHER CURSED}
-     * <br> runs through all ingredients in the given stack and ensures that each ingredient has a colour
-     * <br> if an ingredient has no colour, it will be assigned what we determine to be the primary colour of the ingredient
-     * <br>
-     * <br> how this works:
-     * <br> 1. get the ingredient's texture using its id and the provided {@link BakedModelManager}
-     * <br> 2. run over the full texture and get all colours used, associating with them their number of occurrences
-     * <br> 3. purge the map of rare colours, defined as colours that occur less than the average number of occurrences
-     * <br> 4. get the top three most saturated colours - these are most likely to be important to the texture
-     * <br> 5. assign the ingredient the colour with the highest priority of the top three most saturated colours
-     *
-     * @param stack the stack to update the data of
-     * @param manager a {@link BakedModelManager} to pull the ingredients' textures from
-     */
-    public static void updateColourValues(ItemStack stack, BakedModelManager manager) {
-        NbtCompound nbt = stack.getNbt();
-        assert nbt != null;
-
-        NbtList ingredients = NbtUtil.getIngredients(stack.getNbt());
-        boolean updated = false;
-
-        for (int i = 0; i < ingredients.size(); i ++) {
-            NbtCompound ingredientNbt = ingredients.getCompound(i);
-            if (!NbtUtil.hasColour(ingredientNbt)) {
-                Identifier id = NbtUtil.getIngredientId(ingredientNbt);
-
-                ModelIdentifier modelId = new ModelIdentifier(id + "#inventory");
-                BakedModel model = manager.getModel(modelId);
-
-                NativeImage texture = ((SpriteAccessor) model.getParticleSprite()).getImages()[0];
-                Map<TeaColour, Integer> colours = getColourOccurrences(texture);
-
-                cleanupRareColours(colours);
-                TeaColour[] mostSaturatedColours = collectMostSaturatedColours(colours);
-
-                // save colour
-                TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
-                NbtUtil.setColour(ingredientNbt, highestPriority);
-                updated = true;
-            }
-        }
-
-        if (updated) {
-            NbtUtil.updateIngredients(ingredients, nbt);
-        }
-    }
-
-    /**
      * gets a colour that represents the given list of ingredients
      * @param ingredients the list of ingredients to pull the colours from
      * @return the closest colour to the average of the given ingredients' rgb values
@@ -239,14 +186,7 @@ public enum TeaColour {
 
         for (int i = 0; i < ingredients.size(); i ++) {
             NbtCompound ingredient = ingredients.getCompound(i);
-
-            //safeguard: this should almost never be the case, but it is possible that the ingredient has no colour when the model predicate runs its check
-            TeaColour colour;
-            try {
-                colour = NbtUtil.getColour(ingredient);
-            } catch (Exception ignored) {
-                continue;
-            }
+            TeaColour colour = TantalisingTeasClient.ITEM_COLOURS.get(NbtUtil.getIngredientId(ingredient));
 
             averageRgb[0] += colour.red;
             averageRgb[1] += colour.green;

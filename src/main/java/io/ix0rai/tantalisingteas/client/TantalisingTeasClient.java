@@ -16,8 +16,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Environment(EnvType.CLIENT)
 public class TantalisingTeasClient implements ClientModInitializer {
+    public static final Map<Identifier, TeaColour> ITEM_COLOURS = new HashMap<>();
+
     @Override
     public void onInitializeClient() {
         ModelPredicateProviderRegistry.register(
@@ -41,6 +46,7 @@ public class TantalisingTeasClient implements ClientModInitializer {
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getHexFor(view, pos), TantalisingBlocks.BOILING_CAULDRON);
     }
 
+    // todo: returns black if only one ingredient is present
     private int getHexFor(BlockRenderView view, BlockPos pos) {
         long hex = 0xff000000;
 
@@ -52,8 +58,12 @@ public class TantalisingTeasClient implements ClientModInitializer {
                 if (ingredients.isEmpty()) {
                     return BiomeColors.getWaterColor(view, pos);
                 }
+
+                System.out.println(ingredients);
                 String hexString = TeaColour.getFromIngredients(ingredients).getHex(NbtUtil.getOverallStrength(ingredients));
+                System.out.println(hexString);
                 hex = Long.parseLong(hexString, 16);
+                System.out.println(hex);
             }
         }
 

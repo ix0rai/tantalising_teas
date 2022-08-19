@@ -22,7 +22,6 @@ public class NbtUtil {
     private static final String INGREDIENTS_KEY = "Ingredients";
     private static final String ID_KEY = "id";
     private static final String FLAIR_KEY = "Flair";
-    private static final String COLOUR_KEY = "Colour";
     private static final String NEEDS_UPDATE_KEY = "NeedsUpdate";
     private static final String STRENGTH_KEY = "Strength";
     private static final String TICKS_SINCE_STRENGTH_INCREASE_KEY = "TicksSinceStrengthIncrease";
@@ -81,10 +80,6 @@ public class NbtUtil {
 
     public static Identifier getIngredientId(NbtCompound ingredient) {
         return new Identifier(ingredient.getString(ID_KEY));
-    }
-
-    public static TeaColour getColour(NbtCompound ingredient) {
-        return TeaColour.get(ingredient.getString(COLOUR_KEY));
     }
 
     public static NbtList getIngredients(NbtCompound nbt) {
@@ -206,14 +201,6 @@ public class NbtUtil {
 
     public static boolean needsUpdate(NbtCompound nbt) {
         return nbt.getBoolean(NEEDS_UPDATE_KEY);
-    }
-
-    public static boolean hasColour(NbtCompound ingredient) {
-        return ingredient.contains(COLOUR_KEY);
-    }
-
-    public static void setColour(NbtCompound ingredient, TeaColour colour) {
-        setSafe(nbtCompound -> nbtCompound.putString(COLOUR_KEY, colour.getId()), ingredient);
     }
 
     public static void setStrength(NbtCompound ingredient, int strength) {

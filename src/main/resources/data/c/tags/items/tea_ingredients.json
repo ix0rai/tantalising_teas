@@ -1,6 +1,12 @@
 {
   "replace": false,
   "values": [
-    "tantalising_teas:tea_leaves"
+    "tantalising_teas:tea_leaves",
+    "minecraft:sweet_berries",
+    "minecraft:glow_berries",
+    "minecraft:oak_leaves",
+    "minecraft:allium",
+    "minecraft:blue_orchid",
+    "minecraft:azure_bluet"
   ]
 }
