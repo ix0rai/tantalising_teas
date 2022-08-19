@@ -9,7 +9,6 @@
     "ChunkAccessor"
   ],
   "client": [
-    "render.ItemRendererMixin",
     "render.MinecraftClientMixin",
     "render.SpriteAccessor"
   ],

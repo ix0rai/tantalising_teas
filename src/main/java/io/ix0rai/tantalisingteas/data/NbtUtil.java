@@ -22,7 +22,6 @@ public class NbtUtil {
     private static final String INGREDIENTS_KEY = "Ingredients";
     private static final String ID_KEY = "id";
     private static final String FLAIR_KEY = "Flair";
-    private static final String NEEDS_UPDATE_KEY = "NeedsUpdate";
     private static final String STRENGTH_KEY = "Strength";
     private static final String TICKS_SINCE_STRENGTH_INCREASE_KEY = "TicksSinceStrengthIncrease";
 
@@ -154,7 +153,7 @@ public class NbtUtil {
             // write nbt
             ingredients.add(ingredient);
             updateIngredients(ingredients, nbt);
-            setNeedsUpdate(nbt, true);
+            updateCustomName(stack);
         }
     }
 
@@ -193,14 +192,6 @@ public class NbtUtil {
 
     public static int getStrength(NbtCompound ingredient) {
         return ingredient.getInt(STRENGTH_KEY);
-    }
-
-    public static void setNeedsUpdate(NbtCompound nbt, boolean value) {
-        setSafe(nbtCompound -> nbt.putBoolean(NEEDS_UPDATE_KEY, value), nbt);
-    }
-
-    public static boolean needsUpdate(NbtCompound nbt) {
-        return nbt.getBoolean(NEEDS_UPDATE_KEY);
     }
 
     public static void setStrength(NbtCompound ingredient, int strength) {

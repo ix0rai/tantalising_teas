@@ -46,7 +46,6 @@ public class TantalisingTeasClient implements ClientModInitializer {
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getHexFor(view, pos), TantalisingBlocks.BOILING_CAULDRON);
     }
 
-    // todo: returns black if only one ingredient is present
     private int getHexFor(BlockRenderView view, BlockPos pos) {
         long hex = 0xff000000;
 
@@ -59,11 +58,8 @@ public class TantalisingTeasClient implements ClientModInitializer {
                     return BiomeColors.getWaterColor(view, pos);
                 }
 
-                System.out.println(ingredients);
                 String hexString = TeaColour.getFromIngredients(ingredients).getHex(NbtUtil.getOverallStrength(ingredients));
-                System.out.println(hexString);
                 hex = Long.parseLong(hexString, 16);
-                System.out.println(hex);
             }
         }
 
