@@ -20,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Arrays;
 import java.util.Map;
 
 @Mixin(MinecraftClient.class)
@@ -34,18 +35,23 @@ public class MinecraftClientMixin {
             HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(Util.TEA_INGREDIENTS);
             teaIngredients.forEach(item -> {
                 Identifier id = Registry.ITEM.getId(item.value());
+                System.out.println(id);
 
                 ModelIdentifier modelId = new ModelIdentifier(id + "#inventory");
                 BakedModel model = bakedModelManager.getModel(modelId);
 
                 NativeImage texture = ((SpriteAccessor) model.getParticleSprite()).getImages()[0];
                 Map<TeaColour, Integer> colours = TeaColour.getColourOccurrences(texture);
+                System.out.println(colours);
 
                 TeaColour.cleanupRareColours(colours);
+                System.out.println(colours);
                 TeaColour[] mostSaturatedColours = TeaColour.collectMostSaturatedColours(colours);
+                System.out.println(Arrays.toString(mostSaturatedColours));
 
                 // save colour
                 TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
+                System.out.println(highestPriority);
                 System.out.println(highestPriority + " " + id);
                 TantalisingTeasClient.ITEM_COLOURS.put(id, highestPriority);
             });
