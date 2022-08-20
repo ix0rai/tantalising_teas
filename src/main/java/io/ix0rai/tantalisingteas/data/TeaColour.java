@@ -124,34 +124,20 @@ public enum TeaColour {
 
     public static TeaColour[] collectMostSaturatedColours(Map<TeaColour, Integer> colours) {
         // assemble top three most saturated colours
-        TeaColour[] mostSaturatedColours = new TeaColour[3];
-        boolean full = false;
+        TeaColour[] mostSaturatedColours = colours.keySet().toArray(new TeaColour[3]);
 
+        int counter = 0;
         for (TeaColour colour : colours.keySet()) {
+            if (counter < 3) {
+                if (colour.getRgbSum() > mostSaturatedColours[counter].getRgbSum()) {
+                    mostSaturatedColours[counter] = colour;
+                }
 
-            // ensure colour is not null
-            if (colour != null) {
+                counter ++;
+            } else {
                 for (int i = 0; i < mostSaturatedColours.length; i++) {
-                    if (!full && mostSaturatedColours[i] == null) {
-                        boolean contains = false;
-                        for (int k = 0; k < i; k++) {
-                            if (mostSaturatedColours[k] != null && mostSaturatedColours[k].getId().equals(colour.getId())) {
-                                contains = true;
-                                break;
-                            }
-                        }
-
-                        if (!contains) {
-                            mostSaturatedColours[i] = colour;
-                            if (i == mostSaturatedColours.length - 1) {
-                                full = true;
-                            }
-                        }
-                    }
-
-                    if (mostSaturatedColours[i] != null && colour.getRgbSum() > mostSaturatedColours[i].getRgbSum()) {
+                    if (colour.getRgbSum() > mostSaturatedColours[i].getRgbSum()) {
                         mostSaturatedColours[i] = colour;
-                        break;
                     }
                 }
             }
