@@ -9,8 +9,6 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.item.Item;
-import net.minecraft.util.HolderSet;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.spongepowered.asm.mixin.Final;
@@ -30,21 +28,23 @@ public class MinecraftClientMixin {
 
     @Inject(method = "joinWorld", at = @At("TAIL"))
     public void joinWorld(ClientWorld world, CallbackInfo ci) {
+        // cache the colours of each texture in the tea ingredient tag
         if (TantalisingTeasClient.ITEM_COLOURS.isEmpty()) {
-            HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(Util.TEA_INGREDIENTS);
-            teaIngredients.forEach(item -> {
+            Registry.ITEM.getOrCreateTag(Util.TEA_INGREDIENTS).forEach(item -> {
+                // get the model
                 Identifier id = Registry.ITEM.getId(item.value());
-
                 ModelIdentifier modelId = new ModelIdentifier(id + "#inventory");
                 BakedModel model = bakedModelManager.getModel(modelId);
 
+                // get the texture and extract the amount of times each colour appears
                 NativeImage texture = ((SpriteAccessor) model.getParticleSprite()).getImages()[0];
                 Map<TeaColour, Integer> colours = TeaColour.getColourOccurrences(texture);
 
+                // trim the list of colours to the top 3 most saturated
                 TeaColour.cleanupRareColours(colours);
                 TeaColour[] mostSaturatedColours = TeaColour.collectMostSaturatedColours(colours);
 
-                // save colour
+                // pick the colour with the highest priority and then save it to the cache
                 TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
                 TantalisingTeasClient.ITEM_COLOURS.put(id, highestPriority);
             });
