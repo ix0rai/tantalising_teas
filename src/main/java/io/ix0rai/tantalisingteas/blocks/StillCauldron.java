@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -45,6 +46,7 @@ public class StillCauldron extends TantalisingCauldronBlock {
 
     @SuppressWarnings("deprecation")
     public static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
+        // assumes the stack is of a tea item
         if (!world.isClient && !isStateFull(state)) {
             Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
 
@@ -56,13 +58,8 @@ public class StillCauldron extends TantalisingCauldronBlock {
             } else {
                 BlockState newState = TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1);
 
-                // create block entity
-                WorldChunk chunk = world.getWorldChunk(pos);
-                BoilingCauldronBlockEntity blockEntity = new BoilingCauldronBlockEntity(pos, newState);
-                blockEntity.addData(stack.getNbt());
-                ((ChunkAccessor) chunk).getBlockEntities().put(pos, blockEntity);
-
-                // set block state
+                // set block state and create block entity
+                createBlockEntity(world, state, pos, stack.getNbt());
                 world.setBlockState(pos, newState, Block.NOTIFY_ALL);
 
                 // this reloads the block's colour provider
@@ -74,5 +71,13 @@ public class StillCauldron extends TantalisingCauldronBlock {
         }
 
         return ActionResult.success(world.isClient);
+    }
+
+    private static void createBlockEntity(World world, BlockState state, BlockPos pos, NbtCompound nbt) {
+        // create block entity
+        WorldChunk chunk = world.getWorldChunk(pos);
+        BoilingCauldronBlockEntity blockEntity = new BoilingCauldronBlockEntity(pos, state);
+        blockEntity.addData(nbt);
+        ((ChunkAccessor) chunk).getBlockEntities().put(pos, blockEntity);
     }
 }

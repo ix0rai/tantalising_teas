@@ -152,7 +152,7 @@ public class NbtUtil {
 
             // write nbt
             ingredients.add(ingredient);
-            updateIngredients(ingredients, nbt);
+            setIngredients(ingredients, nbt);
             updateCustomName(stack);
         }
     }
@@ -225,7 +225,7 @@ public class NbtUtil {
         return Objects.requireNonNullElseGet(nbt, NbtCompound::new);
     }
 
-    public static void updateIngredients(NbtList ingredients, NbtCompound nbt) {
+    public static void setIngredients(NbtList ingredients, NbtCompound nbt) {
         setSafeWithReturn(nbtCompound -> nbtCompound.put(INGREDIENTS_KEY, ingredients), nbt);
     }
 }

@@ -55,7 +55,7 @@ public abstract class TantalisingCauldronBlock extends LeveledCauldronBlock impl
 
     protected static boolean isStateFull(BlockState state) {
         try {
-            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) >= 3;
+            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof LeveledCauldronBlock) && state.get(LEVEL) >= 3;
         } catch (IllegalArgumentException ignored) {
             return false;
         }
@@ -63,7 +63,7 @@ public abstract class TantalisingCauldronBlock extends LeveledCauldronBlock impl
 
     protected static boolean isStateEmpty(BlockState state) {
         try {
-            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof AbstractCauldronBlock) && state.get(LEVEL) <= 0;
+            return (state.getBlock() instanceof TantalisingCauldronBlock || state.getBlock() instanceof LeveledCauldronBlock) && state.get(LEVEL) <= 0;
         } catch (IllegalArgumentException ignored) {
             return true;
         }

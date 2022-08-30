@@ -1,9 +1,11 @@
 package io.ix0rai.tantalisingteas.blocks;
 
+import io.ix0rai.tantalisingteas.TantalisingTeas;
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -46,14 +48,14 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
     @Override
     public NbtCompound toInitialChunkDataNbt() {
         NbtCompound nbt = new NbtCompound();
-        NbtUtil.updateIngredients(ingredients, nbt);
+        NbtUtil.setIngredients(ingredients, nbt);
         return nbt;
     }
 
     @Override
     public void readNbt(NbtCompound tag) {
+        super.readNbt(tag);
         ingredients.clear();
-
         NbtList items = NbtUtil.getIngredients(tag);
 
         for (int i = 0; i < items.size(); i ++) {
@@ -64,7 +66,9 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
 
     @Override
     protected void writeNbt(NbtCompound tag) {
-        NbtUtil.updateIngredients(ingredients, tag);
+        super.writeNbt(tag);
+        NbtUtil.setId(tag, BlockEntityType.getId(this.getType()));
+        NbtUtil.setIngredients(ingredients, tag);
     }
 
     public void addData(NbtCompound data) {
@@ -74,6 +78,8 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
             } else if (NbtUtil.isTeaIngredient(data)) {
                 ingredients.add(data);
             }
+        } else {
+            TantalisingTeas.LOGGER.warn("tried to write empty data to cauldron at pos: " + pos);
         }
     }
 
