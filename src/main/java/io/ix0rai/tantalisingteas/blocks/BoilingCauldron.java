@@ -1,6 +1,7 @@
 package io.ix0rai.tantalisingteas.blocks;
 
 import io.ix0rai.tantalisingteas.data.NbtUtil;
+import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.data.Util;
 import io.ix0rai.tantalisingteas.mixin.BlockWithEntityInvoker;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
@@ -43,6 +44,7 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
         BEHAVIOUR.put(Items.GLASS_BOTTLE, (state, world, pos, player, hand, stack) -> decreaseLevel(state, world, pos, player, hand, stack, new ItemStack(TantalisingItems.TEA_BOTTLE)));
         BEHAVIOUR.put(Items.WATER_BUCKET, (BoilingCauldron::fillCauldron));
         BEHAVIOUR.put(Items.POTION, (BoilingCauldron::increaseLevel));
+        BEHAVIOUR.put(TantalisingItems.TEA_BOTTLE, (BoilingCauldron::increaseLevel));
     }
 
     public BoilingCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate) {
@@ -70,10 +72,11 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
             Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
             if (entity.isPresent()) {
                 entity.get().addStack(stack);
-
                 if (!player.getAbilities().creativeMode) {
                     stack.decrement(1);
                 }
+
+                world.setBlockState(pos, state.with(COLOUR, TeaColour.getFromIngredients(entity.get().getIngredients())));
 
                 world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 useCauldronWith(player, stack);
@@ -92,12 +95,22 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
             player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 
             int level = state.get(LEVEL);
+            int strength = state.get(STRENGTH);
 
-            world.setBlockState(pos, state.with(LEVEL, level + 1));
+            if (stack.isOf(TantalisingItems.TEA_BOTTLE) && stack.getNbt() != null && NbtUtil.containsIngredientKey(stack.getNbt())) {
+                Optional<BoilingCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
+                if (entity.isPresent()) {
+                    entity.get().addData(stack.getNbt());
+                    strength = NbtUtil.getOverallStrength(entity.get().getIngredients());
+                }
+            }
+
+            world.setBlockState(pos, state.with(LEVEL, level + 1).with(STRENGTH, strength));
             world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
             world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
             useCauldronWith(player, stack);
         }
+
         return ActionResult.success(world.isClient);
     }
 
@@ -136,7 +149,11 @@ public class BoilingCauldron extends TantalisingCauldronBlock {
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
 
                 int level = state.get(LEVEL);
-                world.setBlockState(pos, level <= 1 ? Blocks.CAULDRON.getDefaultState() : state.with(LEVEL, level - 1), 2);
+                world.setBlockState(
+                        pos,
+                        level <= 1 ? Blocks.CAULDRON.getDefaultState() : state.with(LEVEL, level - 1),
+                        2
+                );
 
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 world.emitGameEvent(null, GameEvent.FLUID_PICKUP, pos);

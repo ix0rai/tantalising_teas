@@ -11,13 +11,15 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.BlockRenderView;
+import net.minecraft.world.biome.BiomeKeys;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class TantalisingTeasClient implements ClientModInitializer {
@@ -42,27 +44,16 @@ public class TantalisingTeasClient implements ClientModInitializer {
                 }
         );
 
-        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getHexFor(view, pos), TantalisingBlocks.STILL_CAULDRON);
-        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getHexFor(view, pos), TantalisingBlocks.BOILING_CAULDRON);
+        // colour providers are only used when there are no ingredients present
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getWaterColour(view, pos), TantalisingBlocks.STILL_CAULDRON);
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getWaterColour(view, pos), TantalisingBlocks.BOILING_CAULDRON);
     }
 
-    private int getHexFor(BlockRenderView view, BlockPos pos) {
-        long hex = 0xff000000;
-
+    private static int getWaterColour(BlockRenderView view, BlockPos pos) {
         if (view != null) {
-            var entity = view.getBlockEntity(pos, TantalisingBlocks.BOILING_CAULDRON_ENTITY);
-            if (entity.isPresent()) {
-                var blockEntity = entity.get();
-                NbtList ingredients = blockEntity.getIngredients();
-                if (ingredients.isEmpty()) {
-                    return BiomeColors.getWaterColor(view, pos);
-                }
-
-                String hexString = TeaColour.getFromIngredients(ingredients).getHex(NbtUtil.getOverallStrength(ingredients));
-                hex = Long.parseLong(hexString, 16);
-            }
+            return BiomeColors.getWaterColor(view, pos);
+        } else {
+            return Objects.requireNonNull(BuiltinRegistries.BIOME.get(BiomeKeys.OCEAN)).getWaterColor();
         }
-
-        return (int) hex;
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 
 public class BoilingCauldronBlockEntity extends BlockEntity {
     private static final int TICKS_BEFORE_STRENGTH_INCREASE = 1500;
@@ -39,6 +40,12 @@ public class BoilingCauldronBlockEntity extends BlockEntity {
             if (NbtUtil.getStrength(ingredient) < 6 && ticks >= TICKS_BEFORE_STRENGTH_INCREASE) {
                 NbtUtil.setStrength(ingredient, strength + 1);
                 NbtUtil.setTicksSinceStrengthIncrease(ingredient, 0);
+
+                World world = boilingCauldron.getWorld();
+                if (world != null) {
+                    BlockState state = world.getBlockState(boilingCauldron.getPos());
+                    world.setBlockState(boilingCauldron.getPos(), state.with(TantalisingCauldronBlock.STRENGTH, NbtUtil.getOverallStrength(items)));
+                }
             } else {
                 NbtUtil.setTicksSinceStrengthIncrease(ingredient, ticks + 1);
             }

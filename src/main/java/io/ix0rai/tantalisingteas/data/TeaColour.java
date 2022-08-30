@@ -4,13 +4,14 @@ import com.mojang.blaze3d.texture.NativeImage;
 import io.ix0rai.tantalisingteas.client.TantalisingTeasClient;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.util.StringIdentifiable;
 
 import java.security.InvalidParameterException;
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public enum TeaColour {
+public enum TeaColour implements StringIdentifiable {
     VERY_LIGHT_RED(255, 0, 0, 1, 0),
     LIGHT_RED(200, 0, 0, 2, 1),
     RED(128, 0, 0, 2, 2),
@@ -194,10 +195,6 @@ public enum TeaColour {
         return Math.abs(this.red - r) + Math.abs(this.green - g) + Math.abs(this.blue - b);
     }
 
-    public String getHex(int strength) {
-        return String.format("%02x%02x%02x%02x", getAlpha(strength), red, green, blue);
-    }
-
     public static int getAlpha(int strength) {
         return (int) (255 / (Math.abs(strength - NbtUtil.MAX_STRENGTH) + (strength != NbtUtil.MAX_STRENGTH ? 0.5 : 0)));
     }
@@ -212,6 +209,11 @@ public enum TeaColour {
 
     @Override
     public String toString() {
+        return this.getId();
+    }
+
+    @Override
+    public String asString() {
         return this.getId();
     }
 }

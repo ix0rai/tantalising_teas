@@ -1,11 +1,12 @@
 package io.ix0rai.tantalisingteas.blocks;
 
+import io.ix0rai.tantalisingteas.data.NbtUtil;
+import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.mixin.ChunkAccessor;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -44,7 +46,6 @@ public class StillCauldron extends TantalisingCauldronBlock {
         return new BoilingCauldronBlockEntity(pos, state);
     }
 
-    @SuppressWarnings("deprecation")
     public static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         // assumes the stack is of a tea item
         if (!world.isClient && !isStateFull(state)) {
@@ -54,16 +55,23 @@ public class StillCauldron extends TantalisingCauldronBlock {
 
             if (entity.isPresent()) {
                 int level = state.get(LEVEL);
-                world.setBlockState(pos, state.with(LEVEL, level + 1));
+                NbtList ingredients = entity.get().getIngredients();
+                world.setBlockState(pos, state
+                        .with(LEVEL, level + 1)
+                        .with(STRENGTH, NbtUtil.getOverallStrength(ingredients))
+                        .with(COLOUR, TeaColour.getFromIngredients(ingredients))
+                );
             } else {
-                BlockState newState = TantalisingBlocks.STILL_CAULDRON.getDefaultState().with(LEVEL, 1);
+                NbtList ingredients = NbtUtil.getIngredients(stack.getNbt());
+                BlockState newState = TantalisingBlocks.STILL_CAULDRON.getDefaultState()
+                        .with(LEVEL, 1)
+                        .with(STRENGTH, NbtUtil.getOverallStrength(ingredients))
+                        .with(COLOUR, TeaColour.getFromIngredients(ingredients));
 
                 // set block state and create block entity
+                // todo test - BE nonsense might not be necessary
                 createBlockEntity(world, state, pos, stack.getNbt());
                 world.setBlockState(pos, newState, Block.NOTIFY_ALL);
-
-                // this reloads the block's colour provider
-                world.getBlockState(pos).getBlock().neighborUpdate(newState, world, pos, Blocks.AIR, pos.up(), false);
             }
 
             world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
