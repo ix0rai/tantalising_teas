@@ -12,13 +12,14 @@ public class AssetGenerator {
     static final Gson GSON = new GsonBuilder().setPrettyPrinting().enableComplexMapKeySerialization().create();
     static final String SRC = "src";
     static final String MAIN = SRC + "/" + "main";
-    static final String ASSETS = MAIN + "/resources/assets/" + TantalisingTeas.MOD_ID;
-    static final String MODELS = ASSETS + "/models";
-    static final String BLOCKSTATES = ASSETS + "/blockstates";
+    static final String ASSETS_SOURCE = MAIN + "/resources/assets/" + TantalisingTeas.MOD_ID;
+    static final String ASSETS_GENERATED = ASSETS_SOURCE + "/generated/";
+    static final String MODELS = ASSETS_GENERATED + "/models";
+    static final String BLOCKSTATES = ASSETS_GENERATED + "/blockstates";
     static final String ITEM_MODELS = MODELS + "/item";
-    static final String TEXTURES = ASSETS + "/textures";
-    static final String OVERLAY = TEXTURES + "/overlay";
-    static final String OVERLAY_GENERATED = TEXTURES + "/overlay/generated";
+    static final String TEXTURES_SOURCE = ASSETS_SOURCE + "/textures";
+    static final String OVERLAY_SOURCE = TEXTURES_SOURCE + "/overlay";
+    static final String OVERLAY_GENERATED = ASSETS_GENERATED + "/overlay/generated";
 
     static final String TEST_VALIDATION = SRC + "/" + "test/resources/data/" + TantalisingTeas.MOD_ID + "/validation";
 

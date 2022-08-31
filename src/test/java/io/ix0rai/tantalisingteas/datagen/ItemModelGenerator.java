@@ -54,8 +54,9 @@ public class ItemModelGenerator {
                 File file = new File(AssetGenerator.MODELS + "/" + modelName);
 
                 if (!file.exists()) {
-                    // suppress wack "return value unused" inspection
-                    // noinspection all
+                    // noinspection ResultOfMethodCallIgnored
+                    file.getParentFile().mkdirs();
+                    // noinspection ResultOfMethodCallIgnored
                     file.createNewFile();
                 }
 

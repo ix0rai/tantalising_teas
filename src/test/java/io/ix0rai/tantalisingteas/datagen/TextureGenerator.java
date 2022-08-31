@@ -19,7 +19,7 @@ public class TextureGenerator {
 
         for (TeaColour colour : TeaColour.values()) {
             String path = AssetGenerator.OVERLAY_GENERATED + "/" + colour.getId();
-            String sourcePath = AssetGenerator.OVERLAY + "/" + colour.getId();
+            String sourcePath = AssetGenerator.OVERLAY_SOURCE + "/" + colour.getId();
             String format = "png";
 
             BufferedImage originalImage = ImageIO.read(new File(sourcePath + "." + format));
@@ -52,8 +52,25 @@ public class TextureGenerator {
                     }
                 }
 
-                ImageIO.write(newImage, format, new File(path + "_s" + strength + "." + format));
+                // write the image to a file
+                File file = new File(path + "_s" + strength + "." + format);
+
+                if (!file.exists()) {
+                    // noinspection ResultOfMethodCallIgnored
+                    file.getParentFile().mkdirs();
+                    // noinspection ResultOfMethodCallIgnored
+                    file.createNewFile();
+                    ImageIO.write(newImage, format, new File(path + "_s" + strength + "." + format));
+                }
             }
         }
     }
+
+    static void generateCauldronOverlays() {
+        // todo
+    }
+
+    // todo
+    // todo texture info: r = g = b on water overlay grayscale
+    // todo shouldn't be too hard to modify rgb, preserve alpha and write
 }
