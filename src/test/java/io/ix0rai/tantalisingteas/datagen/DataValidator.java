@@ -14,12 +14,12 @@ public class DataValidator {
     private static void validateJsonData() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
             for (int strength = 1; strength < NbtUtil.MAX_STRENGTH; strength ++) {
-                File file = new File(ItemModelGenerator.ITEM_MODELS + "/" + ItemModelGenerator.getName(colour, strength) + "_tea_model.json");
+                File file = new File(ModelGenerator.ITEM_MODELS + "/" + ItemModelGenerator.getName(colour, strength) + "_tea_model.json");
                 validateJson(file, ItemModelGenerator.getJson(colour, strength));
             }
         }
 
-        File file = new File(ItemModelGenerator.ITEM_MODELS + "/tea_bottle.json");
+        File file = new File(ModelGenerator.ITEM_MODELS + "/tea_bottle.json");
         validateJson(file, ItemModelGenerator.getLatestTeaBottleJson());
     }
 
@@ -28,16 +28,16 @@ public class DataValidator {
             throw new IllegalStateException("necessary file " + file + " does not exist");
         }
 
-        if (!ItemModelGenerator.GSON.fromJson(new FileReader(file), ItemModelGenerator.ItemModelJson.class).equals(json)) {
+        if (!ModelGenerator.GSON.fromJson(new FileReader(file), ItemModelGenerator.ItemModelJson.class).equals(json)) {
             throw new IllegalStateException("json of file " + file + " has been edited: \n"
-                    + "should be: \n" + ItemModelGenerator.GSON.toJson(ItemModelGenerator.getLatestTeaBottleJson())
-                    + "\nwas: \n" + ItemModelGenerator.GSON.toJson(json));
+                    + "should be: \n" + ModelGenerator.GSON.toJson(ItemModelGenerator.getLatestTeaBottleJson())
+                    + "\nwas: \n" + ModelGenerator.GSON.toJson(json));
         }
     }
 
     private static void validateTeaColours() throws IOException {
-        File file = new File(ItemModelGenerator.TEST_VALIDATION + "/tea_colours.json");
-        JsonTeaColour[] colours = ItemModelGenerator.GSON.fromJson(new FileReader(file), JsonTeaColour[].class);
+        File file = new File(ModelGenerator.TEST_VALIDATION + "/tea_colours.json");
+        JsonTeaColour[] colours = ModelGenerator.GSON.fromJson(new FileReader(file), JsonTeaColour[].class);
 
         for (int i = 0; i < colours.length; i ++) {
             JsonTeaColour oldColour = colours[i];
@@ -51,7 +51,7 @@ public class DataValidator {
         }
 
         try (FileWriter writer = new FileWriter(file)) {
-            ItemModelGenerator.GSON.toJson(JsonTeaColour.fromTeaColours(TeaColour.values()), writer);
+            ModelGenerator.GSON.toJson(JsonTeaColour.fromTeaColours(TeaColour.values()), writer);
         }
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.stat.Stats;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
@@ -25,11 +26,22 @@ import java.util.function.Predicate;
 @SuppressWarnings("deprecation")
 public abstract class TantalisingCauldronBlock extends LeveledCauldronBlock implements BlockEntityProvider {
     protected static final EnumProperty<TeaColour> COLOUR = EnumProperty.of("colour", TeaColour.class);
-    protected static final IntProperty STRENGTH = IntProperty.of("strength", 0, 3);
+    protected static final IntProperty STRENGTH = IntProperty.of("strength", 0, 6);
 
     protected TantalisingCauldronBlock(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviour) {
         super(settings, precipitationPredicate, behaviour);
-        this.setDefaultState(this.getDefaultState().with(LEVEL, 0).with(COLOUR, TeaColour.WHITE).with(STRENGTH, 0));
+        //this.setDefaultState(this.getStateManager().getDefaultState().with(LEVEL, 0).with(COLOUR, TeaColour.WHITE).with(STRENGTH, 0));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        // honestly I have no idea why this works
+        // I wish this didn't work
+        // but explicitly making this an array instead of using varargs makes this work properly?>>?>>>>>>>A?>?>>?>>>?>>?>>?
+        // I hate minecraft
+
+        // oh, never mind it works if I just use the individual .add() calls
+        builder.add(LEVEL).add(COLOUR).add(STRENGTH);
     }
 
     @Override

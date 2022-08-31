@@ -1,7 +1,5 @@
 package io.ix0rai.tantalisingteas.datagen;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import io.ix0rai.tantalisingteas.TantalisingTeas;
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
@@ -23,32 +21,20 @@ import java.util.Objects;
  * <p> this ensures that json data for tea models will always be up to date with code changes </p>
  */
 public class ItemModelGenerator {
-    static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    static final String SRC = "src";
-    static final String MAIN = SRC + "/" + "main";
-    static final String ASSETS = MAIN + "/resources/assets/" + TantalisingTeas.MOD_ID;
-    static final String MODELS = ASSETS + "/models";
-    static final String ITEM_MODELS = MODELS + "/item";
-    static final String TEXTURES = ASSETS + "/textures";
-    static final String OVERLAY = TEXTURES + "/overlay";
-    static final String OVERLAY_GENERATED = TEXTURES + "/overlay/generated";
-
-    static final String TEST_VALIDATION = SRC + "/" + "test/resources/data/" + TantalisingTeas.MOD_ID + "/validation";
-
     public static void main(String[] args) throws IOException {
         generateTeaColourModels();
         generateImages();
         generateTeaBottleModel();
     }
 
-    private static void generateImages() throws IOException {
+    static void generateImages() throws IOException {
         final List<Pair<Integer, Integer>> doNotSet = new ArrayList<>();
         doNotSet.add(new Pair<>(10, 10));
         doNotSet.add(new Pair<>(6, 12));
 
         for (TeaColour colour : TeaColour.values()) {
-            String path = OVERLAY_GENERATED + "/" + colour.getId();
-            String sourcePath = OVERLAY + "/" + colour.getId();
+            String path = ModelGenerator.OVERLAY_GENERATED + "/" + colour.getId();
+            String sourcePath = ModelGenerator.OVERLAY + "/" + colour.getId();
             String format = "png";
 
             BufferedImage originalImage = ImageIO.read(new File(sourcePath + "." + format));
@@ -86,12 +72,8 @@ public class ItemModelGenerator {
         }
     }
 
-    private static void generateTeaBottleModel() throws IOException {
-        File file = new File(ITEM_MODELS + "/tea_bottle.json");
-
-        try (FileWriter writer = new FileWriter(file)) {
-            GSON.toJson(getLatestTeaBottleJson(), writer);
-        }
+    static void generateTeaBottleModel() throws IOException {
+        ModelGenerator.write(new File(ModelGenerator.ITEM_MODELS + "/tea_bottle.json"), getLatestTeaBottleJson());
     }
 
     static ItemModelJson getLatestTeaBottleJson() {
@@ -119,11 +101,11 @@ public class ItemModelGenerator {
         return colour.getId() + "_s" + strength;
     }
 
-    private static void generateTeaColourModels() throws IOException {
+    static void generateTeaColourModels() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
             for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
                 String modelName = "item/" + getName(colour, strength) + "_tea_model.json";
-                File file = new File(MODELS + "/" + modelName);
+                File file = new File(ModelGenerator.MODELS + "/" + modelName);
 
                 if (!file.exists()) {
                     // suppress wack "return value unused" inspection
@@ -132,7 +114,7 @@ public class ItemModelGenerator {
                 }
 
                 try (FileWriter writer = new FileWriter(file)) {
-                    GSON.toJson(getJson(colour, strength), writer);
+                    ModelGenerator.GSON.toJson(getJson(colour, strength), writer);
                 }
             }
         }

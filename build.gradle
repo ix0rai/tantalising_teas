@@ -7,11 +7,11 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
-task generateItemModels(type: JavaExec) {
+task generateModels(type: JavaExec) {
     group = "other"
     classpath = sourceSets.test.runtimeClasspath
     //noinspection all
-    mainClass = "io.ix0rai." + project.maven_group + ".datagen.ItemModelGenerator"
+    mainClass = "io.ix0rai." + project.maven_group + ".datagen.ModelGenerator"
 }
 
 task validateData(type: JavaExec) {
