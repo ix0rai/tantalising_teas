@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ModelGenerator {
+public class AssetGenerator {
     static final Gson GSON = new GsonBuilder().setPrettyPrinting().enableComplexMapKeySerialization().create();
     static final String SRC = "src";
     static final String MAIN = SRC + "/" + "main";
@@ -24,10 +24,11 @@ public class ModelGenerator {
 
     public static void main(String[] args) throws IOException {
         ItemModelGenerator.generateTeaColourModels();
-        ItemModelGenerator.generateImages();
         ItemModelGenerator.generateTeaBottleModel();
 
         BlockModelGenerator.generateTeaCauldronModels();
+
+        TextureGenerator.generateTeaOverlays();
     }
 
     static void write(File file, Object json) throws IOException {

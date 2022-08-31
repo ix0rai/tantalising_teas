@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class BlockModelGenerator {
     private static final int LEVELS = 3;
@@ -26,13 +27,14 @@ public class BlockModelGenerator {
         }
 
         // for some ungodly reason gson doesn't properly decode the equals sign
-        String json = ModelGenerator.GSON.toJson(new BlockModelJson(variants));
+        String json = AssetGenerator.GSON.toJson(new BlockModelJson(variants));
         json = json.replace("\\u003d", "=");
-        File file = new File(ModelGenerator.BLOCKSTATES + "/still_cauldron.json");
-        ModelGenerator.write(file, json);
+        File file = new File(AssetGenerator.BLOCKSTATES + "/still_cauldron.json");
+        AssetGenerator.write(file, json);
+
         // in the future, boiling cauldrons will have different models but for now, they're the same
-        file = new File(ModelGenerator.BLOCKSTATES + "/boiling_cauldron.json");
-        ModelGenerator.write(file, json);
+        file = new File(AssetGenerator.BLOCKSTATES + "/boiling_cauldron.json");
+        AssetGenerator.write(file, json);
     }
 
     @SuppressWarnings("unused")
@@ -42,6 +44,14 @@ public class BlockModelGenerator {
         public BlockModelJson(Map<String, ModelJsonProperty> variants) {
             this.variants = variants;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            BlockModelJson that = (BlockModelJson) o;
+            return Objects.equals(variants, that.variants);
+        }
     }
 
     @SuppressWarnings("unused")
@@ -50,6 +60,14 @@ public class BlockModelGenerator {
 
         public ModelJsonProperty(String model) {
             this.model = model;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            ModelJsonProperty that = (ModelJsonProperty) o;
+            return Objects.equals(model, that.model);
         }
     }
 }

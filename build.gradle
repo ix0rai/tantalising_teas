@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'fabric-loom' version '1.0-SNAPSHOT'
     id 'org.quiltmc.quilt-mappings-on-loom' version '4.2.0'
     id 'maven-publish'
 }
@@ -7,22 +7,22 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
-task generateModels(type: JavaExec) {
+task generateAssets(type: JavaExec) {
     group = "other"
     classpath = sourceSets.test.runtimeClasspath
-    //noinspection all
-    mainClass = "io.ix0rai." + project.maven_group + ".datagen.ModelGenerator"
+    // noinspection all - janky intellij "exceeds access rights" warning
+    mainClass = "io.ix0rai." + project.maven_group + ".datagen.AssetGenerator"
 }
 
-task validateData(type: JavaExec) {
+task validateAssets(type: JavaExec) {
     group = "other"
     classpath = sourceSets.test.runtimeClasspath
-    //noinspection all
-    mainClass = "io.ix0rai." + project.maven_group + ".datagen.DataValidator"
+    // noinspection all - janky intellij "exceeds access rights" warning
+    mainClass = "io.ix0rai." + project.maven_group + ".datagen.AssetValidator"
 }
 
 jar {
-    dependsOn(validateData)
+    dependsOn(validateAssets)
 }
 
 dependencies {
