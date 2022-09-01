@@ -187,6 +187,18 @@ public enum TeaColour implements StringIdentifiable {
         return closest;
     }
 
+    public int getRed() {
+        return red;
+    }
+
+    public int getGreen() {
+        return green;
+    }
+
+    public int getBlue() {
+        return blue;
+    }
+
     public int getRgbSum() {
         return red + green + blue;
     }

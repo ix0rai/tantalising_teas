@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class BlockModelGenerator {
-    private static final int LEVELS = 3;
+    public static final int LEVELS = 3;
 
     static void generateTeaCauldronModels() throws IOException {
         final Map<String, ModelJsonProperty> variants = new HashMap<>();

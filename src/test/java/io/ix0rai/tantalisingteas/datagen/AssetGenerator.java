@@ -18,8 +18,11 @@ public class AssetGenerator {
     static final String BLOCKSTATES = ASSETS_GENERATED + "/blockstates";
     static final String ITEM_MODELS = MODELS + "/item";
     static final String TEXTURES_SOURCE = ASSETS_SOURCE + "/textures";
+    static final String TEXTURES_GENERATED = ASSETS_GENERATED + "/textures";
     static final String OVERLAY_SOURCE = TEXTURES_SOURCE + "/overlay";
-    static final String OVERLAY_GENERATED = ASSETS_GENERATED + "/overlay/generated";
+    static final String OVERLAY_GENERATED = TEXTURES_GENERATED + "/overlay/generated";
+    static final String CAULDRON_TEXTURES = TEXTURES_GENERATED + "/cauldron";
+    static final String CAULDRON_TEXTURES_SOURCE = TEXTURES_SOURCE + "/cauldron";
 
     static final String TEST_VALIDATION = SRC + "/" + "test/resources/data/" + TantalisingTeas.MOD_ID + "/validation";
 
@@ -30,6 +33,7 @@ public class AssetGenerator {
         BlockModelGenerator.generateTeaCauldronModels();
 
         TextureGenerator.generateTeaOverlays();
+        TextureGenerator.generateCauldronOverlays();
     }
 
     static void write(File file, Object json) throws IOException {
