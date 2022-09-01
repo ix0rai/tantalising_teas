@@ -1,38 +1,15 @@
 package io.ix0rai.tantalisingteas.datagen;
 
-import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class AssetValidator {
     public static void main(String[] args) throws IOException {
         validateTeaColours();
-        validateJsonData();
-    }
-
-    private static void validateJsonData() throws IOException {
-        for (TeaColour colour : TeaColour.values()) {
-            for (int strength = 1; strength < NbtUtil.MAX_STRENGTH; strength ++) {
-                File file = new File(AssetGenerator.ITEM_MODELS + "/" + ItemModelGenerator.getName(colour, strength) + "_tea_model.json");
-                validateJson(file, ItemModelGenerator.getJson(colour, strength));
-            }
-        }
-
-        File file = new File(AssetGenerator.ITEM_MODELS + "/tea_bottle.json");
-        validateJson(file, ItemModelGenerator.getLatestTeaBottleJson());
-    }
-
-    private static void validateJson(File file, ItemModelGenerator.ItemModelJson json) throws FileNotFoundException {
-        if (!file.exists()) {
-            throw new IllegalStateException("necessary file " + file + " does not exist");
-        }
-
-        if (!AssetGenerator.GSON.fromJson(new FileReader(file), ItemModelGenerator.ItemModelJson.class).equals(json)) {
-            throw new IllegalStateException("json of file " + file + " has been edited: \n"
-                    + "should be: \n" + AssetGenerator.GSON.toJson(ItemModelGenerator.getLatestTeaBottleJson())
-                    + "\nwas: \n" + AssetGenerator.GSON.toJson(json));
-        }
     }
 
     private static void validateTeaColours() throws IOException {
