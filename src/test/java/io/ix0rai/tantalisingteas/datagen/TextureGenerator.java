@@ -32,7 +32,7 @@ public class TextureGenerator {
     // todo: alpha
     static void generateCauldronOverlays() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
-            for (int s = 0; s < NbtUtil.MAX_STRENGTH; s++) {
+            for (int s = 0; s <= NbtUtil.MAX_STRENGTH; s++) {
                 String path = AssetGenerator.CAULDRON_TEXTURES + "/" + colour.getId() + "_tea_cauldron_s" + s;
                 String sourcePath = AssetGenerator.CAULDRON_TEXTURES_SOURCE + "/water_texture";
 

@@ -1,5 +1,6 @@
 package io.ix0rai.tantalisingteas.blocks;
 
+import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -26,7 +27,7 @@ import java.util.function.Predicate;
 @SuppressWarnings("deprecation")
 public abstract class TantalisingCauldronBlock extends LeveledCauldronBlock implements BlockEntityProvider {
     protected static final EnumProperty<TeaColour> COLOUR = EnumProperty.of("colour", TeaColour.class);
-    protected static final IntProperty STRENGTH = IntProperty.of("strength", 0, 6);
+    protected static final IntProperty STRENGTH = IntProperty.of("strength", 0, NbtUtil.MAX_STRENGTH);
 
     protected TantalisingCauldronBlock(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate, Map<Item, CauldronBehavior> behaviour) {
         super(settings, precipitationPredicate, behaviour);

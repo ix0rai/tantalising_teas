@@ -7,9 +7,11 @@ import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -43,6 +45,9 @@ public class TantalisingTeasClient implements ClientModInitializer {
                     return NbtUtil.getOverallStrength(NbtUtil.getIngredients(nbt));
                 }
         );
+
+        BlockRenderLayerMap.INSTANCE.putBlock(TantalisingBlocks.STILL_CAULDRON, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(TantalisingBlocks.BOILING_CAULDRON, RenderLayer.getTranslucent());
 
         // colour providers are only used when there are no ingredients present
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getWaterColour(view, pos), TantalisingBlocks.STILL_CAULDRON);

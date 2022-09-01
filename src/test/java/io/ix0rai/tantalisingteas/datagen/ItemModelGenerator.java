@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 public class ItemModelGenerator {
     static void generateTeaBottleModel() throws IOException {
-        AssetGenerator.write(new File(AssetGenerator.ITEM_MODELS + "/tea_bottle.json"), getLatestTeaBottleJson());
+        AssetGenerator.write(new File(AssetGenerator.ITEM_MODELS_ROOT + "/tea_bottle.json"), getLatestTeaBottleJson());
     }
 
     static ItemModelJson getLatestTeaBottleJson() {
@@ -40,7 +40,7 @@ public class ItemModelGenerator {
     }
 
     static ItemModelJson getJson(TeaColour colour, int strength) {
-        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":overlay/generated/" + getName(colour, strength)), null);
+        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":generated/overlay/" + getName(colour, strength)), null);
     }
 
     static String getName(TeaColour colour, int strength) {
@@ -50,8 +50,8 @@ public class ItemModelGenerator {
     static void generateTeaColourModels() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
             for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
-                String modelName = "item/" + getName(colour, strength) + "_tea_model.json";
-                File file = new File(AssetGenerator.MODELS + "/" + modelName);
+                String modelName = getName(colour, strength) + "_tea_model.json";
+                File file = new File(AssetGenerator.ITEM_MODELS + "/" + modelName);
 
                 if (!file.exists()) {
                     // noinspection ResultOfMethodCallIgnored
@@ -113,7 +113,7 @@ public class ItemModelGenerator {
 
         private JsonOverride(Predicate predicate, String model) {
             this.predicate = predicate;
-            this.model = TantalisingTeas.MOD_ID + ":item/" + model + "_tea_model";
+            this.model = TantalisingTeas.MOD_ID + ":generated/item/" + model + "_tea_model";
         }
 
         @Override

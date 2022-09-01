@@ -5,6 +5,7 @@ import io.ix0rai.tantalisingteas.client.TantalisingTeasClient;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.math.MathHelper;
 
 import java.security.InvalidParameterException;
 import java.util.EnumMap;
@@ -111,7 +112,7 @@ public enum TeaColour implements StringIdentifiable {
         for (int number : colours.values()) {
             averageOccurrences += number;
         }
-        averageOccurrences /= colours.size() - 1;
+        averageOccurrences /= MathHelper.clamp(colours.size() - 1, 1, Integer.MAX_VALUE);
 
         // purge map of rare colours
         Iterator<TeaColour> iterator = colours.keySet().iterator();

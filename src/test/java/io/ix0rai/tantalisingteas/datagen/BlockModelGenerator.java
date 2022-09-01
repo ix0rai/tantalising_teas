@@ -17,17 +17,36 @@ public class BlockModelGenerator {
         final Map<String, ModelJsonProperty> variants = new HashMap<>();
 
         for (TeaColour colour : TeaColour.values()) {
-            for (int l = 1; l < LEVELS; l ++) {
-                for (int s = 0; s < NbtUtil.MAX_STRENGTH; s ++) {
+            for (int l = 1; l <= LEVELS; l ++) {
+                for (int s = 0; s <= NbtUtil.MAX_STRENGTH; s ++) {
                     final String variant = String.format("colour=%s,level=%d,strength=%d", colour.asString(), l, s);
-                    final String model = String.format(TantalisingTeas.MOD_ID + ":block/cauldron/%s_tea_cauldron_l%d_s%d", colour.asString(), l, s);
-                    variants.put(variant, new ModelJsonProperty(model));
+                    final String modelName = String.format("%s_tea_cauldron_l%d_s%d", colour.asString(), l, s);
+                    variants.put(variant, new ModelJsonProperty(TantalisingTeas.MOD_ID + ":generated/block/" + modelName));
+
+                    // todo: generate individual models
+
+                    // todo custom parent model with no tint index
+                    // todo idk what I'm doing anymore there's too much json
+                    // todo can I even put all my assets in /generated does that even work
+
+                    Map<String, String> textures = new HashMap<>();
+                    textures.put("bottom", "minecraft:block/cauldron_bottom");
+                    textures.put("side", "minecraft:block/cauldron_side");
+                    textures.put("top", "minecraft:block/cauldron_top");
+                    textures.put("inside", "minecraft:block/cauldron_inner");
+                    textures.put("particle", "minecraft:block/cauldron_side");
+                    textures.put("content", TantalisingTeas.MOD_ID + ":generated/cauldron/" + String.format("%s_tea_cauldron_s%d", colour.asString(), s));
+
+                    BlockModelJson model = new BlockModelJson(TantalisingTeas.MOD_ID + ":cauldron/tantalising_cauldron_level" + l, textures);
+
+                    File file = new File(AssetGenerator.BLOCK_MODELS + "/" + modelName + ".json");
+                    AssetGenerator.write(file, model);
                 }
             }
         }
 
         // for some ungodly reason gson doesn't properly decode the equals sign
-        String json = AssetGenerator.GSON.toJson(new BlockModelJson(variants));
+        String json = AssetGenerator.GSON.toJson(new BlockStateJson(variants));
         json = json.replace("\\u003d", "=");
         File file = new File(AssetGenerator.BLOCKSTATES + "/still_cauldron.json");
         AssetGenerator.write(file, json);
@@ -39,10 +58,12 @@ public class BlockModelGenerator {
 
     @SuppressWarnings("unused")
     private static class BlockModelJson {
-        private final Map<String, ModelJsonProperty> variants;
+        private final String parent;
+        private final Map<String, String> textures;
 
-        public BlockModelJson(Map<String, ModelJsonProperty> variants) {
-            this.variants = variants;
+        BlockModelJson(String parent, Map<String, String> textures) {
+            this.parent = parent;
+            this.textures = textures;
         }
 
         @Override
@@ -50,6 +71,23 @@ public class BlockModelGenerator {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             BlockModelJson that = (BlockModelJson) o;
+            return Objects.equals(parent, that.parent) && Objects.equals(textures, that.textures);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private static class BlockStateJson {
+        private final Map<String, ModelJsonProperty> variants;
+
+        public BlockStateJson(Map<String, ModelJsonProperty> variants) {
+            this.variants = variants;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            BlockStateJson that = (BlockStateJson) o;
             return Objects.equals(variants, that.variants);
         }
     }
