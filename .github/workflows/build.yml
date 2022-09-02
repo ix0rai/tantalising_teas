@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout code
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
       - name: set up JDK 17
@@ -21,6 +22,7 @@ jobs:
         run: ./gradlew generateAssets
       - name: build project
         run: ./gradlew build
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: commit changes made in asset generation
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: update automatically generated files
