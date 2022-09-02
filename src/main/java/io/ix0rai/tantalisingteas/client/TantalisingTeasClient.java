@@ -46,12 +46,10 @@ public class TantalisingTeasClient implements ClientModInitializer {
                 }
         );
 
-        BlockRenderLayerMap.INSTANCE.putBlock(TantalisingBlocks.STILL_CAULDRON, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(TantalisingBlocks.BOILING_CAULDRON, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(TantalisingBlocks.TEA_CAULDRON, RenderLayer.getTranslucent());
 
         // colour providers are only used when there are no ingredients present
-        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getWaterColour(view, pos), TantalisingBlocks.STILL_CAULDRON);
-        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getWaterColour(view, pos), TantalisingBlocks.BOILING_CAULDRON);
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getWaterColour(view, pos), TantalisingBlocks.TEA_CAULDRON);
     }
 
     private static int getWaterColour(BlockRenderView view, BlockPos pos) {

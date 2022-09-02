@@ -1,0 +1,20 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"top": "tantalising_teas:block/cauldron_top",
+		"bottom": "tantalising_teas:block/cauldron_bottom",
+		"particle": "tantalising_teas:block/cauldron_side",
+		"side": "tantalising_teas:block/cauldron_side",
+		"inside": "tantalising_teas:block/cauldron_inner"
+	},
+  "elements": [
+    {
+      "from": [2, 4, 2],
+      "to": [14, 15, 14],
+      "faces": {
+          "up": {"uv": [2, 2, 14, 14], "texture": "#boiling"}
+      }
+    }
+  ]
+}

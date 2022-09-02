@@ -22,7 +22,7 @@ public class AbstractBlockMixin {
     public void getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> cir) {
         // when a water cauldron receives a neighbor update and the neighbor is a fire block, as well as directly below the cauldron, it will begin boiling
         if (state.isOf(Blocks.WATER_CAULDRON) && neighborPos.equals(pos.down()) && neighborState.isOf(Blocks.FIRE)) {
-            cir.setReturnValue(TantalisingBlocks.BOILING_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL)));
+            cir.setReturnValue(TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, state.get(LeveledCauldronBlock.LEVEL)));
         }
     }
 
@@ -36,7 +36,7 @@ public class AbstractBlockMixin {
         if (fromPos.equals(pos.up())) {
             BlockState neighborState = world.getBlockState(fromPos);
             if (neighborState.isOf(Blocks.WATER_CAULDRON) && world.getBlockState(pos).isIn(BlockTags.FIRE)) {
-                world.setBlockState(fromPos, TantalisingBlocks.BOILING_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, neighborState.get(LeveledCauldronBlock.LEVEL)), Block.NOTIFY_ALL);
+                world.setBlockState(fromPos, TantalisingBlocks.TEA_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, neighborState.get(LeveledCauldronBlock.LEVEL)), Block.NOTIFY_ALL);
             }
         }
     }

@@ -1,0 +1,3154 @@
+{
+  "variants": {
+    "colour=very_dark_green,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s3_still"
+    },
+    "colour=green,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=very_light_green,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=black,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s2_still"
+    },
+    "colour=brown,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=red,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_dark_red,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s0_still"
+    },
+    "colour=red,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=blue,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=green,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s5_still"
+    },
+    "colour=orange,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=teal,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s5_still"
+    },
+    "colour=dark_blue,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=light_red,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s0_still"
+    },
+    "colour=blue,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s3_still"
+    },
+    "colour=light_blue,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s1_still"
+    },
+    "colour=white,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_dark_red,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s6_still"
+    },
+    "colour=orange,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=very_light_green,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s1_still"
+    },
+    "colour=very_light_green,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=very_light_blue,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s5_still"
+    },
+    "colour=light_green,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=olive,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=dark_red,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s6_still"
+    },
+    "colour=very_light_green,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=very_light_green,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_dark_green,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s0_still"
+    },
+    "colour=very_light_blue,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s1_still"
+    },
+    "colour=very_light_red,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s2_still"
+    },
+    "colour=orange,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s0_still"
+    },
+    "colour=black,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s5_still"
+    },
+    "colour=blue,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s6_still"
+    },
+    "colour=dark_blue,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=light_blue,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s4_still"
+    },
+    "colour=brown,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s2_still"
+    },
+    "colour=light_red,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s3_still"
+    },
+    "colour=yellow,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s0_still"
+    },
+    "colour=dark_blue,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=light_red,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s6_still"
+    },
+    "colour=very_light_green,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s2_still"
+    },
+    "colour=cyan,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s3_still"
+    },
+    "colour=cyan,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s4_still"
+    },
+    "colour=red,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=orange,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=green,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=olive,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s0_still"
+    },
+    "colour=blue,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=light_red,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s4_still"
+    },
+    "colour=light_blue,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s2_still"
+    },
+    "colour=black,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s3_still"
+    },
+    "colour=very_light_green,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=blue,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=very_dark_green,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s2_still"
+    },
+    "colour=olive,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=brown,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=very_light_red,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s5_still"
+    },
+    "colour=brown,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=olive,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=green,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=very_light_red,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s4_still"
+    },
+    "colour=red,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=orange,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_dark_red,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s1_still"
+    },
+    "colour=olive,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s1_still"
+    },
+    "colour=dark_blue,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=very_light_blue,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s6_still"
+    },
+    "colour=teal,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s6_still"
+    },
+    "colour=very_light_red,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s6_still"
+    },
+    "colour=green,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s6_still"
+    },
+    "colour=very_light_red,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_light_green,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=red,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=green,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=orange,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=brown,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=olive,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=red,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=blue,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s5_still"
+    },
+    "colour=olive,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s2_still"
+    },
+    "colour=light_blue,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s3_still"
+    },
+    "colour=red,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=yellow,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s1_still"
+    },
+    "colour=very_dark_green,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=cyan,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s2_still"
+    },
+    "colour=very_dark_red,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s2_still"
+    },
+    "colour=teal,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s4_still"
+    },
+    "colour=light_green,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=olive,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=very_light_green,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=green,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s4_still"
+    },
+    "colour=blue,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=brown,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s6_still"
+    },
+    "colour=light_blue,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s0_still"
+    },
+    "colour=blue,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=orange,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=very_light_green,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=green,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=very_light_blue,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_light_green,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=brown,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s5_still"
+    },
+    "colour=red,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=cyan,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s1_still"
+    },
+    "colour=blue,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=very_light_green,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=green,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=light_blue,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s5_still"
+    },
+    "colour=brown,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=light_red,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s2_still"
+    },
+    "colour=very_light_red,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s1_still"
+    },
+    "colour=dark_blue,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=white,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=teal,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s3_still"
+    },
+    "colour=red,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=brown,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s5_still"
+    },
+    "colour=cyan,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s0_still"
+    },
+    "colour=brown,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s4_still"
+    },
+    "colour=blue,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=white,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=very_light_blue,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s3_still"
+    },
+    "colour=brown,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=green,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=dark_blue,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=olive,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_light_red,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=light_red,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s1_still"
+    },
+    "colour=red,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=light_blue,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s6_still"
+    },
+    "colour=blue,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s4_still"
+    },
+    "colour=orange,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=very_light_green,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s6_still"
+    },
+    "colour=brown,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_light_green,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=very_light_red,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s0_still"
+    },
+    "colour=light_green,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=red,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=brown,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s6_still"
+    },
+    "colour=cyan,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s1_still"
+    },
+    "colour=cyan,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s6_still"
+    },
+    "colour=dark_blue,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=black,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s6_still"
+    },
+    "colour=white,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=light_green,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s0_still"
+    },
+    "colour=very_light_blue,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s2_still"
+    },
+    "colour=brown,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_light_green,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s5_still"
+    },
+    "colour=orange,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=red,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=red,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=light_red,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s3_still"
+    },
+    "colour=red,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=very_light_blue,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s5_still"
+    },
+    "colour=olive,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=brown,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=light_green,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=olive,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=olive,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s3_still"
+    },
+    "colour=purple,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s5_still"
+    },
+    "colour=light_green,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=very_light_red,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s2_still"
+    },
+    "colour=light_green,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=olive,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=very_light_blue,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s6_still"
+    },
+    "colour=blue,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s1_still"
+    },
+    "colour=pink,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s0_still"
+    },
+    "colour=white,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=dark_blue,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=teal,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s5_still"
+    },
+    "colour=very_dark_red,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s1_still"
+    },
+    "colour=light_blue,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s1_still"
+    },
+    "colour=very_light_red,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s3_still"
+    },
+    "colour=red,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=blue,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=olive,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=purple,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s6_still"
+    },
+    "colour=olive,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=blue,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s0_still"
+    },
+    "colour=cyan,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s5_still"
+    },
+    "colour=white,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=green,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_light_red,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=dark_blue,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=light_blue,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s2_still"
+    },
+    "colour=teal,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s6_still"
+    },
+    "colour=very_light_green,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=olive,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=very_light_red,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s1_still"
+    },
+    "colour=green,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=yellow,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s0_still"
+    },
+    "colour=blue,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=purple,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s4_still"
+    },
+    "colour=pink,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_dark_red,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s5_still"
+    },
+    "colour=orange,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s1_still"
+    },
+    "colour=very_light_blue,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s4_still"
+    },
+    "colour=blue,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=white,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=dark_green,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=dark_blue,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=dark_blue,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s0_still"
+    },
+    "colour=orange,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s4_still"
+    },
+    "colour=orange,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=red,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=light_red,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=pink,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s6_still"
+    },
+    "colour=brown,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s5_still"
+    },
+    "colour=olive,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=cyan,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s2_still"
+    },
+    "colour=light_red,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=light_blue,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s0_still"
+    },
+    "colour=very_dark_red,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s2_still"
+    },
+    "colour=brown,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=blue,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s2_still"
+    },
+    "colour=teal,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s4_still"
+    },
+    "colour=white,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=light_green,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=very_light_red,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=red,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=very_light_green,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=blue,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s6_still"
+    },
+    "colour=green,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=dark_blue,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=blue,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=blue,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=orange,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s3_still"
+    },
+    "colour=very_dark_red,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s3_still"
+    },
+    "colour=brown,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=dark_blue,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=light_green,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s2_still"
+    },
+    "colour=purple,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s3_still"
+    },
+    "colour=very_light_red,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s0_still"
+    },
+    "colour=blue,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s5_still"
+    },
+    "colour=very_dark_red,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s4_still"
+    },
+    "colour=very_light_red,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=white,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=brown,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=green,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=orange,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s2_still"
+    },
+    "colour=blue,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s4_still"
+    },
+    "colour=dark_blue,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=brown,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s4_still"
+    },
+    "colour=green,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=light_green,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s1_still"
+    },
+    "colour=cyan,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s0_still"
+    },
+    "colour=very_light_blue,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s3_still"
+    },
+    "colour=green,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_dark_blue,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=teal,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s3_still"
+    },
+    "colour=light_green,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=light_green,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s6_still"
+    },
+    "colour=white,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=teal,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=pink,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=red,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s0_still"
+    },
+    "colour=blue,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s1_still"
+    },
+    "colour=very_dark_green,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s5_still"
+    },
+    "colour=very_light_red,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=purple,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s6_still"
+    },
+    "colour=cyan,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_dark_red,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=yellow,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s1_still"
+    },
+    "colour=teal,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s0_still"
+    },
+    "colour=light_red,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=dark_red,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s5_still"
+    },
+    "colour=light_red,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s2_still"
+    },
+    "colour=red,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=purple,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=green,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s0_still"
+    },
+    "colour=black,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s0_still"
+    },
+    "colour=very_light_red,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=pink,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s2_still"
+    },
+    "colour=white,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s2_still"
+    },
+    "colour=very_light_green,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s2_still"
+    },
+    "colour=very_light_red,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s4_still"
+    },
+    "colour=brown,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s1_still"
+    },
+    "colour=light_red,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s6_still"
+    },
+    "colour=very_light_blue,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s0_still"
+    },
+    "colour=black,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=dark_blue,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s4_still"
+    },
+    "colour=white,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=light_blue,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=cyan,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s6_still"
+    },
+    "colour=very_light_blue,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=very_dark_green,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s2_still"
+    },
+    "colour=olive,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s2_still"
+    },
+    "colour=black,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s3_still"
+    },
+    "colour=light_blue,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s2_still"
+    },
+    "colour=red,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s6_still"
+    },
+    "colour=dark_blue,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s2_still"
+    },
+    "colour=very_dark_blue,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s2_still"
+    },
+    "colour=dark_green,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s5_still"
+    },
+    "colour=very_dark_red,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s0_still"
+    },
+    "colour=light_red,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s4_still"
+    },
+    "colour=white,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s5_still"
+    },
+    "colour=orange,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s3_still"
+    },
+    "colour=dark_green,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s0_still"
+    },
+    "colour=blue,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=red,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s5_still"
+    },
+    "colour=white,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s4_still"
+    },
+    "colour=light_green,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=light_blue,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s4_still"
+    },
+    "colour=dark_blue,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s6_still"
+    },
+    "colour=very_light_red,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=purple,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=teal,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s5_still"
+    },
+    "colour=very_dark_red,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=cyan,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_light_green,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s1_still"
+    },
+    "colour=light_red,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=very_dark_blue,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s5_still"
+    },
+    "colour=orange,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=black,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s5_still"
+    },
+    "colour=teal,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=very_dark_green,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=olive,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=white,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s1_still"
+    },
+    "colour=purple,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=very_light_green,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s4_still"
+    },
+    "colour=white,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=pink,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s0_still"
+    },
+    "colour=very_dark_green,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s0_still"
+    },
+    "colour=red,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s2_still"
+    },
+    "colour=olive,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s5_still"
+    },
+    "colour=brown,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=dark_green,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=light_green,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s1_still"
+    },
+    "colour=purple,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_dark_green,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=dark_blue,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=yellow,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s4_still"
+    },
+    "colour=orange,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s1_still"
+    },
+    "colour=red,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s3_still"
+    },
+    "colour=light_green,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=light_green,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=dark_red,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s6_still"
+    },
+    "colour=blue,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s3_still"
+    },
+    "colour=dark_green,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s2_still"
+    },
+    "colour=pink,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=dark_green,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_light_green,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=light_blue,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=light_red,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s0_still"
+    },
+    "colour=dark_red,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_light_green,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s6_still"
+    },
+    "colour=dark_green,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=orange,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=green,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=green,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=light_green,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=very_dark_green,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=dark_blue,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=olive,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=green,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s6_still"
+    },
+    "colour=teal,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s2_still"
+    },
+    "colour=green,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=yellow,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s2_still"
+    },
+    "colour=dark_red,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s4_still"
+    },
+    "colour=pink,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s4_still"
+    },
+    "colour=yellow,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s5_still"
+    },
+    "colour=yellow,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=orange,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s6_still"
+    },
+    "colour=light_red,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=dark_blue,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s2_still"
+    },
+    "colour=very_light_red,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s6_still"
+    },
+    "colour=light_red,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s4_still"
+    },
+    "colour=brown,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=white,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s0_still"
+    },
+    "colour=brown,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=olive,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s0_still"
+    },
+    "colour=pink,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s1_still"
+    },
+    "colour=orange,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=very_dark_blue,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=very_dark_green,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_light_green,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s4_still"
+    },
+    "colour=blue,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s2_still"
+    },
+    "colour=pink,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=very_dark_green,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s0_still"
+    },
+    "colour=black,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s5_still"
+    },
+    "colour=very_dark_blue,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s0_still"
+    },
+    "colour=blue,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=light_blue,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s0_still"
+    },
+    "colour=light_green,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s4_still"
+    },
+    "colour=dark_green,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=dark_blue,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s5_still"
+    },
+    "colour=yellow,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=very_light_red,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=light_blue,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s3_still"
+    },
+    "colour=olive,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s1_still"
+    },
+    "colour=black,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s2_still"
+    },
+    "colour=light_red,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=dark_blue,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s1_still"
+    },
+    "colour=very_light_blue,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=green,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s1_still"
+    },
+    "colour=blue,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=orange,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=very_dark_blue,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=very_dark_green,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_light_blue,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=green,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s2_still"
+    },
+    "colour=cyan,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=light_red,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s5_still"
+    },
+    "colour=very_light_blue,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=cyan,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s5_still"
+    },
+    "colour=brown,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s0_still"
+    },
+    "colour=very_dark_red,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=very_light_red,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s5_still"
+    },
+    "colour=yellow,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=very_light_red,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=black,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_light_green,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s0_still"
+    },
+    "colour=black,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s4_still"
+    },
+    "colour=brown,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s6_still"
+    },
+    "colour=white,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=very_dark_blue,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s4_still"
+    },
+    "colour=orange,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=white,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=light_blue,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s5_still"
+    },
+    "colour=dark_red,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s0_still"
+    },
+    "colour=purple,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s3_still"
+    },
+    "colour=orange,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s0_still"
+    },
+    "colour=cyan,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s5_still"
+    },
+    "colour=teal,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_light_green,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_dark_green,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s1_still"
+    },
+    "colour=very_light_red,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=black,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=purple,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=purple,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=light_green,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s0_still"
+    },
+    "colour=purple,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s5_still"
+    },
+    "colour=light_blue,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=light_green,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=black,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s1_still"
+    },
+    "colour=olive,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_light_red,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s2_still"
+    },
+    "colour=blue,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s6_still"
+    },
+    "colour=dark_green,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s3_still"
+    },
+    "colour=light_red,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=cyan,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s3_still"
+    },
+    "colour=green,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=olive,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=very_dark_green,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s4_still"
+    },
+    "colour=very_dark_green,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=yellow,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=brown,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s4_still"
+    },
+    "colour=very_dark_red,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s3_still"
+    },
+    "colour=very_light_green,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=very_dark_blue,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s6_still"
+    },
+    "colour=dark_red,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s2_still"
+    },
+    "colour=very_light_green,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s5_still"
+    },
+    "colour=brown,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=dark_red,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=light_blue,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=light_green,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=green,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=dark_blue,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s0_still"
+    },
+    "colour=green,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s5_still"
+    },
+    "colour=very_light_green,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=pink,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s6_still"
+    },
+    "colour=dark_green,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=blue,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=pink,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=white,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=orange,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s4_still"
+    },
+    "colour=purple,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s1_still"
+    },
+    "colour=yellow,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s1_still"
+    },
+    "colour=black,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s6_still"
+    },
+    "colour=orange,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s2_still"
+    },
+    "colour=very_light_green,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=dark_green,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s1_still"
+    },
+    "colour=yellow,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s3_still"
+    },
+    "colour=dark_red,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=olive,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=very_light_red,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s0_still"
+    },
+    "colour=blue,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s4_still"
+    },
+    "colour=dark_blue,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=dark_green,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s3_still"
+    },
+    "colour=very_dark_green,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s6_still"
+    },
+    "colour=cyan,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s1_still"
+    },
+    "colour=pink,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=light_red,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s1_still"
+    },
+    "colour=olive,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s6_still"
+    },
+    "colour=very_dark_red,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s5_still"
+    },
+    "colour=light_green,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s2_still"
+    },
+    "colour=very_dark_green,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=olive,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=dark_blue,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=pink,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s0_still"
+    },
+    "colour=light_green,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s1_still"
+    },
+    "colour=light_blue,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=dark_blue,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s6_still"
+    },
+    "colour=purple,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s4_still"
+    },
+    "colour=dark_green,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s3_still"
+    },
+    "colour=dark_red,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=dark_green,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=red,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s5_still"
+    },
+    "colour=very_dark_blue,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=purple,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=light_blue,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=cyan,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=purple,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s1_still"
+    },
+    "colour=very_light_blue,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=light_red,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_dark_blue,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s1_still"
+    },
+    "colour=pink,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=yellow,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=black,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=white,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s1_still"
+    },
+    "colour=black,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=very_light_blue,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=very_dark_blue,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=very_dark_blue,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=yellow,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=yellow,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=light_green,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s4_still"
+    },
+    "colour=dark_red,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=olive,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s4_still"
+    },
+    "colour=cyan,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=light_blue,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s4_still"
+    },
+    "colour=cyan,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=very_dark_green,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=yellow,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=black,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=light_red,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=orange,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s6_still"
+    },
+    "colour=very_light_blue,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=purple,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=dark_blue,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s2_still"
+    },
+    "colour=purple,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=blue,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s0_still"
+    },
+    "colour=very_dark_blue,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=pink,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s4_still"
+    },
+    "colour=white,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s5_still"
+    },
+    "colour=light_red,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=dark_red,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s0_still"
+    },
+    "colour=light_green,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s5_still"
+    },
+    "colour=yellow,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=yellow,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s6_still"
+    },
+    "colour=dark_red,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=dark_red,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=very_dark_red,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=dark_blue,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_dark_red,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=teal,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=pink,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s3_still"
+    },
+    "colour=green,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s2_still"
+    },
+    "colour=purple,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=dark_green,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s6_still"
+    },
+    "colour=green,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s1_still"
+    },
+    "colour=white,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_light_red,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=red,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s6_still"
+    },
+    "colour=very_light_blue,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=very_light_red,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=very_dark_blue,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s2_still"
+    },
+    "colour=black,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=red,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s0_still"
+    },
+    "colour=dark_green,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=light_blue,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=dark_green,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=olive,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s3_still"
+    },
+    "colour=dark_green,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s5_still"
+    },
+    "colour=cyan,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=light_green,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s3_still"
+    },
+    "colour=light_red,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=very_light_blue,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=black,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=white,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s3_still"
+    },
+    "colour=teal,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s0_still"
+    },
+    "colour=teal,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=cyan,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s6_still"
+    },
+    "colour=teal,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=light_red,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=very_dark_blue,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=dark_blue,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s5_still"
+    },
+    "colour=very_dark_blue,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=pink,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=black,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=pink,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s1_still"
+    },
+    "colour=pink,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=very_light_blue,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=dark_red,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s1_still"
+    },
+    "colour=yellow,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=dark_red,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=cyan,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=cyan,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=orange,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s5_still"
+    },
+    "colour=purple,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s0_still"
+    },
+    "colour=white,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s6_still"
+    },
+    "colour=pink,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s5_still"
+    },
+    "colour=light_blue,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=very_dark_green,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=red,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s4_still"
+    },
+    "colour=light_blue,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=teal,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s3_still"
+    },
+    "colour=dark_green,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=cyan,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=dark_green,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=light_blue,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s6_still"
+    },
+    "colour=light_blue,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=pink,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=cyan,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=light_blue,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=olive,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s5_still"
+    },
+    "colour=dark_red,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=teal,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=red,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s3_still"
+    },
+    "colour=very_dark_red,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=dark_green,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=pink,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=dark_red,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=very_light_blue,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=light_red,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=purple,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_dark_red,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=teal,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s2_still"
+    },
+    "colour=light_green,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s2_still"
+    },
+    "colour=purple,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=teal,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=very_light_red,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=teal,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s1_still"
+    },
+    "colour=purple,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s2_still"
+    },
+    "colour=dark_red,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=olive,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s6_still"
+    },
+    "colour=black,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=brown,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s1_still"
+    },
+    "colour=very_dark_green,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=black,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=white,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s2_still"
+    },
+    "colour=light_green,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=yellow,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=very_dark_red,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=light_blue,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=cyan,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=very_dark_green,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s4_still"
+    },
+    "colour=light_green,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s5_still"
+    },
+    "colour=black,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s1_still"
+    },
+    "colour=yellow,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s4_still"
+    },
+    "colour=teal,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=dark_red,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s2_still"
+    },
+    "colour=dark_green,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s4_still"
+    },
+    "colour=black,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=very_dark_blue,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=green,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s4_still"
+    },
+    "colour=red,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s1_still"
+    },
+    "colour=teal,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s4_still"
+    },
+    "colour=dark_red,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s0_still"
+    },
+    "colour=dark_red,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s5_still"
+    },
+    "colour=very_light_blue,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s0_still"
+    },
+    "colour=black,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=teal,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s0_still"
+    },
+    "colour=red,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s4_still"
+    },
+    "colour=dark_red,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=dark_red,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=very_light_green,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s0_still"
+    },
+    "colour=purple,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=black,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=purple,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s0_still"
+    },
+    "colour=very_dark_blue,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s4_still"
+    },
+    "colour=red,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s0_still"
+    },
+    "colour=purple,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s1_still"
+    },
+    "colour=green,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s3_still"
+    },
+    "colour=dark_red,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s6_still"
+    },
+    "colour=dark_blue,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s4_still"
+    },
+    "colour=very_light_red,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=red,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s5_still"
+    },
+    "colour=black,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=yellow,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=purple,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=dark_green,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s5_still"
+    },
+    "colour=very_dark_green,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=yellow,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=very_dark_blue,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s3_still"
+    },
+    "colour=black,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=very_light_green,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s1_still"
+    },
+    "colour=pink,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s2_still"
+    },
+    "colour=black,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=very_dark_blue,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=white,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s3_still"
+    },
+    "colour=light_blue,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=purple,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=cyan,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=purple,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=very_light_blue,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=brown,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s0_still"
+    },
+    "colour=dark_green,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s6_still"
+    },
+    "colour=yellow,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s6_still"
+    },
+    "colour=light_red,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=teal,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=dark_blue,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s3_still"
+    },
+    "colour=pink,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s3_still"
+    },
+    "colour=light_green,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s6_still"
+    },
+    "colour=teal,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=black,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s2_still"
+    },
+    "colour=very_dark_blue,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s2_still"
+    },
+    "colour=white,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s4_still"
+    },
+    "colour=very_dark_red,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=white,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s0_still"
+    },
+    "colour=dark_red,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s4_still"
+    },
+    "colour=very_dark_green,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=cyan,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=light_blue,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=teal,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=green,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s0_still"
+    },
+    "colour=very_dark_green,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s3_still"
+    },
+    "colour=pink,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=purple,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s3_still"
+    },
+    "colour=very_dark_blue,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=yellow,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=dark_red,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=dark_green,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s2_still"
+    },
+    "colour=orange,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s6_still"
+    },
+    "colour=red,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s3_still"
+    },
+    "colour=very_dark_red,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=cyan,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=dark_green,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=pink,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s4_still"
+    },
+    "colour=very_dark_blue,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s0_still"
+    },
+    "colour=light_green,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s4_still"
+    },
+    "colour=brown,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s2_still"
+    },
+    "colour=very_dark_green,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s5_still"
+    },
+    "colour=very_dark_blue,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=dark_red,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=dark_green,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s4_still"
+    },
+    "colour=purple,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s1_still"
+    },
+    "colour=black,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=yellow,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=dark_red,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s1_still"
+    },
+    "colour=white,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s2_still"
+    },
+    "colour=yellow,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s5_still"
+    },
+    "colour=very_light_blue,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s1_still"
+    },
+    "colour=black,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s0_still"
+    },
+    "colour=white,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s6_still"
+    },
+    "colour=dark_red,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=dark_green,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=cyan,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=very_dark_green,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s6_still"
+    },
+    "colour=very_dark_blue,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s6_still"
+    },
+    "colour=teal,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=purple,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s2_still"
+    },
+    "colour=very_dark_green,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=teal,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s1_still"
+    },
+    "colour=cyan,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=very_dark_red,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=light_green,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s3_still"
+    },
+    "colour=light_blue,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=light_green,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=brown,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s3_still"
+    },
+    "colour=light_blue,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=yellow,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s2_still"
+    },
+    "colour=yellow,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=dark_red,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s2_still"
+    },
+    "colour=dark_green,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s5_still"
+    },
+    "colour=pink,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_light_blue,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s2_still"
+    },
+    "colour=dark_green,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s0_still"
+    },
+    "colour=very_dark_green,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=teal,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=purple,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=red,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s1_still"
+    },
+    "colour=teal,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s2_still"
+    },
+    "colour=light_blue,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=dark_red,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=light_red,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=orange,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=yellow,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s3_still"
+    },
+    "colour=very_dark_green,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=teal,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=dark_red,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s3_still"
+    },
+    "colour=very_light_blue,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=very_light_red,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_dark_red,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=dark_green,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s1_still"
+    },
+    "colour=red,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l2_s2_still"
+    },
+    "colour=very_light_red,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=orange,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s5_still"
+    },
+    "colour=brown,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=dark_blue,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s1_still"
+    },
+    "colour=very_dark_blue,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s6_still"
+    },
+    "colour=light_blue,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s6_still"
+    },
+    "colour=light_blue,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s3_still"
+    },
+    "colour=light_green,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=yellow,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=pink,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=cyan,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s2_still"
+    },
+    "colour=very_dark_red,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s1_still"
+    },
+    "colour=light_blue,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=white,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=very_dark_green,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=teal,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=white,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s6_still"
+    },
+    "colour=dark_red,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s1_still"
+    },
+    "colour=very_light_red,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s3_still"
+    },
+    "colour=red,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s4_still"
+    },
+    "colour=light_red,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=purple,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=yellow,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s5_still"
+    },
+    "colour=very_light_blue,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s6_still"
+    },
+    "colour=dark_blue,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s5_still"
+    },
+    "colour=white,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=very_light_green,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s0_still"
+    },
+    "colour=pink,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s5_still"
+    },
+    "colour=very_dark_green,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s1_still"
+    },
+    "colour=very_light_red,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s6_still"
+    },
+    "colour=olive,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s3_still"
+    },
+    "colour=light_green,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=olive,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=white,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=pink,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=black,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s4_still"
+    },
+    "colour=black,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s1_still"
+    },
+    "colour=olive,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s0_still"
+    },
+    "colour=very_light_red,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=pink,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s1_still"
+    },
+    "colour=cyan,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=very_light_green,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s3_still"
+    },
+    "colour=dark_green,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s4_still"
+    },
+    "colour=dark_green,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=cyan,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s5_still"
+    },
+    "colour=dark_green,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=blue,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s0_still"
+    },
+    "colour=light_red,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s5_still"
+    },
+    "colour=very_dark_blue,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s3_still"
+    },
+    "colour=very_light_red,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=very_light_green,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=brown,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s0_still"
+    },
+    "colour=white,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s3_still"
+    },
+    "colour=teal,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s6_still"
+    },
+    "colour=orange,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=green,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=orange,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=pink,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=very_dark_green,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=very_dark_green,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=dark_blue,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=light_green,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=green,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s2_still"
+    },
+    "colour=dark_blue,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=olive,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=teal,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s1_still"
+    },
+    "colour=very_light_green,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s5_still"
+    },
+    "colour=dark_blue,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=very_dark_green,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s6_still"
+    },
+    "colour=black,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s6_still"
+    },
+    "colour=light_green,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=black,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=teal,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=green,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s5_still"
+    },
+    "colour=purple,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s5_still"
+    },
+    "colour=blue,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s2_still"
+    },
+    "colour=olive,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s4_still"
+    },
+    "colour=light_green,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s0_still"
+    },
+    "colour=red,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s0_still"
+    },
+    "colour=light_red,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s3_still"
+    },
+    "colour=purple,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=dark_green,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s3_still"
+    },
+    "colour=brown,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s2_still"
+    },
+    "colour=dark_red,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s6_still"
+    },
+    "colour=orange,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s0_still"
+    },
+    "colour=light_green,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=dark_red,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=very_dark_green,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s4_still"
+    },
+    "colour=blue,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=very_light_blue,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s1_still"
+    },
+    "colour=dark_red,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_dark_blue,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=teal,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=very_dark_red,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=white,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s0_still"
+    },
+    "colour=light_red,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s1_still"
+    },
+    "colour=light_red,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=teal,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=yellow,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=very_dark_red,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=purple,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=red,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s1_still"
+    },
+    "colour=cyan,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=yellow,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s3_still"
+    },
+    "colour=orange,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s2_still"
+    },
+    "colour=olive,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l1_s6_still"
+    },
+    "colour=red,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s2_still"
+    },
+    "colour=dark_green,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s1_still"
+    },
+    "colour=olive,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=yellow,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=very_light_green,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_light_green,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s2_still"
+    },
+    "colour=light_red,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s4_still"
+    },
+    "colour=light_red,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s6_still"
+    },
+    "colour=dark_green,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s2_still"
+    },
+    "colour=orange,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s1_still"
+    },
+    "colour=pink,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=very_light_red,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=very_light_red,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s1_still"
+    },
+    "colour=olive,level=2,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s5_still"
+    },
+    "colour=brown,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=very_light_red,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s4_still"
+    },
+    "colour=green,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=very_dark_green,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=white,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s5_still"
+    },
+    "colour=dark_red,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=very_light_green,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=dark_green,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=blue,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=blue,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=pink,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s6_still"
+    },
+    "colour=orange,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=orange,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s4_still"
+    },
+    "colour=dark_blue,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s0_still"
+    },
+    "colour=very_dark_red,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s2_still"
+    },
+    "colour=light_blue,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_dark_blue,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s5_still"
+    },
+    "colour=pink,level=3,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l3_s6_boiling"
+    },
+    "colour=very_dark_green,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=yellow,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s0_still"
+    },
+    "colour=green,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s0_still"
+    },
+    "colour=light_blue,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s5_still"
+    },
+    "colour=cyan,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s3_still"
+    },
+    "colour=light_red,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=blue,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=green,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=green,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s3_still"
+    },
+    "colour=light_blue,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l3_s1_still"
+    },
+    "colour=blue,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s1_still"
+    },
+    "colour=orange,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=white,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=white,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=purple,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s6_still"
+    },
+    "colour=very_dark_blue,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s1_still"
+    },
+    "colour=very_dark_green,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s1_still"
+    },
+    "colour=brown,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=purple,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=cyan,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s4_still"
+    },
+    "colour=black,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s4_still"
+    },
+    "colour=very_light_green,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_dark_green,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l2_s2_still"
+    },
+    "colour=very_light_red,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l3_s5_still"
+    },
+    "colour=light_blue,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=black,level=2,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l2_s3_still"
+    },
+    "colour=dark_red,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=dark_green,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s6_still"
+    },
+    "colour=red,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s6_still"
+    },
+    "colour=pink,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s3_still"
+    },
+    "colour=dark_green,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=very_light_green,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s3_still"
+    },
+    "colour=dark_blue,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=olive,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l3_s2_still"
+    },
+    "colour=yellow,level=1,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s6_still"
+    },
+    "colour=green,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=olive,level=2,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/olive_tea_cauldron_l2_s1_still"
+    },
+    "colour=orange,level=3,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s0_boiling"
+    },
+    "colour=pink,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=light_red,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s5_still"
+    },
+    "colour=very_light_green,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=light_green,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l2_s6_still"
+    },
+    "colour=dark_blue,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s3_still"
+    },
+    "colour=dark_blue,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s4_still"
+    },
+    "colour=very_light_red,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=yellow,level=2,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l2_s3_boiling"
+    },
+    "colour=yellow,level=1,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s4_still"
+    },
+    "colour=blue,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=brown,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=very_dark_red,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=blue,level=1,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s3_still"
+    },
+    "colour=pink,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s2_still"
+    },
+    "colour=light_red,level=2,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s2_still"
+    },
+    "colour=dark_red,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=very_dark_red,level=3,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s6_still"
+    },
+    "colour=dark_green,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=very_light_blue,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s0_still"
+    },
+    "colour=brown,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s1_still"
+    },
+    "colour=dark_red,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s5_still"
+    },
+    "colour=light_blue,level=2,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_blue_tea_cauldron_l2_s2_boiling"
+    },
+    "colour=very_dark_blue,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=pink,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=white,level=1,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s3_boiling"
+    },
+    "colour=light_green,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s5_still"
+    },
+    "colour=green,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l3_s1_still"
+    },
+    "colour=purple,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s0_still"
+    },
+    "colour=red,level=1,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l1_s0_boiling"
+    },
+    "colour=very_dark_green,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=very_dark_blue,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=orange,level=2,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l2_s5_boiling"
+    },
+    "colour=white,level=1,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/white_tea_cauldron_l1_s1_still"
+    },
+    "colour=cyan,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=light_red,level=1,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l1_s2_boiling"
+    },
+    "colour=very_light_blue,level=2,strength=0,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l2_s0_boiling"
+    },
+    "colour=orange,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s5_still"
+    },
+    "colour=pink,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l1_s5_still"
+    },
+    "colour=dark_blue,level=3,strength=1,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l3_s1_still"
+    },
+    "colour=green,level=2,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s4_still"
+    },
+    "colour=red,level=3,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/red_tea_cauldron_l3_s4_boiling"
+    },
+    "colour=pink,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/pink_tea_cauldron_l2_s0_still"
+    },
+    "colour=very_light_blue,level=3,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l3_s2_still"
+    },
+    "colour=teal,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=very_dark_blue,level=1,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_blue_tea_cauldron_l1_s4_boiling"
+    },
+    "colour=black,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s0_still"
+    },
+    "colour=dark_green,level=1,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_green_tea_cauldron_l1_s0_still"
+    },
+    "colour=very_light_red,level=1,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_red_tea_cauldron_l1_s1_boiling"
+    },
+    "colour=light_green,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_green_tea_cauldron_l3_s3_still"
+    },
+    "colour=blue,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/blue_tea_cauldron_l1_s5_still"
+    },
+    "colour=cyan,level=2,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l2_s1_boiling"
+    },
+    "colour=brown,level=2,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l2_s6_boiling"
+    },
+    "colour=dark_blue,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_blue_tea_cauldron_l2_s6_still"
+    },
+    "colour=very_dark_red,level=3,strength=2,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s2_boiling"
+    },
+    "colour=very_dark_green,level=1,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_green_tea_cauldron_l1_s5_still"
+    },
+    "colour=light_red,level=2,strength=4,boiling=true": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s4_boiling"
+    },
+    "colour=brown,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s3_still"
+    },
+    "colour=very_dark_red,level=3,strength=4,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l3_s4_still"
+    },
+    "colour=black,level=1,strength=6,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l1_s6_boiling"
+    },
+    "colour=brown,level=3,strength=5,boiling=false": {
+      "model": "tantalising_teas:generated/block/brown_tea_cauldron_l3_s5_still"
+    },
+    "colour=very_light_green,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/very_light_green_tea_cauldron_l2_s6_still"
+    },
+    "colour=cyan,level=3,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/cyan_tea_cauldron_l3_s0_still"
+    },
+    "colour=teal,level=3,strength=1,boiling=true": {
+      "model": "tantalising_teas:generated/block/teal_tea_cauldron_l3_s1_boiling"
+    },
+    "colour=light_red,level=2,strength=0,boiling=false": {
+      "model": "tantalising_teas:generated/block/light_red_tea_cauldron_l2_s0_still"
+    },
+    "colour=yellow,level=3,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l3_s5_boiling"
+    },
+    "colour=dark_red,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/dark_red_tea_cauldron_l3_s3_still"
+    },
+    "colour=very_dark_red,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_dark_red_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=very_light_blue,level=1,strength=5,boiling=true": {
+      "model": "tantalising_teas:generated/block/very_light_blue_tea_cauldron_l1_s5_boiling"
+    },
+    "colour=green,level=2,strength=6,boiling=false": {
+      "model": "tantalising_teas:generated/block/green_tea_cauldron_l2_s6_still"
+    },
+    "colour=black,level=3,strength=3,boiling=true": {
+      "model": "tantalising_teas:generated/block/black_tea_cauldron_l3_s3_boiling"
+    },
+    "colour=yellow,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/yellow_tea_cauldron_l1_s2_still"
+    },
+    "colour=orange,level=3,strength=3,boiling=false": {
+      "model": "tantalising_teas:generated/block/orange_tea_cauldron_l3_s3_still"
+    },
+    "colour=purple,level=1,strength=2,boiling=false": {
+      "model": "tantalising_teas:generated/block/purple_tea_cauldron_l1_s2_still"
+    }
+  }
+}

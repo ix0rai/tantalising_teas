@@ -36,13 +36,8 @@ public abstract class TantalisingCauldronBlock extends LeveledCauldronBlock impl
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        // honestly I have no idea why this works
-        // I wish this didn't work
-        // but explicitly making this an array instead of using varargs makes this work properly?>>?>>>>>>>A?>?>>?>>>?>>?>>?
-        // I hate minecraft
-
-        // oh, never mind it works if I just use the individual .add() calls
-        builder.add(LEVEL).add(COLOUR).add(STRENGTH);
+        // note: this does not work with varargs, individual calls are required
+        builder.add(LEVEL).add(COLOUR).add(STRENGTH).add(TeaCauldron.BOILING);
     }
 
     @Override

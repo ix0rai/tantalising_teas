@@ -19,15 +19,16 @@ public class BlockModelGenerator {
         for (TeaColour colour : TeaColour.values()) {
             for (int l = 1; l <= LEVELS; l ++) {
                 for (int s = 0; s <= NbtUtil.MAX_STRENGTH; s ++) {
-                    final String variant = String.format("colour=%s,level=%d,strength=%d", colour.asString(), l, s);
-                    final String modelName = String.format("%s_tea_cauldron_l%d_s%d", colour.asString(), l, s);
-                    variants.put(variant, new ModelJsonProperty(TantalisingTeas.MOD_ID + ":generated/block/" + modelName));
+                    String variant = String.format("colour=%s,level=%d,strength=%d", colour.asString(), l, s);
+                    String modelName = String.format("%s_tea_cauldron_l%d_s%d", colour.asString(), l, s);
 
-                    // todo: generate individual models
+                    final String boilingVariant = variant + ",boiling=true";
+                    final String boilingModelName = modelName + "_boiling";
+                    final String stillVariant = variant + ",boiling=false";
+                    final String stillModelName = modelName + "_still";
 
-                    // todo custom parent model with no tint index
-                    // todo idk what I'm doing anymore there's too much json
-                    // todo can I even put all my assets in /generated does that even work
+                    variants.put(boilingVariant, new ModelJsonProperty(TantalisingTeas.MOD_ID + ":generated/block/" + boilingModelName));
+                    variants.put(stillVariant, new ModelJsonProperty(TantalisingTeas.MOD_ID + ":generated/block/" + stillModelName));
 
                     Map<String, String> textures = new HashMap<>();
                     textures.put("bottom", "minecraft:block/cauldron_bottom");
@@ -37,22 +38,24 @@ public class BlockModelGenerator {
                     textures.put("particle", "minecraft:block/cauldron_side");
                     textures.put("content", TantalisingTeas.MOD_ID + ":generated/cauldron/" + String.format("%s_tea_cauldron_s%d", colour.asString(), s));
 
-                    BlockModelJson model = new BlockModelJson(TantalisingTeas.MOD_ID + ":cauldron/tantalising_cauldron_level" + l, textures);
+                    BlockModelJson stillModel = new BlockModelJson(TantalisingTeas.MOD_ID + ":cauldron/still_cauldron_level" + l, textures);
+                    File file = new File(AssetGenerator.BLOCK_MODELS + "/" + stillModelName + ".json");
+                    AssetGenerator.write(file, stillModel);
 
-                    File file = new File(AssetGenerator.BLOCK_MODELS + "/" + modelName + ".json");
-                    AssetGenerator.write(file, model);
+                    textures.put("boiling", "minecraft:block/sand");
+
+                    BlockModelJson boilingModel = new BlockModelJson(TantalisingTeas.MOD_ID + ":cauldron/boiling_cauldron_level" + l, textures);
+                    file = new File(AssetGenerator.BLOCK_MODELS + "/" + boilingModelName + ".json");
+                    AssetGenerator.write(file, boilingModel);
                 }
             }
         }
 
         // for some ungodly reason gson doesn't properly decode the equals sign
+        // i hate this so much
         String json = AssetGenerator.GSON.toJson(new BlockStateJson(variants));
         json = json.replace("\\u003d", "=");
-        File file = new File(AssetGenerator.BLOCKSTATES + "/still_cauldron.json");
-        AssetGenerator.write(file, json);
-
-        // in the future, boiling cauldrons will have different models but for now, they're the same
-        file = new File(AssetGenerator.BLOCKSTATES + "/boiling_cauldron.json");
+        File file = new File(AssetGenerator.BLOCKSTATES + "/tea_cauldron.json");
         AssetGenerator.write(file, json);
     }
 

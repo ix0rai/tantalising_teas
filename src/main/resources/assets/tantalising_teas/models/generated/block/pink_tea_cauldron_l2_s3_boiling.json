@@ -1,0 +1,12 @@
+{
+  "parent": "tantalising_teas:cauldron/boiling_cauldron_level2",
+  "textures": {
+    "side": "minecraft:block/cauldron_side",
+    "top": "minecraft:block/cauldron_top",
+    "boiling": "minecraft:block/sand",
+    "bottom": "minecraft:block/cauldron_bottom",
+    "particle": "minecraft:block/cauldron_side",
+    "inside": "minecraft:block/cauldron_inner",
+    "content": "tantalising_teas:generated/cauldron/pink_tea_cauldron_s3"
+  }
+}
