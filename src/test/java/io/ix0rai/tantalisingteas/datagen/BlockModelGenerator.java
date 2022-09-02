@@ -42,7 +42,7 @@ public class BlockModelGenerator {
                     File file = new File(AssetGenerator.BLOCK_MODELS + "/" + stillModelName + ".json");
                     AssetGenerator.write(file, stillModel);
 
-                    textures.put("boiling", "minecraft:block/sand");
+                    textures.put("boiling", TantalisingTeas.MOD_ID + ":cauldron/boiling_effect");
 
                     BlockModelJson boilingModel = new BlockModelJson(TantalisingTeas.MOD_ID + ":cauldron/boiling_cauldron_level" + l, textures);
                     file = new File(AssetGenerator.BLOCK_MODELS + "/" + boilingModelName + ".json");
