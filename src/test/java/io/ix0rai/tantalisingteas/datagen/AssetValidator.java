@@ -9,7 +9,13 @@ import java.io.IOException;
 
 public class AssetValidator {
     public static void main(String[] args) throws IOException {
-        validateTeaColours();
+        run("tea colour data", AssetValidator::validateTeaColours);
+    }
+
+    static void run(String thingsValidating, AssetGenerator.ThrowingRunnable runnable) throws IOException {
+        System.out.println("validating " + thingsValidating + "...");
+        runnable.run();
+        System.out.println("done!");
     }
 
     private static void validateTeaColours() throws IOException {

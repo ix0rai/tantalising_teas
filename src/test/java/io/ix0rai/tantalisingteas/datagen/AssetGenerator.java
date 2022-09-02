@@ -28,13 +28,23 @@ public class AssetGenerator {
     static final String TEST_VALIDATION = SRC + "/" + "test/resources/data/" + TantalisingTeas.MOD_ID + "/validation";
 
     public static void main(String[] args) throws IOException {
-        ItemModelGenerator.generateTeaColourModels();
-        ItemModelGenerator.generateTeaBottleModel();
+        run("individual tea colour models", ItemModelGenerator::generateTeaColourModels);
+        run("tea bottle model", ItemModelGenerator::generateTeaBottleModel);
 
-        BlockModelGenerator.generateTeaCauldronModels();
+        run("tea cauldron models", BlockModelGenerator::generateTeaCauldronModels);
 
-        TextureGenerator.generateTeaOverlays();
-        TextureGenerator.generateCauldronOverlays();
+        run("tea overlay textures", TextureGenerator::generateTeaOverlays);
+        run("cauldron overlay textures", TextureGenerator::generateCauldronOverlays);
+    }
+
+    interface ThrowingRunnable {
+        void run() throws IOException;
+    }
+
+    static void run(String thingsGenerating, ThrowingRunnable runnable) throws IOException {
+        System.out.println("generating " + thingsGenerating + "...");
+        runnable.run();
+        System.out.println("done!");
     }
 
     static void write(File file, Object json) throws IOException {
