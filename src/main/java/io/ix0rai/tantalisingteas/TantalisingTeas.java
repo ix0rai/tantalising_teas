@@ -1,6 +1,6 @@
 package io.ix0rai.tantalisingteas;
 
-import io.ix0rai.tantalisingteas.blocks.TeaCauldron;
+import io.ix0rai.tantalisingteas.blocks.TeaCauldronBehaviour;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.fabricmc.api.ModInitializer;
@@ -32,6 +32,6 @@ public class TantalisingTeas implements ModInitializer {
 
         // ensure that boiling cauldron behaviour is registered for all tea ingredients
         // we call this on server start because that is when tags are finished being loaded
-        ServerLifecycleEvents.SERVER_STARTED.register(server -> TeaCauldron.addBehaviour());
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> TeaCauldronBehaviour.addBehaviour());
     }
 }

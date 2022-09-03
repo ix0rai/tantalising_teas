@@ -46,7 +46,7 @@ public class TeaCauldronBlockEntity extends BlockEntity {
                         NbtUtil.setStrength(ingredient, strength + 1);
                         NbtUtil.setTicksSinceStrengthIncrease(ingredient, 0);
 
-                        world.setBlockState(boilingCauldron.getPos(), state.with(TantalisingCauldronBlock.STRENGTH, NbtUtil.getOverallStrength(items)));
+                        world.setBlockState(boilingCauldron.getPos(), state.with(TeaCauldron.STRENGTH, NbtUtil.getOverallStrength(items)));
                     } else {
                         NbtUtil.setTicksSinceStrengthIncrease(ingredient, ticks + 1);
                     }
