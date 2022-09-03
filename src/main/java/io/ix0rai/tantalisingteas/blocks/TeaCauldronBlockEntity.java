@@ -3,6 +3,7 @@ package io.ix0rai.tantalisingteas.blocks;
 import io.ix0rai.tantalisingteas.TantalisingTeas;
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -12,13 +13,16 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class TeaCauldronBlockEntity extends BlockEntity {
-    private static final int TICKS_BEFORE_STRENGTH_INCREASE = 1500;
+    private static final int TICKS_BEFORE_STRENGTH_INCREASE = 1200;
     private final NbtList ingredients = new NbtList();
+
+    private int ticksSinceLastBoil = 0;
 
     public TeaCauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(TantalisingBlocks.TEA_CAULDRON_ENTITY, blockPos, blockState);
@@ -31,9 +35,10 @@ public class TeaCauldronBlockEntity extends BlockEntity {
 
     public static void tick(TeaCauldronBlockEntity boilingCauldron) {
         World world = boilingCauldron.getWorld();
+        BlockPos pos = boilingCauldron.getPos();
 
         if (world != null) {
-            BlockState state = world.getBlockState(boilingCauldron.getPos());
+            BlockState state = world.getBlockState(pos);
 
             if (state.get(TeaCauldron.BOILING)) {
                 NbtList items = boilingCauldron.getIngredients();
@@ -49,6 +54,16 @@ public class TeaCauldronBlockEntity extends BlockEntity {
                         world.setBlockState(boilingCauldron.getPos(), state.with(TeaCauldron.STRENGTH, NbtUtil.getOverallStrength(items)));
                     } else {
                         NbtUtil.setTicksSinceStrengthIncrease(ingredient, ticks + 1);
+                    }
+                }
+
+                if (!world.getBlockState(pos.down()).isIn(BlockTags.FIRE)) {
+                    boilingCauldron.ticksSinceLastBoil ++;
+
+                    if (boilingCauldron.ticksSinceLastBoil >= TICKS_BEFORE_STRENGTH_INCREASE) {
+                        boilingCauldron.ticksSinceLastBoil = 0;
+
+                        world.setBlockState(pos, state.with(TeaCauldron.BOILING, false), Block.NOTIFY_LISTENERS);
                     }
                 }
             }

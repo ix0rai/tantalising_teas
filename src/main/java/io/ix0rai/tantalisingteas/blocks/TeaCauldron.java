@@ -16,8 +16,11 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,6 +37,15 @@ public class TeaCauldron extends LeveledCauldronBlock implements BlockEntityProv
 
     public TeaCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate) {
         super(settings, precipitationPredicate, TeaCauldronBehaviour.BEHAVIOUR);
+    }
+
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos fromPos) {
+        if (direction == Direction.DOWN && !state.get(BOILING) && world.getBlockState(fromPos).isIn(BlockTags.FIRE)) {
+            return state.with(BOILING, true);
+        } else {
+            return state;
+        }
     }
 
     @Override

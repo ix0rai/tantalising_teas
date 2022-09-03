@@ -4,7 +4,6 @@
   "package": "io.ix0rai.tantalisingteas.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AbstractBlockMixin",
     "BlockWithEntityInvoker",
     "ChunkAccessor"
   ],
