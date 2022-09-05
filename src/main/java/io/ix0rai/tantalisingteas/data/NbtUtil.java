@@ -81,6 +81,11 @@ public class NbtUtil {
         return new Identifier(ingredient.getString(ID_KEY));
     }
 
+    /**
+     * gets a tantalising teas ingredient list from the nbt compound
+     * @param nbt the nbt compound to get the ingredient list from
+     * @return the {@link NbtList} of ingredients if present, an empty list if not
+     */
     public static NbtList getIngredients(NbtCompound nbt) {
         if (nbt == null) {
             return new NbtList();

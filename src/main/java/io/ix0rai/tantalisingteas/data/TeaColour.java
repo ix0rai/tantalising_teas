@@ -65,6 +65,10 @@ public enum TeaColour implements StringIdentifiable {
         }
     }
 
+    /**
+     * @param colours an array of tea colours to analyse
+     * @return the tea colour with the highest configured priority. this is manually configured in the enum.
+     */
     public static TeaColour getHighestPriority(TeaColour[] colours) {
         TeaColour highestPriority = colours[0];
 
@@ -77,6 +81,11 @@ public enum TeaColour implements StringIdentifiable {
         return highestPriority;
     }
 
+    /**
+     * runs over a texture and finds the most common colours
+     * @param texture the texture to analyse
+     * @return a map of colours and their occurrences, having been converted to {@link TeaColour}s
+     */
     public static Map<TeaColour, Integer> getColourOccurrences(NativeImage texture) {
         Map<TeaColour, Integer> colours = new EnumMap<>(TeaColour.class);
 
@@ -106,6 +115,10 @@ public enum TeaColour implements StringIdentifiable {
         return colours;
     }
 
+    /**
+     * removes colours from the map with less than the average number of occurrences
+     * @param colours a map of colours and their number of occurrences
+     */
     public static void cleanupRareColours(Map<TeaColour, Integer> colours) {
         // get average reoccurrences of colour
         int averageOccurrences = 0;
@@ -124,12 +137,20 @@ public enum TeaColour implements StringIdentifiable {
         }
     }
 
+    /**
+     * checks over a map of tea colours and their occurrences and finds the most saturated colours
+     * @param colours a map of colours and their number of occurrences to pull from
+     *                <p>occurrences is unused but is there for convenience as this method is only used once.
+     *                the api can be cleaned up later when I have a reason to</p>
+     * @return the three colours in the map that have the highest RGB values
+     */
     public static TeaColour[] collectMostSaturatedColours(Map<TeaColour, Integer> colours) {
-        // assemble top three most saturated colours
+        // collect a list of three random colours from the map
         TeaColour[] mostSaturatedColours = colours.keySet().toArray(new TeaColour[3]);
 
         int counter = 0;
         for (TeaColour colour : colours.keySet()) {
+            // if the colour is more saturated than the current colour, replace it
             if (counter < 3) {
                 if (colour.getRgbSum() > mostSaturatedColours[counter].getRgbSum()) {
                     mostSaturatedColours[counter] = colour;
@@ -137,6 +158,7 @@ public enum TeaColour implements StringIdentifiable {
 
                 counter ++;
             } else {
+                // otherwise iterate over the whole list of saturated colours to see if our colour should replace any of them
                 for (int i = 0; i < mostSaturatedColours.length; i++) {
                     if (colour.getRgbSum() > mostSaturatedColours[i].getRgbSum()) {
                         mostSaturatedColours[i] = colour;
@@ -145,6 +167,7 @@ public enum TeaColour implements StringIdentifiable {
             }
         }
 
+        // return three colours with highest rgb sums
         return mostSaturatedColours;
     }
 
@@ -154,12 +177,14 @@ public enum TeaColour implements StringIdentifiable {
      * @return the closest colour to the average of the given ingredients' rgb values
      */
     public static TeaColour getFromIngredients(NbtList ingredients) {
+        // fallback colour is black
         if (ingredients.isEmpty()) {
             return TeaColour.BLACK;
         }
 
         int[] averageRgb = new int[]{0, 0, 0};
 
+        // get the average rgb values of each ingredient in the list
         for (int i = 0; i < ingredients.size(); i ++) {
             NbtCompound ingredient = ingredients.getCompound(i);
             TeaColour colour = TantalisingTeasClient.ITEM_COLOURS.get(NbtUtil.getIngredientId(ingredient));
@@ -173,12 +198,15 @@ public enum TeaColour implements StringIdentifiable {
             averageRgb[i] /= ingredients.size();
         }
 
+        // return the closest tea colour to the averages
         return getClosest(averageRgb[0], averageRgb[1], averageRgb[2]);
     }
 
     private static TeaColour getClosest(int r, int g, int b) {
+        // fallback colour is black
         TeaColour closest = BLACK;
 
+        // get the colour with the minimum total difference between its rgb values and the given rgb values
         for (TeaColour colour : TeaColour.values()) {
             if (colour != closest && colour.getTotalDiff(r, g, b) < closest.getTotalDiff(r, g, b)) {
                 closest = colour;
