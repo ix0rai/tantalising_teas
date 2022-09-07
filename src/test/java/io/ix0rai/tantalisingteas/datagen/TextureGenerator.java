@@ -25,10 +25,7 @@ public class TextureGenerator {
                 BufferedImage sourceImage = ImageIO.read(new File(sourcePath + "." + FORMAT));
                 BufferedImage newImage = new BufferedImage(sourceImage.getWidth(), sourceImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
-                // modify alpha
                 int alpha = TeaColour.getAlpha(strength);
-                //applyPixelTransforms(sourceImage, newImage, (argb) -> new ARGB(alpha, argb.r, argb.g, argb.b));
-
                 applyPixelTransforms(sourceImage, newImage, (argb) -> {
                     int r = argb.r;
                     int g = argb.g;
@@ -43,6 +40,7 @@ public class TextureGenerator {
                         b -= subtract;
 
                         // modify the colour according to the passed TeaColour
+                        // we also subtract 40 to make the colours more muted
                         r = MathHelper.clamp(r + colour.getRed() - 40, 0, 255);
                         g = MathHelper.clamp(g + colour.getGreen() - 40, 0, 255);
                         b = MathHelper.clamp(b + colour.getBlue() - 40, 0, 255);
