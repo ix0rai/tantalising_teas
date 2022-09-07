@@ -18,7 +18,7 @@ public class TextureGenerator {
         for (TeaColour colour : TeaColour.values()) {
             // get paths
             String path = AssetGenerator.OVERLAY_GENERATED + "/" + colour.getId();
-            String sourcePath = AssetGenerator.OVERLAY_SOURCE + "/" + colour.getId();
+            String sourcePath = AssetGenerator.TEXTURES_SOURCE + "/templates/grayscale_tea";
 
             for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
                 // get images
@@ -27,7 +27,30 @@ public class TextureGenerator {
 
                 // modify alpha
                 int alpha = TeaColour.getAlpha(strength);
-                applyPixelTransforms(sourceImage, newImage, (argb) -> new ARGB(alpha, argb.r, argb.g, argb.b));
+                //applyPixelTransforms(sourceImage, newImage, (argb) -> new ARGB(alpha, argb.r, argb.g, argb.b));
+
+                applyPixelTransforms(sourceImage, newImage, (argb) -> {
+                    int r = argb.r;
+                    int g = argb.g;
+                    int b = argb.b;
+
+                    // checks if the pixel is grayscale
+                    if (Objects.equals(r, g) && Objects.equals(g, b)) {
+                        // decrease the colour strength by half of the maximum rgb value
+                        int subtract = 255 / 2;
+                        r -= subtract;
+                        g -= subtract;
+                        b -= subtract;
+
+                        // modify the colour according to the passed TeaColour
+                        r = MathHelper.clamp(r + colour.getRed() - 40, 0, 255);
+                        g = MathHelper.clamp(g + colour.getGreen() - 40, 0, 255);
+                        b = MathHelper.clamp(b + colour.getBlue() - 40, 0, 255);
+                    }
+
+                    // return the new colour
+                    return new ARGB(alpha, r, g, b);
+                });
 
                 // write the image to a file
                 File file = new File(path + "_s" + strength + "." + FORMAT);
@@ -48,9 +71,8 @@ public class TextureGenerator {
                 BufferedImage newImage = new BufferedImage(sourceImage.getWidth(), sourceImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
                 // modify alpha and colour
-                int finalS = strength;
+                int alpha = TeaColour.getAlpha(strength);
                 applyPixelTransforms(sourceImage, newImage, (argb) -> {
-                    int a = TeaColour.getAlpha(finalS);
                     int r = argb.r;
                     int g = argb.g;
                     int b = argb.b;
@@ -70,7 +92,7 @@ public class TextureGenerator {
                     }
 
                     // return the new colour
-                    return new ARGB(a, r, g, b);
+                    return new ARGB(alpha, r, g, b);
                 });
 
                 // write image
@@ -123,12 +145,10 @@ public class TextureGenerator {
     }
 
     private static void writeImage(File file, BufferedImage image) throws IOException {
-        if (!file.exists()) {
-            // noinspection ResultOfMethodCallIgnored aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-            file.getParentFile().mkdirs();
-            // noinspection ResultOfMethodCallIgnored aaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
-            file.createNewFile();
-            ImageIO.write(image, FORMAT, file);
-        }
+        // noinspection ResultOfMethodCallIgnored aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        file.getParentFile().mkdirs();
+        // noinspection ResultOfMethodCallIgnored aaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
+        file.createNewFile();
+        ImageIO.write(image, FORMAT, file);
     }
 }
