@@ -26,10 +26,10 @@ public class AssetValidator {
             JsonTeaColour oldColour = colours[i];
             TeaColour newColour = TeaColour.values()[i];
 
-            if (oldColour.numericalId == newColour.getNumericalId() && !oldColour.id.equals(newColour.getId())) {
+            if (oldColour.numericalId == newColour.ordinal() && !oldColour.id.equals(newColour.getId())) {
                 throw createChangedEnumException("id of colour with numerical id " + oldColour.numericalId + " (previously id " + oldColour.id + ") has been changed to " + newColour.getId());
-            } else if (oldColour.numericalId != newColour.getNumericalId() && oldColour.id.equals(newColour.getId())) {
-                throw createChangedEnumException("numerical id of colour " + oldColour.id + " (previously numerical id " + oldColour.numericalId + ") has been changed to " + newColour.getNumericalId());
+            } else if (oldColour.numericalId != newColour.ordinal() && oldColour.id.equals(newColour.getId())) {
+                throw createChangedEnumException("numerical id of colour " + oldColour.id + " (previously numerical id " + oldColour.numericalId + ") has been changed to " + newColour.ordinal());
             }
         }
 
@@ -48,7 +48,7 @@ public class AssetValidator {
         public final String id;
 
         public JsonTeaColour(TeaColour colour) {
-            this.numericalId = colour.getNumericalId();
+            this.numericalId = colour.ordinal();
             this.id = colour.getId();
         }
 

@@ -32,7 +32,7 @@ public class ItemModelGenerator {
         for (int i = 0; i < TeaColour.values().length; i ++) {
             TeaColour colour = TeaColour.values()[i];
             for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
-                jsonOverrides.add(new JsonOverride(new Predicate(colour.getNumericalId(), strength), getName(colour, strength)));
+                jsonOverrides.add(new JsonOverride(new Predicate(colour.ordinal(), strength), getName(colour, strength)));
             }
         }
 

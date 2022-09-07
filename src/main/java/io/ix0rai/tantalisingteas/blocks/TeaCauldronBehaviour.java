@@ -2,6 +2,7 @@ package io.ix0rai.tantalisingteas.blocks;
 
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
+import io.ix0rai.tantalisingteas.data.TeaColourUtil;
 import io.ix0rai.tantalisingteas.data.Util;
 import io.ix0rai.tantalisingteas.mixin.ChunkAccessor;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
@@ -60,7 +61,7 @@ public class TeaCauldronBehaviour {
                     stack.decrement(1);
                 }
 
-                world.setBlockState(pos, state.with(TeaCauldron.COLOUR, TeaColour.getFromIngredients(entity.get().getIngredients())));
+                world.setBlockState(pos, state.with(TeaCauldron.COLOUR, TeaColourUtil.getFromIngredients(entity.get().getIngredients())));
 
                 world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 TeaCauldron.useCauldronWith(player, stack);
@@ -80,7 +81,7 @@ public class TeaCauldronBehaviour {
             BlockState newState = TantalisingBlocks.TEA_CAULDRON.getDefaultState()
                     .with(TeaCauldron.LEVEL, 1)
                     .with(TeaCauldron.STRENGTH, NbtUtil.getOverallStrength(ingredients))
-                    .with(TeaCauldron.COLOUR, TeaColour.getFromIngredients(ingredients))
+                    .with(TeaCauldron.COLOUR, TeaColourUtil.getFromIngredients(ingredients))
                     .with(TeaCauldron.BOILING, false);
 
             // set block state and create block entity
@@ -126,7 +127,7 @@ public class TeaCauldronBehaviour {
                     cauldron.addData(stack.getNbt());
                     strength = NbtUtil.getOverallStrength(cauldron.getIngredients());
                 }
-                colour = TeaColour.getFromIngredients(cauldron.getIngredients());
+                colour = TeaColourUtil.getFromIngredients(cauldron.getIngredients());
             }
 
             // set state and finish action

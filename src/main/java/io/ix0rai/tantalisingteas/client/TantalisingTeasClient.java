@@ -2,6 +2,7 @@ package io.ix0rai.tantalisingteas.client;
 
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
+import io.ix0rai.tantalisingteas.data.TeaColourUtil;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
 import net.fabricmc.api.ClientModInitializer;
@@ -33,8 +34,8 @@ public class TantalisingTeasClient implements ClientModInitializer {
                 TantalisingItems.TEA_BOTTLE, new Identifier("id"),
                 (stack, world, entity, seed) -> {
                     NbtCompound nbt = stack.getNbt();
-                    TeaColour colour = TeaColour.getFromIngredients(NbtUtil.getIngredients(nbt));
-                    return colour.getNumericalId();
+                    TeaColour colour = TeaColourUtil.getFromIngredients(NbtUtil.getIngredients(nbt));
+                    return colour.ordinal();
                 }
         );
 

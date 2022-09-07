@@ -3,6 +3,7 @@ package io.ix0rai.tantalisingteas.mixin.render;
 import com.mojang.blaze3d.texture.NativeImage;
 import io.ix0rai.tantalisingteas.client.TantalisingTeasClient;
 import io.ix0rai.tantalisingteas.data.TeaColour;
+import io.ix0rai.tantalisingteas.data.TeaColourUtil;
 import io.ix0rai.tantalisingteas.data.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
@@ -38,14 +39,14 @@ public class MinecraftClientMixin {
 
                 // get the texture and extract the amount of times each colour appears
                 NativeImage texture = ((SpriteAccessor) model.getParticleSprite()).getImages()[0];
-                Map<TeaColour, Integer> colours = TeaColour.getColourOccurrences(texture);
+                Map<TeaColour, Integer> colours = TeaColourUtil.getColourOccurrences(texture);
 
                 // trim the list of colours to the top 3 most saturated
-                TeaColour.cleanupRareColours(colours);
-                TeaColour[] mostSaturatedColours = TeaColour.collectMostSaturatedColours(colours);
+                TeaColourUtil.cleanupRareColours(colours);
+                TeaColour[] mostSaturatedColours = TeaColourUtil.collectMostSaturatedColours(colours);
 
                 // pick the colour with the highest priority and then save it to the cache
-                TeaColour highestPriority = TeaColour.getHighestPriority(mostSaturatedColours);
+                TeaColour highestPriority = TeaColourUtil.getHighestPriority(mostSaturatedColours);
                 TantalisingTeasClient.ITEM_COLOURS.put(id, highestPriority);
             });
         }

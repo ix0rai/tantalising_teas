@@ -1,219 +1,44 @@
 package io.ix0rai.tantalisingteas.data;
 
-import com.mojang.blaze3d.texture.NativeImage;
-import io.ix0rai.tantalisingteas.client.TantalisingTeasClient;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.math.MathHelper;
-
-import java.security.InvalidParameterException;
-import java.util.EnumMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public enum TeaColour implements StringIdentifiable {
-    VERY_LIGHT_RED(255, 0, 0, 1, 0),
-    LIGHT_RED(200, 0, 0, 2, 1),
-    RED(128, 0, 0, 2, 2),
-    DARK_RED(64, 0, 0, 4, 3),
-    VERY_DARK_RED(32, 0, 0, 5, 4),
-    VERY_LIGHT_GREEN(0, 255, 0, 10, 5),
-    LIGHT_GREEN(0, 200, 0, 9, 6),
-    GREEN(0, 128, 0, 9, 7),
-    DARK_GREEN(0, 64, 0, 8, 8),
-    VERY_DARK_GREEN(0, 32, 0, 7, 9),
-    OLIVE(128, 128, 0, 8, 10),
-    VERY_LIGHT_BLUE(0, 200, 255, 6, 11),
-    LIGHT_BLUE(0, 128, 255, 5, 12),
-    BLUE(0, 0, 255, 6, 13),
-    DARK_BLUE(0, 0, 128, 5, 14),
-    VERY_DARK_BLUE(0, 0, 64, 4, 15),
-    CYAN(0, 255, 255, 7, 16),
-    TEAL(0, 128, 128, 5, 17),
-    YELLOW(255, 255, 0, 3, 18),
-    ORANGE(255, 128, 0, 3, 19),
-    PINK(255, 0, 255, 3, 20),
-    PURPLE(128, 0, 128, 3, 21),
-    BLACK(0, 0, 0, 13, 22),
-    WHITE(255, 255, 255, 12, 23),
-    BROWN(76, 50, 40, 11, 24);
+    VERY_LIGHT_RED(255, 0, 0, 1),
+    LIGHT_RED(200, 0, 0, 2),
+    RED(128, 0, 0, 2),
+    DARK_RED(64, 0, 0, 4),
+    VERY_DARK_RED(32, 0, 0, 5),
+    VERY_LIGHT_GREEN(0, 255, 0, 10),
+    LIGHT_GREEN(0, 200, 0, 9),
+    GREEN(0, 128, 0, 9),
+    DARK_GREEN(0, 64, 0, 8),
+    VERY_DARK_GREEN(0, 32, 0, 7),
+    OLIVE(128, 128, 0, 8),
+    VERY_LIGHT_BLUE(0, 200, 255, 6),
+    LIGHT_BLUE(0, 128, 255, 5),
+    BLUE(0, 0, 255, 6),
+    DARK_BLUE(0, 0, 128, 5),
+    VERY_DARK_BLUE(0, 0, 64, 4),
+    CYAN(0, 255, 255, 7),
+    TEAL(0, 128, 128, 5),
+    YELLOW(255, 255, 0, 3),
+    ORANGE(255, 128, 0, 3),
+    PINK(255, 0, 255, 3),
+    PURPLE(128, 0, 128, 3),
+    BLACK(0, 0, 0, 13),
+    WHITE(255, 255, 255, 12),
+    BROWN(76, 50, 40, 11);
 
-    private final int numericalId;
     private final int red;
     private final int green;
     private final int blue;
     private final int priority;
 
-    TeaColour(int r, int g, int b, int priority, int numericalId) {
-        this.numericalId = numericalId;
+    TeaColour(int r, int g, int b, int priority) {
         this.red = r;
         this.green = g;
         this.blue = b;
         this.priority = priority;
-    }
-
-    static {
-        // validate all tea colours to ensure that their ids are unique -- we don't want the game to run if the list is misconfigured
-        for (TeaColour colour : TeaColour.values()) {
-            for (TeaColour colour2 : TeaColour.values()) {
-                if (colour.numericalId == colour2.numericalId && !colour.getId().equals(colour2.getId())) {
-                    throw new InvalidParameterException("cannot have two TeaColours with the same numerical id "
-                            + "(offenders: " + colour.getId() + ", " + colour.numericalId + " and " + colour2.getId() + ", " + colour2.numericalId);
-                }
-            }
-        }
-    }
-
-    /**
-     * @param colours an array of tea colours to analyse
-     * @return the tea colour with the highest configured priority. this is manually configured in the enum.
-     */
-    public static TeaColour getHighestPriority(TeaColour[] colours) {
-        TeaColour highestPriority = colours[0];
-
-        for (TeaColour colour : colours) {
-            if (colour != null && colour.priority < highestPriority.priority) {
-                highestPriority = colour;
-            }
-        }
-
-        return highestPriority;
-    }
-
-    /**
-     * runs over a texture and finds the most common colours
-     * @param texture the texture to analyse
-     * @return a map of colours and their occurrences, having been converted to {@link TeaColour}s
-     */
-    public static Map<TeaColour, Integer> getColourOccurrences(NativeImage texture) {
-        Map<TeaColour, Integer> colours = new EnumMap<>(TeaColour.class);
-
-        // assemble a map of colours and their number of occurrences
-        for (int x = 0; x < texture.getWidth(); x ++) {
-            for (int y = 0; y < texture.getHeight(); y ++) {
-                // get the colour of the pixels and convert them to 0 - 255 values
-                int r = texture.getRed(x, y) & 0xFF;
-                int g = texture.getGreen(x, y) & 0xFF;
-                int b = texture.getBlue(x, y) & 0xFF;
-
-                // calculate transparency
-                try {
-                    // ignore really light pixels
-                    if (r == 0 && g == 0 && b == 0) {
-                        continue;
-                    }
-                } catch (IllegalArgumentException ignored) {
-                    // thrown if the texture has no alpha channel
-                }
-
-                TeaColour colour = TeaColour.getClosest(r, g, b);
-                colours.put(colour, colours.getOrDefault(colour, 0) + 1);
-            }
-        }
-
-        return colours;
-    }
-
-    /**
-     * removes colours from the map with less than the average number of occurrences
-     * @param colours a map of colours and their number of occurrences
-     */
-    public static void cleanupRareColours(Map<TeaColour, Integer> colours) {
-        // get average reoccurrences of colour
-        int averageOccurrences = 0;
-        for (int number : colours.values()) {
-            averageOccurrences += number;
-        }
-        averageOccurrences /= MathHelper.clamp(colours.size() - 1, 1, Integer.MAX_VALUE);
-
-        // purge map of rare colours
-        Iterator<TeaColour> iterator = colours.keySet().iterator();
-        while (iterator.hasNext()) {
-            int occurrences = colours.get(iterator.next());
-            if (occurrences < averageOccurrences) {
-                iterator.remove();
-            }
-        }
-    }
-
-    /**
-     * checks over a map of tea colours and their occurrences and finds the most saturated colours
-     * @param colours a map of colours and their number of occurrences to pull from
-     *                <p>occurrences is unused but is there for convenience as this method is only used once.
-     *                the api can be cleaned up later when I have a reason to</p>
-     * @return the three colours in the map that have the highest RGB values
-     */
-    public static TeaColour[] collectMostSaturatedColours(Map<TeaColour, Integer> colours) {
-        // collect a list of three random colours from the map
-        TeaColour[] mostSaturatedColours = colours.keySet().toArray(new TeaColour[3]);
-
-        int counter = 0;
-        for (TeaColour colour : colours.keySet()) {
-            // if the colour is more saturated than the current colour, replace it
-            if (counter < 3) {
-                if (colour.getRgbSum() > mostSaturatedColours[counter].getRgbSum()) {
-                    mostSaturatedColours[counter] = colour;
-                }
-
-                counter ++;
-            } else {
-                // otherwise iterate over the whole list of saturated colours to see if our colour should replace any of them
-                for (int i = 0; i < mostSaturatedColours.length; i++) {
-                    if (colour.getRgbSum() > mostSaturatedColours[i].getRgbSum()) {
-                        mostSaturatedColours[i] = colour;
-                    }
-                }
-            }
-        }
-
-        // return three colours with highest rgb sums
-        return mostSaturatedColours;
-    }
-
-    /**
-     * gets a colour that represents the given list of ingredients
-     * @param ingredients the list of ingredients to pull the colours from
-     * @return the closest colour to the average of the given ingredients' rgb values
-     */
-    public static TeaColour getFromIngredients(NbtList ingredients) {
-        // fallback colour is black
-        if (ingredients.isEmpty()) {
-            return TeaColour.BLACK;
-        }
-
-        int[] averageRgb = new int[]{0, 0, 0};
-
-        // get the average rgb values of each ingredient in the list
-        for (int i = 0; i < ingredients.size(); i ++) {
-            NbtCompound ingredient = ingredients.getCompound(i);
-            TeaColour colour = TantalisingTeasClient.ITEM_COLOURS.get(NbtUtil.getIngredientId(ingredient));
-
-            averageRgb[0] += colour.red;
-            averageRgb[1] += colour.green;
-            averageRgb[2] += colour.blue;
-        }
-
-        for (int i = 0; i < averageRgb.length; i++) {
-            averageRgb[i] /= ingredients.size();
-        }
-
-        // return the closest tea colour to the averages
-        return getClosest(averageRgb[0], averageRgb[1], averageRgb[2]);
-    }
-
-    private static TeaColour getClosest(int r, int g, int b) {
-        // fallback colour is black
-        TeaColour closest = BLACK;
-
-        // get the colour with the minimum total difference between its rgb values and the given rgb values
-        for (TeaColour colour : TeaColour.values()) {
-            if (colour != closest && colour.getTotalDiff(r, g, b) < closest.getTotalDiff(r, g, b)) {
-                closest = colour;
-            }
-        }
-
-        return closest;
     }
 
     public int getRed() {
@@ -232,20 +57,16 @@ public enum TeaColour implements StringIdentifiable {
         return red + green + blue;
     }
 
-    private int getTotalDiff(int r, int g, int b) {
-        return Math.abs(this.red - r) + Math.abs(this.green - g) + Math.abs(this.blue - b);
+    public int getPriority() {
+        return priority;
     }
 
-    public static int getAlpha(int strength) {
-        return (int) (255 / (Math.abs(strength - NbtUtil.MAX_STRENGTH) + (strength != NbtUtil.MAX_STRENGTH ? 0.5 : 0)));
+    public int getTotalDiff(int r, int g, int b) {
+        return Math.abs(this.red - r) + Math.abs(this.green - g) + Math.abs(this.blue - b);
     }
 
     public String getId() {
         return this.name().toLowerCase();
-    }
-
-    public int getNumericalId() {
-        return this.numericalId;
     }
 
     @Override

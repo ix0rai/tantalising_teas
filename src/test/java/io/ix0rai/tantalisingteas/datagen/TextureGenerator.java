@@ -2,6 +2,7 @@ package io.ix0rai.tantalisingteas.datagen;
 
 import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
+import io.ix0rai.tantalisingteas.data.TeaColourUtil;
 import net.minecraft.util.math.MathHelper;
 
 import javax.imageio.ImageIO;
@@ -25,7 +26,7 @@ public class TextureGenerator {
                 BufferedImage sourceImage = ImageIO.read(new File(sourcePath + "." + FORMAT));
                 BufferedImage newImage = new BufferedImage(sourceImage.getWidth(), sourceImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
-                int alpha = TeaColour.getAlpha(strength);
+                int alpha = TeaColourUtil.getAlpha(strength);
                 applyPixelTransforms(sourceImage, newImage, (argb) -> {
                     int r = argb.r;
                     int g = argb.g;
@@ -69,7 +70,7 @@ public class TextureGenerator {
                 BufferedImage newImage = new BufferedImage(sourceImage.getWidth(), sourceImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
                 // modify alpha and colour
-                int alpha = TeaColour.getAlpha(strength);
+                int alpha = TeaColourUtil.getAlpha(strength);
                 applyPixelTransforms(sourceImage, newImage, (argb) -> {
                     int r = argb.r;
                     int g = argb.g;
