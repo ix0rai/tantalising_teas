@@ -32,9 +32,9 @@ import java.util.function.Predicate;
  */
 @SuppressWarnings("deprecation")
 public class TeaCauldron extends LeveledCauldronBlock implements BlockEntityProvider {
-    static final EnumProperty<TeaColour> COLOUR = EnumProperty.of("colour", TeaColour.class);
-    static final IntProperty STRENGTH = IntProperty.of("strength", 0, NbtUtil.MAX_STRENGTH);
-    static final BooleanProperty BOILING = BooleanProperty.of("boiling");
+    public static final EnumProperty<TeaColour> COLOUR = EnumProperty.of("colour", TeaColour.class);
+    public static final IntProperty STRENGTH = IntProperty.of("strength", 0, NbtUtil.MAX_STRENGTH);
+    public static final BooleanProperty BOILING = BooleanProperty.of("boiling");
 
     public TeaCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate) {
         super(settings, precipitationPredicate, TeaCauldronBehaviour.BEHAVIOUR);
