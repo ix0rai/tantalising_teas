@@ -16,6 +16,9 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * helper methods for dealing with nbt
+ */
 public class NbtUtil {
     public static final int MAX_STRENGTH = 6;
 

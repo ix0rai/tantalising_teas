@@ -18,6 +18,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
+/**
+ * linked block entity for {@link TeaCauldron}
+ */
 public class TeaCauldronBlockEntity extends BlockEntity {
     private static final int TICKS_BEFORE_STRENGTH_INCREASE = 1200;
     private final NbtList ingredients = new NbtList();

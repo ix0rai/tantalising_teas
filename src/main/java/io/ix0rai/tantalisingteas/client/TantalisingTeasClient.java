@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * main initializer for tantalising teas on the client
+ */
 @Environment(EnvType.CLIENT)
 public class TantalisingTeasClient implements ClientModInitializer {
     public static final Map<Identifier, TeaColour> ITEM_COLOURS = new HashMap<>();

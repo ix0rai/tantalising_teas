@@ -16,7 +16,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * we have to inject into {@link AbstractBlock} because {@link net.minecraft.block.LeveledCauldronBlock} does not override getStateForNeighborUpdate
+ * converts water cauldrons into boiling tea cauldrons when fire is placed below them
+ * <p>we have to inject into {@link AbstractBlock} because {@link net.minecraft.block.LeveledCauldronBlock} does not override getStateForNeighborUpdate
  */
 @Mixin(AbstractBlock.class)
 public class LeveledCauldronBlockInjector {

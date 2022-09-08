@@ -10,6 +10,9 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * main server-side initializer for tantalising teas
+ */
 public class TantalisingTeas implements ModInitializer {
     public static final String MOD_ID = "tantalising_teas";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);

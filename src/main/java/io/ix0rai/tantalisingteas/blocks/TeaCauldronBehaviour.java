@@ -36,6 +36,9 @@ import net.minecraft.world.event.GameEvent;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * defines all cauldron behaviour for and relating to the tea cauldron
+ */
 public class TeaCauldronBehaviour {
     protected static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
 

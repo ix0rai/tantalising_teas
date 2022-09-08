@@ -2,6 +2,8 @@ package io.ix0rai.tantalisingteas.data;
 
 import com.mojang.blaze3d.texture.NativeImage;
 import io.ix0rai.tantalisingteas.client.TantalisingTeasClient;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.MathHelper;
@@ -10,6 +12,11 @@ import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * client-side helper methods for dealing with tea colours
+ * @author ix0rai
+ */
+@Environment(EnvType.CLIENT)
 public class TeaColourUtil {
     /**
      * @param colours an array of tea colours to analyse

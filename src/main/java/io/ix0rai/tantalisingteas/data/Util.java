@@ -2,17 +2,15 @@ package io.ix0rai.tantalisingteas.data;
 
 import io.ix0rai.tantalisingteas.TantalisingTeas;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Language;
 import net.minecraft.util.registry.Registry;
 
-import java.util.List;
-
+/**
+ * generic utility class, including static text objects, helpers for lang, and other things
+ */
 public class Util {
     public static final Text BAD_NBT = TantalisingTeas.translatableText("error.bad_nbt");
     public static final Text NO_NBT = TantalisingTeas.translatableText("error.no_nbt");
@@ -44,26 +42,5 @@ public class Util {
 
     public static String getFlair(int index) {
         return Util.translate(Util.FLAIRS[index]) + " " + Util.translate(Util.OF).toLowerCase();
-    }
-
-    public static void appendTeaNbt(ItemStack stack, List<Text> tooltip) {
-        NbtCompound nbt = stack.getNbt();
-
-        if (nbt == null) {
-            tooltip.add(NO_NBT);
-        } else if (stack.hasNbt()) {
-            NbtList ingredients = NbtUtil.getIngredients(nbt);
-            for (int i = 0; i < ingredients.size(); i ++) {
-                NbtCompound element = ingredients.getCompound(i);
-
-                if (element.getNbtType() != NbtCompound.TYPE) {
-                    tooltip.add(BAD_NBT);
-                } else {
-                    Identifier id = NbtUtil.getIngredientId(element);
-                    Item ingredient = Registry.ITEM.get(id);
-                    tooltip.add(Text.of(NbtUtil.getFlair(nbt, i) + " " + Util.translate(ingredient.getTranslationKey())));
-                }
-            }
-        }
     }
 }

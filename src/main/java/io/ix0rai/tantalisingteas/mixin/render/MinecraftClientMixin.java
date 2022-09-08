@@ -21,6 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
+/**
+ * builds a map of tea ingredient items and their associated tea colours on world join
+ */
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
     @Shadow

@@ -2,6 +2,9 @@ package io.ix0rai.tantalisingteas.data;
 
 import net.minecraft.util.StringIdentifiable;
 
+/**
+ * represents possible colours that tea can be
+ */
 public enum TeaColour implements StringIdentifiable {
     VERY_LIGHT_RED(255, 0, 0, 1),
     LIGHT_RED(200, 0, 0, 2),
