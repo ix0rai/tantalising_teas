@@ -1,23 +1,22 @@
 package io.ix0rai.tantalisingteas.data;
 
-import com.mojang.blaze3d.texture.NativeImage;
-import io.ix0rai.tantalisingteas.client.TantalisingTeasClient;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 /**
- * client-side helper methods for dealing with tea colours
+ * helper methods for dealing with tea colours
  * @author ix0rai
  */
-@Environment(EnvType.CLIENT)
 public class TeaColourUtil {
+    public static final Map<Identifier, TeaColour> ITEM_COLOURS = new HashMap<>();
+
     /**
      * @param colours an array of tea colours to analyse
      * @return the tea colour with the highest configured priority. this is manually configured in the enum.
@@ -32,40 +31,6 @@ public class TeaColourUtil {
         }
 
         return highestPriority;
-    }
-
-    /**
-     * runs over a texture and finds the most common colours
-     * @param texture the texture to analyse
-     * @return a map of colours and their occurrences, having been converted to {@link TeaColour}s
-     */
-    public static Map<TeaColour, Integer> getColourOccurrences(NativeImage texture) {
-        Map<TeaColour, Integer> colours = new EnumMap<>(TeaColour.class);
-
-        // assemble a map of colours and their number of occurrences
-        for (int x = 0; x < texture.getWidth(); x ++) {
-            for (int y = 0; y < texture.getHeight(); y ++) {
-                // get the colour of the pixels and convert them to 0 - 255 values
-                int r = texture.getRed(x, y) & 0xFF;
-                int g = texture.getGreen(x, y) & 0xFF;
-                int b = texture.getBlue(x, y) & 0xFF;
-
-                // calculate transparency
-                try {
-                    // ignore really light pixels
-                    if (r == 0 && g == 0 && b == 0) {
-                        continue;
-                    }
-                } catch (IllegalArgumentException ignored) {
-                    // thrown if the texture has no alpha channel
-                }
-
-                TeaColour colour = getClosest(r, g, b);
-                colours.put(colour, colours.getOrDefault(colour, 0) + 1);
-            }
-        }
-
-        return colours;
     }
 
     /**
@@ -130,9 +95,8 @@ public class TeaColourUtil {
      * @return the closest colour to the average of the given ingredients' rgb values
      */
     public static TeaColour getFromIngredients(NbtList ingredients) {
-        // fallback colour is black
         if (ingredients.isEmpty()) {
-            return TeaColour.BLACK;
+            return TeaColour.getDefault();
         }
 
         int[] averageRgb = new int[]{0, 0, 0};
@@ -140,7 +104,11 @@ public class TeaColourUtil {
         // get the average rgb values of each ingredient in the list
         for (int i = 0; i < ingredients.size(); i ++) {
             NbtCompound ingredient = ingredients.getCompound(i);
-            TeaColour colour = TantalisingTeasClient.ITEM_COLOURS.get(NbtUtil.getIngredientId(ingredient));
+            TeaColour colour = ITEM_COLOURS.get(NbtUtil.getIngredientId(ingredient));
+
+            if (colour == null) {
+                throw new NullPointerException("associated colour for ingredient " + NbtUtil.getIngredientId(ingredient) + " is null (called from " + FabricLoader.getInstance().getEnvironmentType() + ")");
+            }
 
             averageRgb[0] += colour.getRed();
             averageRgb[1] += colour.getGreen();
@@ -155,9 +123,15 @@ public class TeaColourUtil {
         return getClosest(averageRgb[0], averageRgb[1], averageRgb[2]);
     }
 
-    private static TeaColour getClosest(int r, int g, int b) {
-        // fallback colour is black
-        TeaColour closest = TeaColour.BLACK;
+    /**
+     * gets the closest tea colour to the given rgb values
+     * @param r the red value to check
+     * @param g the green value to check
+     * @param b the blue value to check
+     * @return the tea colour with the closest rgb values to the provided rgb
+     */
+    public static TeaColour getClosest(int r, int g, int b) {
+        TeaColour closest = TeaColour.getDefault();
 
         // get the colour with the minimum total difference between its rgb values and the given rgb values
         for (TeaColour colour : TeaColour.values()) {

@@ -9,7 +9,6 @@
     "LeveledCauldronBlockInjector"
   ],
   "client": [
-    "render.MinecraftClientMixin",
     "render.SpriteAccessor"
   ],
   "injectors": {

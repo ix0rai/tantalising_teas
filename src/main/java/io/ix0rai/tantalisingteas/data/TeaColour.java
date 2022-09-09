@@ -72,6 +72,10 @@ public enum TeaColour implements StringIdentifiable {
         return this.name().toLowerCase();
     }
 
+    public static TeaColour getDefault() {
+        return TeaColour.BLUE;
+    }
+
     @Override
     public String toString() {
         return this.getId();

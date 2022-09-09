@@ -9,6 +9,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
@@ -20,8 +21,6 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.biome.BiomeKeys;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -29,8 +28,6 @@ import java.util.Objects;
  */
 @Environment(EnvType.CLIENT)
 public class TantalisingTeasClient implements ClientModInitializer {
-    public static final Map<Identifier, TeaColour> ITEM_COLOURS = new HashMap<>();
-
     @Override
     public void onInitializeClient() {
         ModelPredicateProviderRegistry.register(
@@ -54,6 +51,8 @@ public class TantalisingTeasClient implements ClientModInitializer {
 
         // colour providers are only used when there are no ingredients present
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getWaterColour(view, pos), TantalisingBlocks.TEA_CAULDRON);
+
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> ClientTeaColourUtil.cacheTeaColours());
     }
 
     private static int getWaterColour(BlockRenderView view, BlockPos pos) {

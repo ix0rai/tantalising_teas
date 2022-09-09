@@ -105,7 +105,7 @@ public class NbtUtil {
     public static int getOverallStrength(NbtList ingredients) {
         // protect from / by zero error
         if (ingredients.isEmpty()) {
-            return 1;
+            return 0;
         }
 
         int averageStrength = 0;

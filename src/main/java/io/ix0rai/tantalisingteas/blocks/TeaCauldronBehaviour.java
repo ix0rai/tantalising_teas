@@ -80,7 +80,7 @@ public class TeaCauldronBehaviour {
 
     private static ActionResult createCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         // assumes the stack is of a tea item
-        if (!TeaCauldron.isStateFull(state)) {
+        if (TeaCauldron.isNotFull(state)) {
             if (!world.isClient) {
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 
@@ -116,7 +116,7 @@ public class TeaCauldronBehaviour {
     }
 
     private static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if ((stack.isOf(TantalisingItems.TEA_BOTTLE) || PotionUtil.getPotion(stack) == Potions.WATER) && !TeaCauldron.isStateFull(state)) {
+        if ((stack.isOf(TantalisingItems.TEA_BOTTLE) || PotionUtil.getPotion(stack) == Potions.WATER) && TeaCauldron.isNotFull(state)) {
             if (!world.isClient) {
                 // get entity
                 Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
@@ -158,7 +158,7 @@ public class TeaCauldronBehaviour {
     }
 
     private static ActionResult fillCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if (stack.getItem().equals(Items.WATER_BUCKET) && !TeaCauldron.isStateFull(state)) {
+        if (stack.getItem().equals(Items.WATER_BUCKET) && TeaCauldron.isNotFull(state)) {
             if (!world.isClient) {
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.BUCKET)));
 
@@ -173,7 +173,7 @@ public class TeaCauldronBehaviour {
     }
 
     private static ActionResult decreaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, ItemStack output) {
-        if (!TeaCauldron.isStateEmpty(state)) {
+        if (!TeaCauldron.isEmpty(state)) {
             if (!world.isClient) {
                 Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
 

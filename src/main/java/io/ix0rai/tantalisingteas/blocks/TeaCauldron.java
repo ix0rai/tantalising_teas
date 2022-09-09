@@ -98,15 +98,15 @@ public class TeaCauldron extends LeveledCauldronBlock implements BlockEntityProv
     }
 
 
-    protected static boolean isStateFull(BlockState state) {
+    protected static boolean isNotFull(BlockState state) {
         try {
-            return (state.getBlock() instanceof LeveledCauldronBlock) && state.get(LEVEL) >= 3;
+            return (!(state.getBlock() instanceof LeveledCauldronBlock)) || state.get(LEVEL) < 3;
         } catch (IllegalArgumentException ignored) {
-            return false;
+            return true;
         }
     }
 
-    protected static boolean isStateEmpty(BlockState state) {
+    protected static boolean isEmpty(BlockState state) {
         try {
             return (state.getBlock() instanceof LeveledCauldronBlock) && state.get(LEVEL) <= 0;
         } catch (IllegalArgumentException ignored) {
