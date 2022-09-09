@@ -1,6 +1,7 @@
 package io.ix0rai.tantalisingteas.client;
 
 import io.ix0rai.tantalisingteas.data.NbtUtil;
+import io.ix0rai.tantalisingteas.data.TantalisingNetworking;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.data.TeaColourUtil;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
@@ -11,6 +12,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
@@ -28,6 +30,9 @@ import java.util.Objects;
  */
 @Environment(EnvType.CLIENT)
 public class TantalisingTeasClient implements ClientModInitializer {
+    private boolean dataReady = false;
+    private boolean canSend = false;
+
     @Override
     public void onInitializeClient() {
         ModelPredicateProviderRegistry.register(
@@ -52,7 +57,22 @@ public class TantalisingTeasClient implements ClientModInitializer {
         // colour providers are only used when there are no ingredients present
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getWaterColour(view, pos), TantalisingBlocks.TEA_CAULDRON);
 
-        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> ClientTeaColourUtil.cacheTeaColours());
+
+        CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> {
+            ClientTeaColourUtil.cacheTeaColours();
+            dataReady = true;
+            if (canSend) {
+                TantalisingNetworking.sendColourDataPacket();
+            }
+        });
+
+        ClientPlayConnectionEvents.JOIN.register((a, b, c) -> {
+            if (dataReady) {
+                TantalisingNetworking.sendColourDataPacket();
+            } else {
+                canSend = true;
+            }
+        });
     }
 
     private static int getWaterColour(BlockRenderView view, BlockPos pos) {

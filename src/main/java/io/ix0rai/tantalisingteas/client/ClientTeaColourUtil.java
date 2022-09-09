@@ -2,20 +2,16 @@ package io.ix0rai.tantalisingteas.client;
 
 import com.mojang.blaze3d.texture.NativeImage;
 import io.ix0rai.tantalisingteas.TantalisingTeas;
-import io.ix0rai.tantalisingteas.data.TantalisingNetworking;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.data.TeaColourUtil;
 import io.ix0rai.tantalisingteas.data.Util;
 import io.ix0rai.tantalisingteas.mixin.render.SpriteAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.item.Item;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.HolderSet;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -86,11 +82,6 @@ public class ClientTeaColourUtil {
                 TeaColour highestPriority = TeaColourUtil.getHighestPriority(mostSaturatedColours);
                 TeaColourUtil.ITEM_COLOURS.put(id, highestPriority);
             });
-
-            PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeMap(TeaColourUtil.ITEM_COLOURS, PacketByteBuf::writeIdentifier, PacketByteBuf::writeEnumConstant);
-
-            ClientPlayNetworking.send(TantalisingNetworking.COLOUR_DATA_PACKET_ID, buf);
 
             TantalisingTeas.LOGGER.info("cached tea ingredient colours");
             TantalisingTeas.LOGGER.info("tag contents: " + items);

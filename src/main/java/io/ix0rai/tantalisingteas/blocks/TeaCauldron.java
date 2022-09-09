@@ -97,7 +97,6 @@ public class TeaCauldron extends LeveledCauldronBlock implements BlockEntityProv
         player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
     }
 
-
     protected static boolean isNotFull(BlockState state) {
         try {
             return (!(state.getBlock() instanceof LeveledCauldronBlock)) || state.get(LEVEL) < 3;
