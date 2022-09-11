@@ -4,9 +4,9 @@
   "package": "io.ix0rai.tantalisingteas.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AbstractBlockInjector",
     "BlockWithEntityInvoker",
-    "ChunkAccessor",
-    "LeveledCauldronBlockInjector"
+    "ChunkAccessor"
   ],
   "client": [
     "render.SpriteAccessor"

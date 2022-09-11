@@ -57,7 +57,6 @@ public class TantalisingTeasClient implements ClientModInitializer {
         // colour providers are only used when there are no ingredients present
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> getWaterColour(view, pos), TantalisingBlocks.TEA_CAULDRON);
 
-
         CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> {
             ClientTeaColourUtil.cacheTeaColours();
             dataReady = true;

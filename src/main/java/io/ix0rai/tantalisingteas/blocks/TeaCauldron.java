@@ -38,6 +38,13 @@ public class TeaCauldron extends LeveledCauldronBlock implements BlockEntityProv
 
     public TeaCauldron(Settings settings, Predicate<Biome.Precipitation> precipitationPredicate) {
         super(settings, precipitationPredicate, TeaCauldronBehaviour.BEHAVIOUR);
+
+        this.setDefaultState(this.getStateManager().getDefaultState()
+                .with(LEVEL, 1)
+                .with(COLOUR, TeaColour.BLUE)
+                .with(STRENGTH, 0)
+                .with(BOILING, false)
+        );
     }
 
     @Override
