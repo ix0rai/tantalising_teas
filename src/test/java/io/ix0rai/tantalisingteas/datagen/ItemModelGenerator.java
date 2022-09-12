@@ -5,7 +5,6 @@ import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,14 +18,8 @@ import java.util.Objects;
  */
 public class ItemModelGenerator {
     static void generateTeaBottleModel() throws IOException {
-        AssetGenerator.write(new File(AssetGenerator.ITEM_MODELS_ROOT + "/tea_bottle.json"), getLatestTeaBottleJson());
-    }
-
-    static ItemModelJson getLatestTeaBottleJson() {
-        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":item/tea_bottle_overlay"), generateLatestOverrides());
-    }
-
-    static JsonOverride[] generateLatestOverrides() {
+        // generate overrides for each individual colour / strength
+        int overrideAmount = TeaColour.values().length * NbtUtil.MAX_STRENGTH;
         List<JsonOverride> jsonOverrides = new ArrayList<>();
 
         for (int i = 0; i < TeaColour.values().length; i ++) {
@@ -36,35 +29,35 @@ public class ItemModelGenerator {
             }
         }
 
-        return jsonOverrides.toArray(new JsonOverride[TeaColour.values().length * NbtUtil.MAX_STRENGTH]);
-    }
+        // create json
+        ItemModelJson teaBottleJson = new ItemModelJson(
+                new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":item/tea_bottle_overlay"),
+                jsonOverrides.toArray(new JsonOverride[overrideAmount])
+        );
 
-    static ItemModelJson getJson(TeaColour colour, int strength) {
-        return new ItemModelJson("item/generated", new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":generated/overlay/" + getName(colour, strength)), null);
-    }
-
-    static String getName(TeaColour colour, int strength) {
-        return colour.getId() + "_s" + strength;
+        // create file and write
+        File file = new File(AssetGenerator.ITEM_MODELS_ROOT + "/tea_bottle.json");
+        AssetGenerator.write(file, teaBottleJson);
     }
 
     static void generateTeaColourModels() throws IOException {
         for (TeaColour colour : TeaColour.values()) {
             for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
                 String modelName = getName(colour, strength) + "_tea_model.json";
+
                 File file = new File(AssetGenerator.ITEM_MODELS + "/" + modelName);
+                ItemModelJson json = new ItemModelJson(
+                        new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":generated/overlay/" + getName(colour, strength)),
+                        null
+                );
 
-                if (!file.exists()) {
-                    // noinspection ResultOfMethodCallIgnored
-                    file.getParentFile().mkdirs();
-                    // noinspection ResultOfMethodCallIgnored
-                    file.createNewFile();
-                }
-
-                try (FileWriter writer = new FileWriter(file)) {
-                    AssetGenerator.GSON.toJson(getJson(colour, strength), writer);
-                }
+                AssetGenerator.write(file, json);
             }
         }
+    }
+
+    static String getName(TeaColour colour, int strength) {
+        return colour.getId() + "_s" + strength;
     }
 
     static class ItemModelJson {
@@ -72,8 +65,8 @@ public class ItemModelGenerator {
         private final Textures textures;
         private final JsonOverride[] overrides;
 
-        public ItemModelJson(String parent, Textures textures, JsonOverride[] overrides) {
-            this.parent = parent;
+        public ItemModelJson(Textures textures, JsonOverride[] overrides) {
+            this.parent = "item/generated";
             this.textures = textures;
             this.overrides = overrides;
         }

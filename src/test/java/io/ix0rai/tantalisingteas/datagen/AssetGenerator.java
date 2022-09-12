@@ -20,7 +20,6 @@ public class AssetGenerator {
     static final String BLOCK_MODELS = MODELS + "/block";
     static final String TEXTURES_SOURCE = ASSETS + "/textures";
     static final String TEXTURES_GENERATED = ASSETS + "/textures/generated";
-    static final String OVERLAY_SOURCE = TEXTURES_SOURCE + "/overlay";
     static final String OVERLAY_GENERATED = TEXTURES_GENERATED + "/overlay";
     static final String CAULDRON_TEXTURES = TEXTURES_GENERATED + "/cauldron";
     static final String CAULDRON_TEXTURES_SOURCE = TEXTURES_SOURCE + "/cauldron";
