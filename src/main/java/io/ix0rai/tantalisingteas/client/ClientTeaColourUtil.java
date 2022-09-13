@@ -2,6 +2,7 @@ package io.ix0rai.tantalisingteas.client;
 
 import com.mojang.blaze3d.texture.NativeImage;
 import io.ix0rai.tantalisingteas.TantalisingTeas;
+import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.data.TeaColourUtil;
 import io.ix0rai.tantalisingteas.data.Util;
@@ -12,6 +13,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.Text;
 import net.minecraft.util.HolderSet;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -59,14 +63,43 @@ public class ClientTeaColourUtil {
         return colours;
     }
 
+    /**
+     * updates the custom stack name of the provided stack
+     * @param stack the stack to update
+     */
+    public static void updateCustomName(ItemStack stack) {
+        NbtCompound primaryIngredient = NbtUtil.getPrimaryIngredient(stack);
+
+        if (primaryIngredient != null) {
+            NbtCompound nbt = stack.getNbt();
+            // format strength so that it can be used to pull from the array of strings
+            int strength = (int) (Math.round((double) NbtUtil.getOverallStrength(NbtUtil.getIngredients(nbt)) / 2) - 1);
+
+            String name = Util.translate(Util.BOTTLE) + " " + Util.translate(Util.OF)
+                    + (strength == 2 ? "" : " " + Util.translate(Util.STRENGTHS[strength]))
+                    + " " + Util.translate(Registry.ITEM.get(NbtUtil.getIngredientId(primaryIngredient)).getTranslationKey()) + " " + Util.translate(Util.TEA);
+            stack.setCustomName(Text.of(name));
+        }
+    }
+
+    /**
+     * creates a map of tea ingredient items and their associated colours
+     * important: this data is only created on the client and requires tags to be loaded in order to work
+     */
     public static void cacheTeaColours() {
         // cache the colours of each texture in the tea ingredient tag
         if (TeaColourUtil.ITEM_COLOURS.isEmpty()) {
             HolderSet.NamedSet<Item> items = Registry.ITEM.getOrCreateTag(Util.TEA_INGREDIENTS);
+
+            //
+            if (items.size() == 0) {
+                TantalisingTeas.LOGGER.error("tea ingredients cached before tag load!");
+                return;
+            }
+
             items.forEach(item -> {
                 // get the model
                 Identifier id = Registry.ITEM.getId(item.value());
-
                 ModelIdentifier modelId = new ModelIdentifier(id + "#inventory");
                 BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(modelId);
 
@@ -83,8 +116,7 @@ public class ClientTeaColourUtil {
                 TeaColourUtil.ITEM_COLOURS.put(id, highestPriority);
             });
 
-            TantalisingTeas.LOGGER.info("cached tea ingredient colours");
-            TantalisingTeas.LOGGER.info("tag contents: " + items);
+            TantalisingTeas.LOGGER.info("successfully cached " + items.size() + " tea ingredient colours");
         }
     }
 }

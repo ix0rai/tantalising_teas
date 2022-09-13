@@ -38,6 +38,9 @@ public class TantalisingTeasClient implements ClientModInitializer {
         ModelPredicateProviderRegistry.register(
                 TantalisingItems.TEA_BOTTLE, new Identifier("id"),
                 (stack, world, entity, seed) -> {
+                    // note: updating this on every render is not ideal
+                    // in the future this should be running less often
+                    ClientTeaColourUtil.updateCustomName(stack);
                     NbtCompound nbt = stack.getNbt();
                     TeaColour colour = TeaColourUtil.getFromIngredients(NbtUtil.getIngredients(nbt));
                     return colour.ordinal();

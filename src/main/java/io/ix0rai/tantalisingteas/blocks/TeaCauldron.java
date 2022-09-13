@@ -4,13 +4,18 @@ import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.mixin.BlockWithEntityInvoker;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -23,7 +28,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
@@ -49,6 +53,7 @@ public class TeaCauldron extends LeveledCauldronBlock implements BlockEntityProv
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos fromPos) {
+        // if fire is placed beneath an existing (still) cauldron, set it to boiling
         if (direction == Direction.DOWN && !state.get(BOILING) && world.getBlockState(fromPos).isIn(BlockTags.FIRE)) {
             return state.with(BOILING, true);
         } else {
@@ -79,19 +84,10 @@ public class TeaCauldron extends LeveledCauldronBlock implements BlockEntityProv
 
     @Override
     public boolean onSyncedBlockEvent(BlockState state, World world, BlockPos pos, int type, int data) {
+        // copied from {@link BlockWithEntity#onSyncedBlockEvent(BlockState, World, BlockPos, int, int)}
         super.onSyncedBlockEvent(state, world, pos, type, data);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity == null) {
-            return false;
-        }
-        return blockEntity.onSyncedBlockEvent(type, data);
-    }
-
-    @Override
-    @Nullable
-    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        return blockEntity instanceof NamedScreenHandlerFactory screenHandlerFactory ? screenHandlerFactory : null;
+        return blockEntity != null && blockEntity.onSyncedBlockEvent(type, data);
     }
 
     @Override

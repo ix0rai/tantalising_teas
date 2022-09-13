@@ -6,7 +6,6 @@ import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -43,26 +42,33 @@ public class TeaCauldronBlockEntity extends BlockEntity {
         if (world != null) {
             BlockState state = world.getBlockState(pos);
 
+            // if boiling, run over ingredients and increase strength if they've gone long enough with an increase
             if (state.get(TeaCauldron.BOILING)) {
                 NbtList items = boilingCauldron.getIngredients();
                 for (int i = 0; i < items.size(); i++) {
+                    // get strength and ticks since it was updated
                     NbtCompound ingredient = items.getCompound(i);
                     int strength = NbtUtil.getStrength(ingredient);
                     int ticks = NbtUtil.getTicksSinceStrengthIncrease(ingredient);
 
+                    // if strength is not maximum, and it's been enough ticks since last increase, increase strength
                     if (NbtUtil.getStrength(ingredient) < 6 && ticks >= TICKS_BEFORE_STRENGTH_INCREASE) {
                         NbtUtil.setStrength(ingredient, strength + 1);
                         NbtUtil.setTicksSinceStrengthIncrease(ingredient, 0);
 
                         world.setBlockState(boilingCauldron.getPos(), state.with(TeaCauldron.STRENGTH, NbtUtil.getOverallStrength(items)));
                     } else {
+                        // otherwise add a tick to the counter
                         NbtUtil.setTicksSinceStrengthIncrease(ingredient, ticks + 1);
                     }
                 }
 
+                // check if the cauldron is still over fire
                 if (!world.getBlockState(pos.down()).isIn(BlockTags.FIRE)) {
+                    // if not, add a tick to the counter
                     boilingCauldron.ticksSinceLastBoil ++;
 
+                    // if it's been too long since the cauldron has been over fire, stop boiling
                     if (boilingCauldron.ticksSinceLastBoil >= TICKS_BEFORE_STRENGTH_INCREASE) {
                         boilingCauldron.ticksSinceLastBoil = 0;
 
@@ -76,13 +82,15 @@ public class TeaCauldronBlockEntity extends BlockEntity {
     @Override
     public NbtCompound toInitialChunkDataNbt() {
         NbtCompound nbt = new NbtCompound();
-        NbtUtil.setIngredients(ingredients, nbt);
+        writeNbt(nbt);
         return nbt;
     }
 
     @Override
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
+
+        // read ingredients and add all of them to the list
         ingredients.clear();
         NbtList items = NbtUtil.getIngredients(tag);
 
@@ -95,24 +103,30 @@ public class TeaCauldronBlockEntity extends BlockEntity {
     @Override
     protected void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
-        NbtUtil.setId(tag, BlockEntityType.getId(this.getType()));
+        // write ingredients
         NbtUtil.setIngredients(ingredients, tag);
     }
 
     public void addData(NbtCompound data) {
         if (data != null && !data.isEmpty()) {
+            // if the data is of an ingredient, add it to the list
+            // otherwise if it's a list of ingredients, add all to the list
             if (NbtUtil.containsIngredientKey(data)) {
                 ingredients.addAll(NbtUtil.getIngredients(data));
+                return;
             } else if (NbtUtil.isTeaIngredient(data)) {
                 ingredients.add(data);
+                return;
             }
-        } else {
-            TantalisingTeas.LOGGER.warn("tried to write empty data to cauldron at pos: " + pos);
         }
+
+        // if we don't find any compatible data, log an error
+        TantalisingTeas.LOGGER.warn("tried to write empty data to cauldron at pos: " + pos);
     }
 
     public void addStack(ItemStack stack) {
         if (stack != null) {
+            // convert stack to ingredient data and add
             NbtCompound compound = new NbtCompound();
             NbtUtil.setId(compound, Registry.ITEM.getId(stack.getItem()));
             addData(compound);

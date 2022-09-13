@@ -60,13 +60,16 @@ public class TeaCauldronBehaviour {
             if (!world.isClient) {
                 Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
                 if (entity.isPresent()) {
+                    // if we find a block entity, pass in the ingredient data and decrement the stack
                     entity.get().addStack(stack);
                     if (!player.getAbilities().creativeMode) {
                         stack.decrement(1);
                     }
 
+                    // update colour
                     world.setBlockState(pos, state.with(TeaCauldron.COLOUR, TeaColourUtil.getFromIngredients(entity.get().getIngredients())));
 
+                    // finish action
                     world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
                     TeaCauldron.useCauldronWith(player, stack);
                 }
@@ -107,14 +110,6 @@ public class TeaCauldronBehaviour {
         return ActionResult.PASS;
     }
 
-    private static void createBlockEntity(World world, BlockState state, BlockPos pos, NbtCompound nbt) {
-        // create block entity
-        WorldChunk chunk = world.getWorldChunk(pos);
-        TeaCauldronBlockEntity blockEntity = new TeaCauldronBlockEntity(pos, state);
-        blockEntity.addData(nbt);
-        ((ChunkAccessor) chunk).getBlockEntities().put(pos, blockEntity);
-    }
-
     private static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if ((stack.isOf(TantalisingItems.TEA_BOTTLE) || PotionUtil.getPotion(stack) == Potions.WATER) && TeaCauldron.isNotFull(state)) {
             if (!world.isClient) {
@@ -138,7 +133,7 @@ public class TeaCauldronBehaviour {
                     colour = TeaColourUtil.getFromIngredients(cauldron.getIngredients());
                 }
 
-                // set state and finish action
+                // set state and apply updates
                 world.setBlockState(
                         pos,
                         state.with(TeaCauldron.LEVEL, level + 1)
@@ -146,6 +141,8 @@ public class TeaCauldronBehaviour {
                                 .with(TeaCauldron.COLOUR, colour),
                         Block.NOTIFY_LISTENERS
                 );
+
+                // finish action
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
                 TeaCauldron.useCauldronWith(player, stack);
@@ -160,10 +157,13 @@ public class TeaCauldronBehaviour {
     private static ActionResult fillCauldron(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
         if (stack.getItem().equals(Items.WATER_BUCKET) && TeaCauldron.isNotFull(state)) {
             if (!world.isClient) {
+                // empty bucket
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.BUCKET)));
 
+                // set state and finish action
                 world.setBlockState(pos, state.with(TeaCauldron.LEVEL, 3), 2);
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
+                TeaCauldron.useCauldronWith(player, stack);
             }
 
             return ActionResult.success(world.isClient);
@@ -186,8 +186,10 @@ public class TeaCauldronBehaviour {
                     appendIngredients(output, entity.get().getIngredients(), world.random);
                 }
 
+                // give the player an empty bottle
                 player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, output));
 
+                // update block state, setting the block to a cauldron if there is no fluid left
                 int level = state.get(TeaCauldron.LEVEL);
                 world.setBlockState(
                         pos,
@@ -195,6 +197,7 @@ public class TeaCauldronBehaviour {
                         2
                 );
 
+                // finish action
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 world.emitGameEvent(null, GameEvent.FLUID_PICKUP, pos);
                 TeaCauldron.useCauldronWith(player, stack);
@@ -210,5 +213,13 @@ public class TeaCauldronBehaviour {
         for (int i = 0; i < ingredients.size(); i ++) {
             NbtUtil.addIngredient(output, ingredients.getCompound(i), random);
         }
+    }
+
+    private static void createBlockEntity(World world, BlockState state, BlockPos pos, NbtCompound nbt) {
+        // create block entity
+        WorldChunk chunk = world.getWorldChunk(pos);
+        TeaCauldronBlockEntity blockEntity = new TeaCauldronBlockEntity(pos, state);
+        blockEntity.addData(nbt);
+        ((ChunkAccessor) chunk).getBlockEntities().put(pos, blockEntity);
     }
 }

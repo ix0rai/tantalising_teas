@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.registry.Registry;
@@ -53,31 +52,15 @@ public class NbtUtil {
         NbtElement primary = null;
         int number = 0;
 
+        // run over map and find element with the highest value
         for (Map.Entry<NbtElement, Integer> entry : counts.entrySet()) {
             if (entry.getValue() > number) {
                 primary = entry.getKey();
             }
         }
 
+        // convert to nbt compound
         return (NbtCompound) primary;
-    }
-
-    /**
-     * updates the custom stack name of the provided stack
-     * @param stack the stack to update
-     */
-    public static void updateCustomName(ItemStack stack) {
-        NbtCompound primaryIngredient = getPrimaryIngredient(stack);
-        if (primaryIngredient != null) {
-            NbtCompound nbt = stack.getNbt();
-            // format strength so that it can be used to pull from the array of strings
-            int strength = (int) (Math.round((double) getOverallStrength(getIngredients(nbt)) / 2) - 1);
-
-            String name = Util.translate(Util.BOTTLE) + " " + Util.translate(Util.OF)
-                    + (strength == 2 ? "" : " " + Util.translate(Util.STRENGTHS[strength]))
-                    + " " + Util.translate(Registry.ITEM.get(new Identifier(primaryIngredient.getString(ID_KEY))).getTranslationKey()) + " " + Util.translate(Util.TEA);
-            stack.setCustomName(Text.of(name));
-        }
     }
 
     public static Identifier getIngredientId(NbtCompound ingredient) {
@@ -161,7 +144,6 @@ public class NbtUtil {
             // write nbt
             ingredients.add(ingredient);
             setIngredients(ingredients, nbt);
-            updateCustomName(stack);
         }
     }
 
