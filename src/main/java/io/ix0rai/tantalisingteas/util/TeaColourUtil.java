@@ -10,6 +10,7 @@ import net.minecraft.util.math.MathHelper;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * helper methods for dealing with tea colours
@@ -59,16 +60,14 @@ public class TeaColourUtil {
     /**
      * checks over a map of tea colours and their occurrences and finds the most saturated colours
      * @param colours a map of colours and their number of occurrences to pull from
-     *                <p>occurrences is unused but is there for convenience as this method is only used once.
-     *                the api can be cleaned up later when I have a reason to</p>
      * @return the three colours in the map that have the highest RGB values
      */
-    public static TeaColour[] collectMostSaturatedColours(Map<TeaColour, Integer> colours) {
+    public static TeaColour[] collectMostSaturatedColours(Set<TeaColour> colours) {
         // collect a list of three random colours from the map
-        TeaColour[] mostSaturatedColours = colours.keySet().toArray(new TeaColour[3]);
+        TeaColour[] mostSaturatedColours = colours.toArray(new TeaColour[3]);
 
         int counter = 0;
-        for (TeaColour colour : colours.keySet()) {
+        for (TeaColour colour : colours) {
             // if the colour is more saturated than the current colour, replace it
             if (counter < 3) {
                 if (colour.getRgbSum() > mostSaturatedColours[counter].getRgbSum()) {

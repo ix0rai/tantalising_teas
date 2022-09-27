@@ -109,7 +109,7 @@ public class ClientTeaColourUtil {
 
                 // trim the list of colours to the top 3 most saturated
                 TeaColourUtil.cleanupRareColours(colours);
-                TeaColour[] mostSaturatedColours = TeaColourUtil.collectMostSaturatedColours(colours);
+                TeaColour[] mostSaturatedColours = TeaColourUtil.collectMostSaturatedColours(colours.keySet());
 
                 // pick the colour with the highest priority and then save it to the cache
                 TeaColour highestPriority = TeaColourUtil.getHighestPriority(mostSaturatedColours);
