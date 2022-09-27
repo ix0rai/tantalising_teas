@@ -1,16 +1,12 @@
-package io.ix0rai.tantalisingteas.data;
+package io.ix0rai.tantalisingteas.util;
 
-import io.ix0rai.tantalisingteas.TantalisingTeas;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.registry.Registry;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -23,7 +19,6 @@ public class NbtUtil {
 
     private static final String INGREDIENTS_KEY = "Ingredients";
     private static final String ID_KEY = "id";
-    private static final String FLAIR_KEY = "Flair";
     private static final String STRENGTH_KEY = "Strength";
     private static final String TICKS_SINCE_STRENGTH_INCREASE_KEY = "TicksSinceStrengthIncrease";
 
@@ -37,30 +32,12 @@ public class NbtUtil {
             return null;
         } else {
             NbtList ingredients = getIngredients(stack.getNbt());
-            HashMap<NbtElement, Integer> counts = new HashMap<>();
+            CountMap<NbtElement> counts = new CountMap<>();
 
-            // count how many occurrences of each ingredient there are
-            for (NbtElement ingredient : ingredients) {
-                counts.put(ingredient, counts.getOrDefault(ingredient, 0) + 1);
-            }
-
-            return getElementWithHighestValue(counts);
+            // count how many occurrences of each ingredient there are and return the one with the most
+            ingredients.forEach(counts::increment);
+            return (NbtCompound) counts.highestValue();
         }
-    }
-
-    private static NbtCompound getElementWithHighestValue(Map<NbtElement, Integer> counts) {
-        NbtElement primary = null;
-        int number = 0;
-
-        // run over map and find element with the highest value
-        for (Map.Entry<NbtElement, Integer> entry : counts.entrySet()) {
-            if (entry.getValue() > number) {
-                primary = entry.getKey();
-            }
-        }
-
-        // convert to nbt compound
-        return (NbtCompound) primary;
     }
 
     public static Identifier getIngredientId(NbtCompound ingredient) {
@@ -83,7 +60,7 @@ public class NbtUtil {
     /**
      * gets the overall strength of the nbt's ingredient values
      * @param ingredients the nbt ingredients to get the strength of
-     * @return the overall strength of the nbt, formatted as an index of {@link Util#STRENGTHS}
+     * @return the overall strength of the nbt, formatted as an index of {@link LanguageUtil#STRENGTHS}
      */
     public static int getOverallStrength(NbtList ingredients) {
         // protect from / by zero error
@@ -104,29 +81,11 @@ public class NbtUtil {
     }
 
     /**
-     * gets the flair of a specific ingredient
-     * @param nbt the full stack nbt to get the ingredient and flair data from
-     * @param index the index of the ingredient
-     * @return a formatted string for the flair of the ingredient
-     */
-    public static String getFlair(NbtCompound nbt, int index) {
-        final NbtList ingredients = getIngredients(nbt);
-
-        NbtCompound data = ingredients.getCompound(index);
-        if (!data.isEmpty()) {
-            return Util.getFlair(data.getInt(FLAIR_KEY));
-        } else {
-            return Util.getFlair(0);
-        }
-    }
-
-    /**
      * adds an ingredient to the nbt of the given stack
      * @param stack the stack to add the ingredient to
      * @param ingredient the ingredient to add to the stack
-     * @param random a random generator to generate a flair for the ingredient
      */
-    public static void addIngredient(ItemStack stack, NbtCompound ingredient, RandomGenerator random) {
+    public static void addIngredient(ItemStack stack, NbtCompound ingredient) {
         if (ingredient != null && !ingredient.isEmpty() && ingredient.contains(ID_KEY)) {
             // get nbt
             NbtCompound nbt = stack.getOrCreateNbt();
@@ -134,12 +93,12 @@ public class NbtUtil {
 
             // ensure item is in tea ingredient tag
             if (!isTeaIngredient(ingredient)) {
-                TantalisingTeas.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
+                Constants.LOGGER.warn("attempted to add tea ingredient that is not in tea_ingredients tag; skipping");
                 return;
             }
 
             // update nbt
-            updateNbt(ingredient, random);
+            updateNbt(ingredient);
 
             // write nbt
             ingredients.add(ingredient);
@@ -151,13 +110,8 @@ public class NbtUtil {
      * since flair, strength, and ticks since last strength update can be automatically generated if they are not set,
      * this method sets those values if they are not already present
      * @param ingredient an ingredient to update
-     * @param random a random generator to use for generating flair
      */
-    public static void updateNbt(NbtCompound ingredient, RandomGenerator random) {
-        if (!ingredient.contains(FLAIR_KEY)) {
-            setFlair(ingredient, random.nextInt(Util.FLAIRS.length));
-        }
-
+    public static void updateNbt(NbtCompound ingredient) {
         if (!ingredient.contains(STRENGTH_KEY)) {
             setStrength(ingredient, 1);
         }
@@ -169,7 +123,7 @@ public class NbtUtil {
 
     public static boolean isTeaIngredient(NbtCompound ingredient) {
         Identifier id = getIngredientId(ingredient);
-        return Registry.ITEM.get(id).getDefaultStack().isIn(Util.TEA_INGREDIENTS);
+        return Registry.ITEM.get(id).getDefaultStack().isIn(Constants.TEA_INGREDIENTS);
     }
 
     public static boolean containsIngredientKey(NbtCompound nbt) {
@@ -189,10 +143,6 @@ public class NbtUtil {
             return;
         }
         setSafe(nbtCompound -> nbtCompound.putInt(STRENGTH_KEY, strength), ingredient);
-    }
-
-    public static void setFlair(NbtCompound ingredient, int flair) {
-        setSafe(nbtCompound -> nbtCompound.putInt(FLAIR_KEY, flair), ingredient);
     }
 
     public static void setId(NbtCompound ingredient, Identifier id) {

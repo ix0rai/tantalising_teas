@@ -1,8 +1,8 @@
 package io.ix0rai.tantalisingteas.blocks;
 
-import io.ix0rai.tantalisingteas.TantalisingTeas;
-import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
+import io.ix0rai.tantalisingteas.util.Constants;
+import io.ix0rai.tantalisingteas.util.NbtUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -121,7 +121,7 @@ public class TeaCauldronBlockEntity extends BlockEntity {
         }
 
         // if we don't find any compatible data, log an error
-        TantalisingTeas.LOGGER.warn("tried to write empty data to cauldron at pos: " + pos);
+        Constants.LOGGER.warn("tried to write empty data to cauldron at pos: " + pos);
     }
 
     public void addStack(ItemStack stack) {

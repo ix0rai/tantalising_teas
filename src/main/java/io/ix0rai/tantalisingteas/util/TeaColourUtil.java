@@ -1,5 +1,6 @@
-package io.ix0rai.tantalisingteas.data;
+package io.ix0rai.tantalisingteas.util;
 
+import io.ix0rai.tantalisingteas.data.TeaColour;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;

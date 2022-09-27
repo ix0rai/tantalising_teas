@@ -1,8 +1,7 @@
 package io.ix0rai.tantalisingteas.datagen;
 
-import io.ix0rai.tantalisingteas.TantalisingTeas;
-import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
+import io.ix0rai.tantalisingteas.util.NbtUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,8 +26,8 @@ public class BlockModelGenerator {
                     final String stillVariant = variant + ",boiling=false";
                     final String stillModelName = modelName + "_still";
 
-                    variants.put(boilingVariant, new ModelJsonProperty(TantalisingTeas.MOD_ID + ":generated/block/" + boilingModelName));
-                    variants.put(stillVariant, new ModelJsonProperty(TantalisingTeas.MOD_ID + ":generated/block/" + stillModelName));
+                    variants.put(boilingVariant, new ModelJsonProperty(AssetGenerator.modelReference("generated/block/" + boilingModelName)));
+                    variants.put(stillVariant, new ModelJsonProperty(AssetGenerator.modelReference("generated/block/" + stillModelName)));
 
                     Map<String, String> textures = new HashMap<>();
                     textures.put("bottom", "minecraft:block/cauldron_bottom");
@@ -36,15 +35,15 @@ public class BlockModelGenerator {
                     textures.put("top", "minecraft:block/cauldron_top");
                     textures.put("inside", "minecraft:block/cauldron_inner");
                     textures.put("particle", "minecraft:block/cauldron_side");
-                    textures.put("content", TantalisingTeas.MOD_ID + ":generated/cauldron/" + String.format("%s_tea_cauldron_s%d", colour.asString(), s));
+                    textures.put("content", AssetGenerator.modelReference("generated/cauldron/" + String.format("%s_tea_cauldron_s%d", colour.asString(), s)));
 
-                    BlockModelJson stillModel = new BlockModelJson(TantalisingTeas.MOD_ID + ":cauldron/still_cauldron_level" + l, textures);
+                    BlockModelJson stillModel = new BlockModelJson(AssetGenerator.modelReference("cauldron/still_cauldron_level" + l), textures);
                     File file = new File(AssetGenerator.BLOCK_MODELS + "/" + stillModelName + ".json");
                     AssetGenerator.write(file, stillModel);
 
-                    textures.put("boiling", TantalisingTeas.MOD_ID + ":cauldron/boiling_effect");
+                    textures.put("boiling", AssetGenerator.modelReference(":cauldron/boiling_effect"));
 
-                    BlockModelJson boilingModel = new BlockModelJson(TantalisingTeas.MOD_ID + ":cauldron/boiling_cauldron_level" + l, textures);
+                    BlockModelJson boilingModel = new BlockModelJson(AssetGenerator.modelReference("cauldron/boiling_cauldron_level" + l), textures);
                     file = new File(AssetGenerator.BLOCK_MODELS + "/" + boilingModelName + ".json");
                     AssetGenerator.write(file, boilingModel);
                 }

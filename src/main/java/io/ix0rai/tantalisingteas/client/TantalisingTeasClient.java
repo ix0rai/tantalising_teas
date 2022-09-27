@@ -1,11 +1,11 @@
 package io.ix0rai.tantalisingteas.client;
 
-import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TantalisingNetworking;
 import io.ix0rai.tantalisingteas.data.TeaColour;
-import io.ix0rai.tantalisingteas.data.TeaColourUtil;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
+import io.ix0rai.tantalisingteas.util.NbtUtil;
+import io.ix0rai.tantalisingteas.util.TeaColourUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

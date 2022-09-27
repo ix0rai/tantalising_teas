@@ -1,7 +1,8 @@
 package io.ix0rai.tantalisingteas.items;
 
-import io.ix0rai.tantalisingteas.data.NbtUtil;
-import io.ix0rai.tantalisingteas.data.Util;
+import io.ix0rai.tantalisingteas.util.CountMap;
+import io.ix0rai.tantalisingteas.util.LanguageUtil;
+import io.ix0rai.tantalisingteas.util.NbtUtil;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -20,6 +21,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * represents an item that can contain tea
@@ -66,19 +68,24 @@ public class DrinkableTeaItem extends HoneyBottleItem {
         NbtCompound nbt = stack.getNbt();
 
         if (nbt == null) {
-            tooltip.add(Util.NO_NBT);
+            tooltip.add(LanguageUtil.NO_NBT);
         } else if (stack.hasNbt()) {
             NbtList ingredients = NbtUtil.getIngredients(nbt);
+            CountMap<Item> ingredientCounts = new CountMap<>();
+
             for (int i = 0; i < ingredients.size(); i ++) {
                 NbtCompound element = ingredients.getCompound(i);
 
-                if (element.getNbtType() != NbtCompound.TYPE) {
-                    tooltip.add(Util.BAD_NBT);
-                } else {
-                    Identifier id = NbtUtil.getIngredientId(element);
-                    Item ingredient = Registry.ITEM.get(id);
-                    tooltip.add(Text.of(NbtUtil.getFlair(nbt, i) + " " + Util.translate(ingredient.getTranslationKey())));
-                }
+                Identifier id = NbtUtil.getIngredientId(element);
+                Item ingredient = Registry.ITEM.get(id);
+                ingredientCounts.increment(ingredient);
+            }
+
+            for (Map.Entry<Item, Integer> entry : ingredientCounts.entrySet()) {
+                Item ingredient = entry.getKey();
+                int count = entry.getValue();
+
+                tooltip.add(Text.of(LanguageUtil.translate(ingredient.getTranslationKey()) + " x" + count));
             }
         }
     }

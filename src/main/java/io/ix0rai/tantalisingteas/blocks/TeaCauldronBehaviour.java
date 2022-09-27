@@ -1,12 +1,12 @@
 package io.ix0rai.tantalisingteas.blocks;
 
-import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
-import io.ix0rai.tantalisingteas.data.TeaColourUtil;
-import io.ix0rai.tantalisingteas.data.Util;
 import io.ix0rai.tantalisingteas.mixin.ChunkAccessor;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
 import io.ix0rai.tantalisingteas.registry.TantalisingItems;
+import io.ix0rai.tantalisingteas.util.Constants;
+import io.ix0rai.tantalisingteas.util.NbtUtil;
+import io.ix0rai.tantalisingteas.util.TeaColourUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -27,7 +27,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Holder;
 import net.minecraft.util.HolderSet;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
@@ -50,7 +49,7 @@ public class TeaCauldronBehaviour {
     }
 
     public static void addBehaviour() {
-        HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(Util.TEA_INGREDIENTS);
+        HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(Constants.TEA_INGREDIENTS);
         teaIngredients.forEach((Holder<Item> item) -> BEHAVIOUR.put(item.value(), TeaCauldronBehaviour::addIngredient));
         CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(TantalisingItems.TEA_BOTTLE, TeaCauldronBehaviour::createCauldron);
     }
@@ -183,7 +182,7 @@ public class TeaCauldronBehaviour {
                     output = PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.WATER);
                 } else {
                     // otherwise, append ingredients from previously existing block entity
-                    appendIngredients(output, entity.get().getIngredients(), world.random);
+                    appendIngredients(output, entity.get().getIngredients());
                 }
 
                 // give the player an empty bottle
@@ -209,9 +208,9 @@ public class TeaCauldronBehaviour {
         return ActionResult.PASS;
     }
 
-    private static void appendIngredients(ItemStack output, NbtList ingredients, RandomGenerator random) {
+    private static void appendIngredients(ItemStack output, NbtList ingredients) {
         for (int i = 0; i < ingredients.size(); i ++) {
-            NbtUtil.addIngredient(output, ingredients.getCompound(i), random);
+            NbtUtil.addIngredient(output, ingredients.getCompound(i));
         }
     }
 

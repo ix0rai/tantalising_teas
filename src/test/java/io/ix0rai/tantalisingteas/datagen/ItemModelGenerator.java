@@ -1,8 +1,8 @@
 package io.ix0rai.tantalisingteas.datagen;
 
-import io.ix0rai.tantalisingteas.TantalisingTeas;
-import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
+import io.ix0rai.tantalisingteas.util.Constants;
+import io.ix0rai.tantalisingteas.util.NbtUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class ItemModelGenerator {
 
         // create json
         ItemModelJson teaBottleJson = new ItemModelJson(
-                new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":item/tea_bottle_overlay"),
+                new Textures("minecraft:item/glass_bottle", Constants.MOD_ID + ":item/tea_bottle_overlay"),
                 jsonOverrides.toArray(new JsonOverride[overrideAmount])
         );
 
@@ -47,7 +47,7 @@ public class ItemModelGenerator {
 
                 File file = new File(AssetGenerator.ITEM_MODELS + "/" + modelName);
                 ItemModelJson json = new ItemModelJson(
-                        new Textures("minecraft:item/glass_bottle", TantalisingTeas.MOD_ID + ":generated/overlay/" + getName(colour, strength)),
+                        new Textures("minecraft:item/glass_bottle", Constants.MOD_ID + ":generated/overlay/" + getName(colour, strength)),
                         null
                 );
 
@@ -106,7 +106,7 @@ public class ItemModelGenerator {
 
         private JsonOverride(Predicate predicate, String model) {
             this.predicate = predicate;
-            this.model = TantalisingTeas.MOD_ID + ":generated/item/" + model + "_tea_model";
+            this.model = Constants.MOD_ID + ":generated/item/" + model + "_tea_model";
         }
 
         @Override

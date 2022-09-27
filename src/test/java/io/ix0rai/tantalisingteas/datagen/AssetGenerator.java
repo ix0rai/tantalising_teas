@@ -2,7 +2,7 @@ package io.ix0rai.tantalisingteas.datagen;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.ix0rai.tantalisingteas.TantalisingTeas;
+import io.ix0rai.tantalisingteas.util.Constants;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +12,7 @@ public class AssetGenerator {
     static final Gson GSON = new GsonBuilder().setPrettyPrinting().enableComplexMapKeySerialization().create();
     static final String SRC = "src";
     static final String MAIN = SRC + "/" + "main";
-    static final String ASSETS = MAIN + "/resources/assets/" + TantalisingTeas.MOD_ID;
+    static final String ASSETS = MAIN + "/resources/assets/" + Constants.MOD_ID;
     static final String MODELS = ASSETS + "/models/generated";
     static final String BLOCKSTATES = ASSETS + "/blockstates";
     static final String ITEM_MODELS = MODELS + "/item";
@@ -24,7 +24,7 @@ public class AssetGenerator {
     static final String CAULDRON_TEXTURES = TEXTURES_GENERATED + "/cauldron";
     static final String CAULDRON_TEXTURES_SOURCE = TEXTURES_SOURCE + "/cauldron";
 
-    static final String TEST_VALIDATION = SRC + "/" + "test/resources/data/" + TantalisingTeas.MOD_ID + "/validation";
+    static final String TEST_VALIDATION = SRC + "/" + "test/resources/data/" + Constants.MOD_ID + "/validation";
 
     public static void main(String[] args) throws IOException {
         run("individual tea colour models", ItemModelGenerator::generateTeaColourModels);
@@ -44,6 +44,10 @@ public class AssetGenerator {
         System.out.println("generating " + thingsGenerating + "...");
         runnable.run();
         System.out.println("done!");
+    }
+
+    static String modelReference(String path) {
+        return Constants.MOD_ID + ":" + path;
     }
 
     static void write(File file, Object json) throws IOException {

@@ -1,12 +1,12 @@
 package io.ix0rai.tantalisingteas.client;
 
 import com.mojang.blaze3d.texture.NativeImage;
-import io.ix0rai.tantalisingteas.TantalisingTeas;
-import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
-import io.ix0rai.tantalisingteas.data.TeaColourUtil;
-import io.ix0rai.tantalisingteas.data.Util;
 import io.ix0rai.tantalisingteas.mixin.render.SpriteAccessor;
+import io.ix0rai.tantalisingteas.util.Constants;
+import io.ix0rai.tantalisingteas.util.LanguageUtil;
+import io.ix0rai.tantalisingteas.util.NbtUtil;
+import io.ix0rai.tantalisingteas.util.TeaColourUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -75,9 +75,9 @@ public class ClientTeaColourUtil {
             // format strength so that it can be used to pull from the array of strings
             int strength = (int) (Math.round((double) NbtUtil.getOverallStrength(NbtUtil.getIngredients(nbt)) / 2) - 1);
 
-            String name = Util.translate(Util.BOTTLE) + " " + Util.translate(Util.OF)
-                    + (strength == 2 ? "" : " " + Util.translate(Util.STRENGTHS[strength]))
-                    + " " + Util.translate(Registry.ITEM.get(NbtUtil.getIngredientId(primaryIngredient)).getTranslationKey()) + " " + Util.translate(Util.TEA);
+            String name = LanguageUtil.translate(LanguageUtil.BOTTLE) + " " + LanguageUtil.translate(LanguageUtil.OF)
+                    + (strength == 2 ? "" : " " + LanguageUtil.translate(LanguageUtil.STRENGTHS[strength]))
+                    + " " + LanguageUtil.translate(Registry.ITEM.get(NbtUtil.getIngredientId(primaryIngredient)).getTranslationKey()) + " " + LanguageUtil.translate(LanguageUtil.TEA);
             stack.setCustomName(Text.of(name));
         }
     }
@@ -89,11 +89,11 @@ public class ClientTeaColourUtil {
     public static void cacheTeaColours() {
         // cache the colours of each texture in the tea ingredient tag
         if (TeaColourUtil.ITEM_COLOURS.isEmpty()) {
-            HolderSet.NamedSet<Item> items = Registry.ITEM.getOrCreateTag(Util.TEA_INGREDIENTS);
+            HolderSet.NamedSet<Item> items = Registry.ITEM.getOrCreateTag(Constants.TEA_INGREDIENTS);
 
-            //
+            // ensure we have some ingredients in the tag, otherwise we can assume caching was attempted too early
             if (items.size() == 0) {
-                TantalisingTeas.LOGGER.error("tea ingredients cached before tag load!");
+                Constants.LOGGER.error("tea ingredients cached before tag load!");
                 return;
             }
 
@@ -116,7 +116,7 @@ public class ClientTeaColourUtil {
                 TeaColourUtil.ITEM_COLOURS.put(id, highestPriority);
             });
 
-            TantalisingTeas.LOGGER.info("successfully cached " + items.size() + " tea ingredient colours");
+            Constants.LOGGER.info("successfully cached " + items.size() + " tea ingredient colours");
         }
     }
 }

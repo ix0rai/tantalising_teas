@@ -1,9 +1,9 @@
 package io.ix0rai.tantalisingteas.blocks;
 
-import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.mixin.BlockWithEntityInvoker;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
+import io.ix0rai.tantalisingteas.util.NbtUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;

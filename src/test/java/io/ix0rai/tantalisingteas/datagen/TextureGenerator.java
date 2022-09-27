@@ -1,8 +1,8 @@
 package io.ix0rai.tantalisingteas.datagen;
 
-import io.ix0rai.tantalisingteas.data.NbtUtil;
 import io.ix0rai.tantalisingteas.data.TeaColour;
-import io.ix0rai.tantalisingteas.data.TeaColourUtil;
+import io.ix0rai.tantalisingteas.util.NbtUtil;
+import io.ix0rai.tantalisingteas.util.TeaColourUtil;
 import net.minecraft.util.math.MathHelper;
 
 import javax.imageio.ImageIO;
