@@ -41,7 +41,7 @@ public class BlockModelGenerator {
                     File file = new File(AssetGenerator.BLOCK_MODELS + "/" + stillModelName + ".json");
                     AssetGenerator.write(file, stillModel);
 
-                    textures.put("boiling", AssetGenerator.modelReference(":cauldron/boiling_effect"));
+                    textures.put("boiling", AssetGenerator.modelReference("cauldron/boiling_effect"));
 
                     BlockModelJson boilingModel = new BlockModelJson(AssetGenerator.modelReference("cauldron/boiling_cauldron_level" + l), textures);
                     file = new File(AssetGenerator.BLOCK_MODELS + "/" + boilingModelName + ".json");

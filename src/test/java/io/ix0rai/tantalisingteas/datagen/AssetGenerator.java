@@ -47,6 +47,10 @@ public class AssetGenerator {
     }
 
     static String modelReference(String path) {
+        if (path.contains(":")) {
+            throw new IllegalArgumentException("path cannot contains characters of type \":\"");
+        }
+
         return Constants.MOD_ID + ":" + path;
     }
 
