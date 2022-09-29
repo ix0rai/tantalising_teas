@@ -51,14 +51,14 @@ public class BlockModelGenerator {
         }
 
         // for some ungodly reason gson doesn't properly decode the equals sign
-        // i hate this so much
+        // I hate this so much
         String json = AssetGenerator.GSON.toJson(new BlockStateJson(variants));
         json = json.replace("\\u003d", "=");
         File file = new File(AssetGenerator.BLOCKSTATES + "/tea_cauldron.json");
         AssetGenerator.write(file, json);
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "ClassCanBeRecord"})
     private static class BlockModelJson {
         private final String parent;
         private final Map<String, String> textures;
@@ -77,7 +77,7 @@ public class BlockModelGenerator {
         }
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "ClassCanBeRecord"})
     private static class BlockStateJson {
         private final Map<String, ModelJsonProperty> variants;
 
@@ -94,7 +94,7 @@ public class BlockModelGenerator {
         }
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "ClassCanBeRecord"})
     private static class ModelJsonProperty {
         public final String model;
 

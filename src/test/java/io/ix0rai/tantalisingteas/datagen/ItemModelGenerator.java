@@ -82,6 +82,7 @@ public class ItemModelGenerator {
 
     // classes cannot be records because gson cannot decode to a record
 
+    @SuppressWarnings({"unused", "ClassCanBeRecord"})
     private static final class Textures {
         private final String layer0;
         private final String layer1;
@@ -100,6 +101,7 @@ public class ItemModelGenerator {
         }
     }
 
+    @SuppressWarnings({"unused", "ClassCanBeRecord"})
     private static class JsonOverride {
         private final Predicate predicate;
         private final String model;
@@ -118,6 +120,7 @@ public class ItemModelGenerator {
         }
     }
 
+    @SuppressWarnings({"unused", "ClassCanBeRecord"})
     private static final class Predicate {
         private final int id;
         private final int strength;

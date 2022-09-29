@@ -58,11 +58,10 @@ public class AssetGenerator {
         write(file, GSON.toJson(json));
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     static void write(File file, String json) throws IOException {
-        // noinspection ResultOfMethodCallIgnored I do not care if the directories exist I just want my file
         file.getParentFile().mkdirs();
 
-        // noinspection ResultOfMethodCallIgnored I also do not care if the file exists just let me write to it
         file.createNewFile();
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(json);
