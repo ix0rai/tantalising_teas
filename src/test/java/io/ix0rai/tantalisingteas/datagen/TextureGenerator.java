@@ -19,7 +19,7 @@ public class TextureGenerator {
         for (TeaColour colour : TeaColour.values()) {
             // get paths
             String path = AssetGenerator.OVERLAY_GENERATED + "/" + colour.getId();
-            String sourcePath = AssetGenerator.TEXTURES_SOURCE + "/templates/grayscale_tea";
+            String sourcePath = AssetGenerator.TEMPLATES + "/grayscale_tea";
 
             for (int strength = 1; strength <= NbtUtil.MAX_STRENGTH; strength ++) {
                 // get images
@@ -63,7 +63,7 @@ public class TextureGenerator {
             for (int strength = 0; strength <= NbtUtil.MAX_STRENGTH; strength++) {
                 // get paths
                 String path = AssetGenerator.CAULDRON_TEXTURES + "/" + colour.getId() + "_tea_cauldron_s" + strength;
-                String sourcePath = AssetGenerator.CAULDRON_TEXTURES_SOURCE + "/water_texture";
+                String sourcePath = AssetGenerator.TEMPLATES + "/water_texture";
 
                 // get images
                 BufferedImage sourceImage = ImageIO.read(new File(sourcePath + "." + FORMAT));

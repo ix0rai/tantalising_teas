@@ -22,7 +22,7 @@ public class AssetGenerator {
     static final String TEXTURES_GENERATED = ASSETS + "/textures/generated";
     static final String OVERLAY_GENERATED = TEXTURES_GENERATED + "/overlay";
     static final String CAULDRON_TEXTURES = TEXTURES_GENERATED + "/cauldron";
-    static final String CAULDRON_TEXTURES_SOURCE = TEXTURES_SOURCE + "/cauldron";
+    static final String TEMPLATES = TEXTURES_SOURCE + "/templates";
 
     static final String TEST_VALIDATION = SRC + "/" + "test/resources/data/" + Constants.MOD_ID + "/validation";
 

@@ -31,7 +31,7 @@ public class ItemModelGenerator {
 
         // create json
         ItemModelJson teaBottleJson = new ItemModelJson(
-                new Textures("minecraft:item/glass_bottle", Constants.MOD_ID + ":item/tea_bottle_overlay"),
+                new Textures("minecraft:item/glass_bottle", Constants.MOD_ID + ":template/grayscale_tea"),
                 jsonOverrides.toArray(new JsonOverride[overrideAmount])
         );
 
