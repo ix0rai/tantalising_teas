@@ -25,6 +25,8 @@ public enum TeaColour implements StringIdentifiable {
     CYAN(0, 255, 255, 7),
     TEAL(0, 128, 128, 5),
     YELLOW(255, 255, 0, 3),
+    LIGHT_YELLOW(255, 255, 100, 3),
+    YELLOW_ORANGE(255, 200, 0, 3),
     ORANGE(255, 128, 0, 3),
     PINK(255, 0, 255, 3),
     PURPLE(128, 0, 128, 3),

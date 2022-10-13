@@ -808,249 +808,333 @@
         "id": 19,
         "strength": 1
       },
-      "model": "tantalising_teas:generated/item/orange_s1_tea_model"
+      "model": "tantalising_teas:generated/item/light_yellow_s1_tea_model"
     },
     {
       "predicate": {
         "id": 19,
+        "strength": 2
+      },
+      "model": "tantalising_teas:generated/item/light_yellow_s2_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 19,
+        "strength": 3
+      },
+      "model": "tantalising_teas:generated/item/light_yellow_s3_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 19,
+        "strength": 4
+      },
+      "model": "tantalising_teas:generated/item/light_yellow_s4_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 19,
+        "strength": 5
+      },
+      "model": "tantalising_teas:generated/item/light_yellow_s5_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 19,
+        "strength": 6
+      },
+      "model": "tantalising_teas:generated/item/light_yellow_s6_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 20,
+        "strength": 1
+      },
+      "model": "tantalising_teas:generated/item/yellow_orange_s1_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 20,
+        "strength": 2
+      },
+      "model": "tantalising_teas:generated/item/yellow_orange_s2_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 20,
+        "strength": 3
+      },
+      "model": "tantalising_teas:generated/item/yellow_orange_s3_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 20,
+        "strength": 4
+      },
+      "model": "tantalising_teas:generated/item/yellow_orange_s4_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 20,
+        "strength": 5
+      },
+      "model": "tantalising_teas:generated/item/yellow_orange_s5_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 20,
+        "strength": 6
+      },
+      "model": "tantalising_teas:generated/item/yellow_orange_s6_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 21,
+        "strength": 1
+      },
+      "model": "tantalising_teas:generated/item/orange_s1_tea_model"
+    },
+    {
+      "predicate": {
+        "id": 21,
         "strength": 2
       },
       "model": "tantalising_teas:generated/item/orange_s2_tea_model"
     },
     {
       "predicate": {
-        "id": 19,
+        "id": 21,
         "strength": 3
       },
       "model": "tantalising_teas:generated/item/orange_s3_tea_model"
     },
     {
       "predicate": {
-        "id": 19,
+        "id": 21,
         "strength": 4
       },
       "model": "tantalising_teas:generated/item/orange_s4_tea_model"
     },
     {
       "predicate": {
-        "id": 19,
+        "id": 21,
         "strength": 5
       },
       "model": "tantalising_teas:generated/item/orange_s5_tea_model"
     },
     {
       "predicate": {
-        "id": 19,
+        "id": 21,
         "strength": 6
       },
       "model": "tantalising_teas:generated/item/orange_s6_tea_model"
     },
     {
       "predicate": {
-        "id": 20,
+        "id": 22,
         "strength": 1
       },
       "model": "tantalising_teas:generated/item/pink_s1_tea_model"
     },
     {
       "predicate": {
-        "id": 20,
+        "id": 22,
         "strength": 2
       },
       "model": "tantalising_teas:generated/item/pink_s2_tea_model"
     },
     {
       "predicate": {
-        "id": 20,
+        "id": 22,
         "strength": 3
       },
       "model": "tantalising_teas:generated/item/pink_s3_tea_model"
     },
     {
       "predicate": {
-        "id": 20,
+        "id": 22,
         "strength": 4
       },
       "model": "tantalising_teas:generated/item/pink_s4_tea_model"
     },
     {
       "predicate": {
-        "id": 20,
+        "id": 22,
         "strength": 5
       },
       "model": "tantalising_teas:generated/item/pink_s5_tea_model"
     },
     {
       "predicate": {
-        "id": 20,
+        "id": 22,
         "strength": 6
       },
       "model": "tantalising_teas:generated/item/pink_s6_tea_model"
     },
     {
       "predicate": {
-        "id": 21,
+        "id": 23,
         "strength": 1
       },
       "model": "tantalising_teas:generated/item/purple_s1_tea_model"
     },
     {
       "predicate": {
-        "id": 21,
+        "id": 23,
         "strength": 2
       },
       "model": "tantalising_teas:generated/item/purple_s2_tea_model"
     },
     {
       "predicate": {
-        "id": 21,
+        "id": 23,
         "strength": 3
       },
       "model": "tantalising_teas:generated/item/purple_s3_tea_model"
     },
     {
       "predicate": {
-        "id": 21,
+        "id": 23,
         "strength": 4
       },
       "model": "tantalising_teas:generated/item/purple_s4_tea_model"
     },
     {
       "predicate": {
-        "id": 21,
+        "id": 23,
         "strength": 5
       },
       "model": "tantalising_teas:generated/item/purple_s5_tea_model"
     },
     {
       "predicate": {
-        "id": 21,
+        "id": 23,
         "strength": 6
       },
       "model": "tantalising_teas:generated/item/purple_s6_tea_model"
     },
     {
       "predicate": {
-        "id": 22,
+        "id": 24,
         "strength": 1
       },
       "model": "tantalising_teas:generated/item/black_s1_tea_model"
     },
     {
       "predicate": {
-        "id": 22,
+        "id": 24,
         "strength": 2
       },
       "model": "tantalising_teas:generated/item/black_s2_tea_model"
     },
     {
       "predicate": {
-        "id": 22,
+        "id": 24,
         "strength": 3
       },
       "model": "tantalising_teas:generated/item/black_s3_tea_model"
     },
     {
       "predicate": {
-        "id": 22,
+        "id": 24,
         "strength": 4
       },
       "model": "tantalising_teas:generated/item/black_s4_tea_model"
     },
     {
       "predicate": {
-        "id": 22,
+        "id": 24,
         "strength": 5
       },
       "model": "tantalising_teas:generated/item/black_s5_tea_model"
     },
     {
       "predicate": {
-        "id": 22,
+        "id": 24,
         "strength": 6
       },
       "model": "tantalising_teas:generated/item/black_s6_tea_model"
     },
     {
       "predicate": {
-        "id": 23,
+        "id": 25,
         "strength": 1
       },
       "model": "tantalising_teas:generated/item/white_s1_tea_model"
     },
     {
       "predicate": {
-        "id": 23,
+        "id": 25,
         "strength": 2
       },
       "model": "tantalising_teas:generated/item/white_s2_tea_model"
     },
     {
       "predicate": {
-        "id": 23,
+        "id": 25,
         "strength": 3
       },
       "model": "tantalising_teas:generated/item/white_s3_tea_model"
     },
     {
       "predicate": {
-        "id": 23,
+        "id": 25,
         "strength": 4
       },
       "model": "tantalising_teas:generated/item/white_s4_tea_model"
     },
     {
       "predicate": {
-        "id": 23,
+        "id": 25,
         "strength": 5
       },
       "model": "tantalising_teas:generated/item/white_s5_tea_model"
     },
     {
       "predicate": {
-        "id": 23,
+        "id": 25,
         "strength": 6
       },
       "model": "tantalising_teas:generated/item/white_s6_tea_model"
     },
     {
       "predicate": {
-        "id": 24,
+        "id": 26,
         "strength": 1
       },
       "model": "tantalising_teas:generated/item/brown_s1_tea_model"
     },
     {
       "predicate": {
-        "id": 24,
+        "id": 26,
         "strength": 2
       },
       "model": "tantalising_teas:generated/item/brown_s2_tea_model"
     },
     {
       "predicate": {
-        "id": 24,
+        "id": 26,
         "strength": 3
       },
       "model": "tantalising_teas:generated/item/brown_s3_tea_model"
     },
     {
       "predicate": {
-        "id": 24,
+        "id": 26,
         "strength": 4
       },
       "model": "tantalising_teas:generated/item/brown_s4_tea_model"
     },
     {
       "predicate": {
-        "id": 24,
+        "id": 26,
         "strength": 5
       },
       "model": "tantalising_teas:generated/item/brown_s5_tea_model"
     },
     {
       "predicate": {
-        "id": 24,
+        "id": 26,
         "strength": 6
       },
       "model": "tantalising_teas:generated/item/brown_s6_tea_model"
