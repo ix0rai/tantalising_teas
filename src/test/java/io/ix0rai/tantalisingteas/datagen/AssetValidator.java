@@ -7,9 +7,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+@SuppressWarnings("unused")
 public class AssetValidator {
-    public static void main(String[] args) throws IOException {
-        run("tea colour data", AssetValidator::validateTeaColours);
+    public static void main(String[] args) {
+        //run("tea colour data", AssetValidator::validateTeaColours);
     }
 
     static void run(String thingsValidating, AssetGenerator.ThrowingRunnable runnable) throws IOException {
