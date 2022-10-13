@@ -1,5 +1,6 @@
 package io.ix0rai.tantalisingteas.blocks;
 
+import io.ix0rai.tantalisingteas.data.TantalisingNetworking;
 import io.ix0rai.tantalisingteas.data.TeaColour;
 import io.ix0rai.tantalisingteas.mixin.ChunkAccessor;
 import io.ix0rai.tantalisingteas.registry.TantalisingBlocks;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -67,6 +69,9 @@ public class TeaCauldronBehaviour {
 
                     // update colour
                     world.setBlockState(pos, state.with(TeaCauldron.COLOUR, TeaColourUtil.getFromIngredients(entity.get().getIngredients())));
+
+                    // send client ingredient to render animation
+                    TantalisingNetworking.sendIngredientAnimationCue((ServerWorld) world, pos, stack);
 
                     // finish action
                     world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
