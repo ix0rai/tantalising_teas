@@ -15,6 +15,10 @@ public class CountMap<T> extends HashMap<T, Integer> {
         this.put(key, this.getOrDefault(key, 0) + 1);
     }
 
+    public void reset(T key) {
+        this.put(key, 0);
+    }
+
     public T highestValue() {
         T highestValue = null;
         int highestCount = 0;

@@ -1,6 +1,7 @@
 package io.ix0rai.tantalisingteas.blocks;
 
 import io.ix0rai.tantalisingteas.client.TantalisingTeasClient;
+import io.ix0rai.tantalisingteas.util.CountMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -8,52 +9,56 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3f;
+import net.minecraft.world.World;
+
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class TeaCauldronBlockEntityRenderer implements BlockEntityRenderer<TeaCauldronBlockEntity> {
-    private int stackTicks = 0;
-    private ItemStack lastStack = ItemStack.EMPTY;
+    private final CountMap<BlockPos> ticks = new CountMap<>();
 
-    public TeaCauldronBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-
+    public TeaCauldronBlockEntityRenderer() {
+        // nothing to do
     }
 
     @Override
     public void render(TeaCauldronBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        BlockPos pos = blockEntity.getPos();
+        for (Pair<BlockPos, ItemStack> entry : TantalisingTeasClient.stacksToRender) {
+            if (entry.getLeft().equals(blockEntity.getPos())) {
+                ItemStack stack = entry.getRight();
+                BlockPos pos = entry.getLeft();
 
-        if (TantalisingTeasClient.stacksToRender.containsKey(pos)) {
-            ItemStack stack = TantalisingTeasClient.stacksToRender.get(pos);
+                // increment the item's tick count
+                ticks.increment(pos);
 
-            if (!stack.equals(lastStack)) {
-                lastStack = stack;
-                stackTicks = 0;
-            }
+                World world = Objects.requireNonNull(blockEntity.getWorld());
+                int level = world.getBlockState(pos).get(TeaCauldron.LEVEL);
 
-            matrices.push();
-            double offset = Math.sin((blockEntity.getWorld().getTime() + tickDelta) / 8.0) / 4.0;
-            // Move the item
-            matrices.translate(0.5, 1.25 + offset, 0.5);
+                // before starting to render, we have to push
+                matrices.push();
 
-            // Rotate the item
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((blockEntity.getWorld().getTime() + tickDelta) * 4));
+                // move
+                matrices.translate(0.5, level / 3D - ticks.get(pos) / 100D, 0.5);
 
-            int lightAbove = WorldRenderer.getLightmapCoordinates(blockEntity.getWorld(), blockEntity.getPos().up());
-            MinecraftClient.getInstance().getItemRenderer().renderItem(lastStack, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
+                // rotate the item so it's lying flat
+                matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
 
-            // Mandatory call after GL calls
-            matrices.pop();
+                int lightAbove = WorldRenderer.getLightmapCoordinates(world, pos.up());
+                MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
 
-            stackTicks ++;
-            if (stackTicks >= 60) {
-                TantalisingTeasClient.stacksToRender.remove(blockEntity.getPos());
-                stackTicks = 0;
+                // after rendering, we pop
+                matrices.pop();
+
+                if (ticks.get(pos) >= 60) {
+                    TantalisingTeasClient.stacksToRender.remove(entry);
+                    ticks.reset(pos);
+                }
             }
         }
     }

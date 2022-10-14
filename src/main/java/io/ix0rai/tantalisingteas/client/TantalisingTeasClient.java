@@ -22,14 +22,15 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.biome.BiomeKeys;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * main initializer for tantalising teas on the client
@@ -39,7 +40,7 @@ public class TantalisingTeasClient implements ClientModInitializer {
     private boolean dataReady = false;
     private boolean canSend = false;
 
-    public static final Map<BlockPos, ItemStack> stacksToRender = new HashMap<>();
+    public static final List<Pair<BlockPos, ItemStack>> stacksToRender = new CopyOnWriteArrayList<>();
 
     @Override
     public void onInitializeClient() {
@@ -90,11 +91,11 @@ public class TantalisingTeasClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(TantalisingNetworking.INGREDIENT_ADDITION_ANIMATION_CUE_ID, (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
             ItemStack stack = buf.readItemStack();
-            stacksToRender.put(pos, stack);
+            stacksToRender.add(new Pair<>(pos, stack));
         });
 
         // tea cauldron block entity renderer
-        BlockEntityRendererRegistry.register(TantalisingBlocks.TEA_CAULDRON_ENTITY, TeaCauldronBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(TantalisingBlocks.TEA_CAULDRON_ENTITY, context -> new TeaCauldronBlockEntityRenderer());
     }
 
     private static int getWaterColour(BlockRenderView view, BlockPos pos) {
