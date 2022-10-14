@@ -14,6 +14,7 @@ import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stat.Stats;
@@ -58,6 +59,13 @@ public class TeaCauldron extends LeveledCauldronBlock implements BlockEntityProv
             return state.with(BOILING, true);
         } else {
             return state;
+        }
+    }
+
+    @Override
+    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+        if (this.isEntityTouchingFluid(state, pos, entity) && !entity.isFireImmune() && state.get(BOILING)) {
+            entity.setOnFireFor(15);
         }
     }
 
