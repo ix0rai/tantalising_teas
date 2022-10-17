@@ -23,6 +23,7 @@ import java.util.Objects;
 public class TeaCauldronBlockEntityRenderer implements BlockEntityRenderer<TeaCauldronBlockEntity> {
     private final CountMap<BlockPos> ticks = new CountMap<>();
     private final int[] maxTicks = new int[]{20, 40, 60};
+    private final float[] multipliers = new float[]{5f, 2.5f, 1 + 1f / 3f * 2f};
 
     public TeaCauldronBlockEntityRenderer() {
         // nothing to do
@@ -51,7 +52,7 @@ public class TeaCauldronBlockEntityRenderer implements BlockEntityRenderer<TeaCa
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
 
                 // scale the item
-                float scale = 0.01f * (maxTicks[level - 1] - ticks.get(pos));
+                float scale = 0.01f * (100 - ticks.get(pos) * multipliers[level - 1]);
                 matrices.scale(scale, scale, scale);
 
                 int lightAbove = WorldRenderer.getLightmapCoordinates(world, pos.up());
