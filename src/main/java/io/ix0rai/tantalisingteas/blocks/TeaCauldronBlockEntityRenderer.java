@@ -22,6 +22,7 @@ import java.util.Objects;
 @Environment(EnvType.CLIENT)
 public class TeaCauldronBlockEntityRenderer implements BlockEntityRenderer<TeaCauldronBlockEntity> {
     private final CountMap<BlockPos> ticks = new CountMap<>();
+    private final int[] maxTicks = new int[]{20, 40, 60};
 
     public TeaCauldronBlockEntityRenderer() {
         // nothing to do
@@ -49,13 +50,17 @@ public class TeaCauldronBlockEntityRenderer implements BlockEntityRenderer<TeaCa
                 // rotate the item so it's lying flat
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
 
+                // scale the item
+                float scale = 0.01f * (maxTicks[level - 1] - ticks.get(pos));
+                matrices.scale(scale, scale, scale);
+
                 int lightAbove = WorldRenderer.getLightmapCoordinates(world, pos.up());
                 MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
 
                 // after rendering, we pop
                 matrices.pop();
 
-                if (ticks.get(pos) >= 60) {
+                if (ticks.get(pos) >= maxTicks[level - 1]) {
                     TantalisingTeasClient.stacksToRender.remove(entry);
                     ticks.reset(pos);
                 }
