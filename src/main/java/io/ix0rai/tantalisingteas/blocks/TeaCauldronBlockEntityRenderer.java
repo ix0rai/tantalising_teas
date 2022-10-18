@@ -24,6 +24,7 @@ public class TeaCauldronBlockEntityRenderer implements BlockEntityRenderer<TeaCa
     private final CountMap<BlockPos> ticks = new CountMap<>();
     private final int[] maxTicks = new int[]{20, 40, 60};
     private final float[] multipliers = new float[]{5f, 2.5f, 1 + 1f / 3f * 2f};
+    private final float[] spinMultipliers = new float[]{18f, 9f, 6f};
 
     public TeaCauldronBlockEntityRenderer() {
         // nothing to do
@@ -47,6 +48,9 @@ public class TeaCauldronBlockEntityRenderer implements BlockEntityRenderer<TeaCa
 
                 // move
                 matrices.translate(0.5, level / 3D - ticks.get(pos) / 100D, 0.5);
+
+                // spin
+                matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(ticks.get(pos) * spinMultipliers[level - 1]));
 
                 // rotate the item so it's lying flat
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
