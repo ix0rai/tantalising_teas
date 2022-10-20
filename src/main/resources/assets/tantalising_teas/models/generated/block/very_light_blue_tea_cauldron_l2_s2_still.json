@@ -1,5 +1,5 @@
 {
-  "parent": "tantalising_teas:cauldron/still_cauldron_level2",
+  "parent": "minecraft:block/template_cauldron_level2",
   "textures": {
     "side": "minecraft:block/cauldron_side",
     "top": "minecraft:block/cauldron_top",

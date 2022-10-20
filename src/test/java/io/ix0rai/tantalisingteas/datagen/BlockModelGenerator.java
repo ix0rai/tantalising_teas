@@ -37,7 +37,8 @@ public class BlockModelGenerator {
                     textures.put("particle", "minecraft:block/cauldron_side");
                     textures.put("content", AssetGenerator.modelReference("generated/cauldron/" + String.format("%s_tea_cauldron_s%d", colour.asString(), s)));
 
-                    BlockModelJson stillModel = new BlockModelJson(AssetGenerator.modelReference("cauldron/still_cauldron_level" + l), textures);
+                    // special-casing for level 3 being named "full" in minecraft's models
+                    BlockModelJson stillModel = new BlockModelJson("minecraft:block/template_cauldron_" + (l == 3 ? "full" : "level" + l), textures);
                     File file = new File(AssetGenerator.BLOCK_MODELS + "/" + stillModelName + ".json");
                     AssetGenerator.write(file, stillModel);
 
