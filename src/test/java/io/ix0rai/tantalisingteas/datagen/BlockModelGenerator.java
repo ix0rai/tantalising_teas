@@ -51,7 +51,7 @@ public class BlockModelGenerator {
             }
         }
 
-        // for some ungodly reason gson doesn't properly decode the equals sign
+        // for some ungodly reason gson doesn't properly encode the equals sign
         // I hate this so much
         String json = AssetGenerator.GSON.toJson(new BlockStateJson(variants));
         json = json.replace("\\u003d", "=");
