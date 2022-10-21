@@ -13,6 +13,8 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,10 +37,24 @@ public class TantalisingTeas implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(TantalisingNetworking.COLOUR_DATA_PACKET_ID, (server, player, handler, buf, responseSender) -> {
             // read data and pass to item colour map
             Map<Identifier, TeaColour> colours = buf.readMap(PacketByteBuf::readIdentifier, packet -> packet.readEnumConstant(TeaColour.class));
-            server.execute(() -> TeaColourUtil.ITEM_COLOURS.putAll(colours));
 
-            // log
-            Constants.LOGGER.info("received tea colour data packet from client with " + colours.size() + " entries");
+            server.execute(() -> {
+                // add all received mappings to the item colour map
+                // also collect new ones for logging
+                List<Identifier> receivedColourMappings = new ArrayList<>();
+
+                for (Map.Entry<Identifier, TeaColour> entry : colours.entrySet()) {
+                    if (!TeaColourUtil.ITEM_COLOURS.containsKey(entry.getKey())) {
+                        receivedColourMappings.add(entry.getKey());
+                        TeaColourUtil.ITEM_COLOURS.put(entry.getKey(), entry.getValue());
+                    }
+                }
+
+                // log
+                if (!receivedColourMappings.isEmpty()) {
+                    Constants.LOGGER.info("received new tea colour mappings for items: " + receivedColourMappings);
+                }
+            });
         });
     }
 }
