@@ -40,7 +40,7 @@ public class TantalisingTeasClient implements ClientModInitializer {
     public void onInitializeClient() {
         // tea bottle model providers
         ModelPredicateProviderRegistry.register(
-                TantalisingItems.TEA_BOTTLE, new Identifier("id"),
+                TantalisingItems.teaBottle, new Identifier("id"),
                 (stack, world, entity, seed) -> {
                     // note: updating this on every render is not ideal
                     // in the future this should be running less often
@@ -52,7 +52,7 @@ public class TantalisingTeasClient implements ClientModInitializer {
         );
 
         ModelPredicateProviderRegistry.register(
-                TantalisingItems.TEA_BOTTLE, new Identifier("strength"),
+                TantalisingItems.teaBottle, new Identifier("strength"),
                 (stack, world, entity, seed) -> {
                     NbtCompound nbt = stack.getNbt();
                     return NbtUtil.getOverallStrength(NbtUtil.getIngredients(nbt));
