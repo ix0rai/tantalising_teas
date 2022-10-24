@@ -1,7 +1,8 @@
 {
   "replace": false,
+  "required": false,
   "values": [
-    "tantalising_teas:tea_leaves",
+    "tantalising_teas:cinnamon_stick",
     "minecraft:sweet_berries",
     "minecraft:glow_berries",
     "minecraft:oak_leaves",

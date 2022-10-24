@@ -93,8 +93,7 @@ public class ClientTeaColourUtil {
 
             // ensure we have some ingredients in the tag, otherwise we can assume caching was attempted too early
             if (items.size() == 0) {
-                Constants.LOGGER.error("tea ingredients cached before tag load!");
-                return;
+                throw new RuntimeException("no tea ingredients are present in tag; or there was an error caching tea colours");
             }
 
             items.forEach(item -> {

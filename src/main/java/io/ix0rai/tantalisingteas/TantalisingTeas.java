@@ -28,7 +28,7 @@ public class TantalisingTeas implements ModInitializer {
     @Override
     public void onInitialize() {
         TantalisingBlocks.register();
-        TantalisingItems.registerItems();
+        TantalisingItems.register();
 
         // ensure that boiling cauldron behaviour is registered for all tea ingredients
         CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> TeaCauldronBehaviour.addBehaviour());

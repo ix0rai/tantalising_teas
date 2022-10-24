@@ -44,16 +44,16 @@ public class TeaCauldronBehaviour {
     protected static final Map<Item, CauldronBehavior> BEHAVIOUR = CauldronBehavior.createMap();
 
     static {
-        BEHAVIOUR.put(Items.GLASS_BOTTLE, (state, world, pos, player, hand, stack) -> decreaseLevel(state, world, pos, player, hand, stack, new ItemStack(TantalisingItems.TEA_BOTTLE)));
+        BEHAVIOUR.put(Items.GLASS_BOTTLE, (state, world, pos, player, hand, stack) -> decreaseLevel(state, world, pos, player, hand, stack, new ItemStack(TantalisingItems.teaBottle)));
         BEHAVIOUR.put(Items.WATER_BUCKET, (TeaCauldronBehaviour::fillCauldron));
         BEHAVIOUR.put(Items.POTION, (TeaCauldronBehaviour::increaseLevel));
-        BEHAVIOUR.put(TantalisingItems.TEA_BOTTLE, (TeaCauldronBehaviour::increaseLevel));
+        BEHAVIOUR.put(TantalisingItems.teaBottle, (TeaCauldronBehaviour::increaseLevel));
     }
 
     public static void addBehaviour() {
         HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(Constants.TEA_INGREDIENTS);
         teaIngredients.forEach((Holder<Item> item) -> BEHAVIOUR.put(item.value(), TeaCauldronBehaviour::addIngredient));
-        CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(TantalisingItems.TEA_BOTTLE, TeaCauldronBehaviour::createCauldron);
+        CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(TantalisingItems.teaBottle, TeaCauldronBehaviour::createCauldron);
     }
 
     private static ActionResult addIngredient(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
@@ -115,7 +115,7 @@ public class TeaCauldronBehaviour {
     }
 
     private static ActionResult increaseLevel(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack) {
-        if ((stack.isOf(TantalisingItems.TEA_BOTTLE) || PotionUtil.getPotion(stack) == Potions.WATER) && TeaCauldron.isNotFull(state)) {
+        if ((stack.isOf(TantalisingItems.teaBottle) || PotionUtil.getPotion(stack) == Potions.WATER) && TeaCauldron.isNotFull(state)) {
             if (!world.isClient) {
                 // get entity
                 Optional<TeaCauldronBlockEntity> entity = world.getBlockEntity(pos, TantalisingBlocks.TEA_CAULDRON_ENTITY);
@@ -130,7 +130,7 @@ public class TeaCauldronBehaviour {
                 // add data and reload properties
                 if (entity.isPresent()) {
                     TeaCauldronBlockEntity cauldron = entity.get();
-                    if (stack.isOf(TantalisingItems.TEA_BOTTLE) && stack.getNbt() != null && NbtUtil.containsIngredientKey(stack.getNbt())) {
+                    if (stack.isOf(TantalisingItems.teaBottle) && stack.getNbt() != null && NbtUtil.containsIngredientKey(stack.getNbt())) {
                         cauldron.addData(stack.getNbt());
                         strength = NbtUtil.getOverallStrength(cauldron.getIngredients());
                     }
