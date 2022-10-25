@@ -62,7 +62,7 @@ public class TextureGenerator {
         for (TeaColour colour : TeaColour.values()) {
             for (int strength = 0; strength <= NbtUtil.MAX_STRENGTH; strength++) {
                 // get paths
-                String path = AssetGenerator.CAULDRON_TEXTURES + "/" + colour.getId() + "_tea_cauldron_s" + strength;
+                String path = AssetGenerator.CAULDRON_TEXTURES_GENERATED + "/" + colour.getId() + "_tea_cauldron_s" + strength;
                 String sourcePath = AssetGenerator.TEMPLATES + "/water_texture";
 
                 // get images

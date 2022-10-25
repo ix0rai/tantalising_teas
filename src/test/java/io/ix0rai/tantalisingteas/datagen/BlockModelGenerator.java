@@ -35,14 +35,14 @@ public class BlockModelGenerator {
                     textures.put("top", "minecraft:block/cauldron_top");
                     textures.put("inside", "minecraft:block/cauldron_inner");
                     textures.put("particle", "minecraft:block/cauldron_side");
-                    textures.put("content", AssetGenerator.modelReference("generated/cauldron/" + String.format("%s_tea_cauldron_s%d", colour.asString(), s)));
+                    textures.put("content", AssetGenerator.modelReference("block/generated/cauldron/" + String.format("%s_tea_cauldron_s%d", colour.asString(), s)));
 
                     // special-casing for level 3 being named "full" in minecraft's models
                     BlockModelJson stillModel = new BlockModelJson("minecraft:block/template_cauldron_" + (l == 3 ? "full" : "level" + l), textures);
                     File file = new File(AssetGenerator.BLOCK_MODELS + "/" + stillModelName + ".json");
                     AssetGenerator.write(file, stillModel);
 
-                    textures.put("boiling", AssetGenerator.modelReference("cauldron/boiling_effect"));
+                    textures.put("boiling", AssetGenerator.modelReference("block/cauldron/boiling_effect"));
 
                     BlockModelJson boilingModel = new BlockModelJson(AssetGenerator.modelReference("cauldron/boiling_cauldron_level" + l), textures);
                     file = new File(AssetGenerator.BLOCK_MODELS + "/" + boilingModelName + ".json");

@@ -3,10 +3,10 @@
   "textures": {
     "side": "minecraft:block/cauldron_side",
     "top": "minecraft:block/cauldron_top",
-    "boiling": "tantalising_teas:cauldron/boiling_effect",
+    "boiling": "tantalising_teas:block/cauldron/boiling_effect",
     "bottom": "minecraft:block/cauldron_bottom",
     "particle": "minecraft:block/cauldron_side",
     "inside": "minecraft:block/cauldron_inner",
-    "content": "tantalising_teas:generated/cauldron/light_blue_tea_cauldron_s5"
+    "content": "tantalising_teas:block/generated/cauldron/light_blue_tea_cauldron_s5"
   }
 }

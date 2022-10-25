@@ -2,7 +2,7 @@ package io.ix0rai.tantalisingteas.client;
 
 import com.mojang.blaze3d.texture.NativeImage;
 import io.ix0rai.tantalisingteas.data.TeaColour;
-import io.ix0rai.tantalisingteas.mixin.render.SpriteAccessor;
+import io.ix0rai.tantalisingteas.mixin.render.ThingAccessor;
 import io.ix0rai.tantalisingteas.util.Constants;
 import io.ix0rai.tantalisingteas.util.LanguageUtil;
 import io.ix0rai.tantalisingteas.util.NbtUtil;
@@ -100,11 +100,11 @@ public class ClientTeaColourUtil {
             items.forEach(item -> {
                 // get the model
                 Identifier id = Registry.ITEM.getId(item.value());
-                ModelIdentifier modelId = new ModelIdentifier(id + "#inventory");
+                ModelIdentifier modelId = new ModelIdentifier(id, "inventory");
                 BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(modelId);
 
                 // get the texture and extract the amount of times each colour appears
-                NativeImage texture = ((SpriteAccessor) model.getParticleSprite()).getImages()[0];
+                NativeImage texture = ((ThingAccessor) model.getParticleSprite().m_bvgmdapy()).getImage();
                 Map<TeaColour, Integer> colours = ClientTeaColourUtil.getColourOccurrences(texture);
 
                 // trim the list of colours to the top 3 most saturated

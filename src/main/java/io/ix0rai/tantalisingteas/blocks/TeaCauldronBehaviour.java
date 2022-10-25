@@ -74,7 +74,7 @@ public class TeaCauldronBehaviour {
                     TantalisingNetworking.sendIngredientAnimationCue((ServerWorld) world, pos, stack);
 
                     // finish action
-                    world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                    world.m_ktoxvfib(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
                     TeaCauldron.useCauldronWith(player, stack);
                 }
             }
@@ -104,7 +104,7 @@ public class TeaCauldronBehaviour {
                 world.setBlockState(pos, newState, Block.NOTIFY_ALL);
 
                 // finish action
-                world.playSound(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                world.m_ktoxvfib(player, pos, SoundEvents.ENTITY_AXOLOTL_SPLASH, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 TeaCauldron.useCauldronWith(player, stack);
             }
 
@@ -147,7 +147,7 @@ public class TeaCauldronBehaviour {
                 );
 
                 // finish action
-                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                world.m_ktoxvfib(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
                 TeaCauldron.useCauldronWith(player, stack);
             }
@@ -202,7 +202,7 @@ public class TeaCauldronBehaviour {
                 );
 
                 // finish action
-                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.m_ktoxvfib(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 world.emitGameEvent(null, GameEvent.FLUID_PICKUP, pos);
                 TeaCauldron.useCauldronWith(player, stack);
             }

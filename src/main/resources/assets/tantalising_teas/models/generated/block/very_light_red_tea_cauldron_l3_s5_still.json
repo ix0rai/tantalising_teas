@@ -6,6 +6,6 @@
     "bottom": "minecraft:block/cauldron_bottom",
     "particle": "minecraft:block/cauldron_side",
     "inside": "minecraft:block/cauldron_inner",
-    "content": "tantalising_teas:generated/cauldron/very_light_red_tea_cauldron_s5"
+    "content": "tantalising_teas:block/generated/cauldron/very_light_red_tea_cauldron_s5"
   }
 }

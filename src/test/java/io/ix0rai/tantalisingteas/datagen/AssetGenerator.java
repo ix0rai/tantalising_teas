@@ -19,9 +19,10 @@ public class AssetGenerator {
     static final String ITEM_MODELS_ROOT = ASSETS + "/models/item";
     static final String BLOCK_MODELS = MODELS + "/block";
     static final String TEXTURES_SOURCE = ASSETS + "/textures";
-    static final String TEXTURES_GENERATED = ASSETS + "/textures/generated";
-    static final String OVERLAY_GENERATED = TEXTURES_GENERATED + "/overlay";
-    static final String CAULDRON_TEXTURES = TEXTURES_GENERATED + "/cauldron";
+    static final String TEXTURES_ITEM_GENERATED = TEXTURES_SOURCE + "/item/generated";
+    static final String TEXTURES_BLOCK_GENERATED = TEXTURES_SOURCE + "/block/generated";
+    static final String OVERLAY_GENERATED = TEXTURES_ITEM_GENERATED + "/overlay";
+    static final String CAULDRON_TEXTURES_GENERATED = TEXTURES_BLOCK_GENERATED + "/cauldron";
     static final String TEMPLATES = TEXTURES_SOURCE + "/templates";
 
     static final String TEST_VALIDATION = SRC + "/" + "test/resources/data/" + Constants.MOD_ID + "/validation";

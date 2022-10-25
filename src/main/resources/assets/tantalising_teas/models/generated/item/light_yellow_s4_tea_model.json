@@ -2,6 +2,6 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "minecraft:item/glass_bottle",
-    "layer1": "tantalising_teas:generated/overlay/light_yellow_s4"
+    "layer1": "tantalising_teas:item/generated/overlay/light_yellow_s4"
   }
 }

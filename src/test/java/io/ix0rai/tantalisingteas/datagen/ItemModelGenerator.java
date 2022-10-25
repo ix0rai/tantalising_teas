@@ -31,7 +31,7 @@ public class ItemModelGenerator {
 
         // create json
         ItemModelJson teaBottleJson = new ItemModelJson(
-                new Textures("minecraft:item/glass_bottle", Constants.MOD_ID + ":templates/grayscale_tea"),
+                new Textures("minecraft:item/glass_bottle"),
                 jsonOverrides.toArray(new JsonOverride[overrideAmount])
         );
 
@@ -47,7 +47,7 @@ public class ItemModelGenerator {
 
                 File file = new File(AssetGenerator.ITEM_MODELS + "/" + modelName);
                 ItemModelJson json = new ItemModelJson(
-                        new Textures("minecraft:item/glass_bottle", Constants.MOD_ID + ":generated/overlay/" + getName(colour, strength)),
+                        new Textures("minecraft:item/glass_bottle", Constants.MOD_ID + ":item/generated/overlay/" + getName(colour, strength)),
                         null
                 );
 
@@ -82,7 +82,7 @@ public class ItemModelGenerator {
 
     // classes cannot be records because gson cannot decode to a record
 
-    @SuppressWarnings({"unused", "ClassCanBeRecord"})
+    @SuppressWarnings({"unused"})
     private static final class Textures {
         private final String layer0;
         private final String layer1;
@@ -90,6 +90,10 @@ public class ItemModelGenerator {
         public Textures(String layer0, String layer1) {
             this.layer0 = layer0;
             this.layer1 = layer1;
+        }
+
+        public Textures(String layer0) {
+            this(layer0, null);
         }
 
         @Override
