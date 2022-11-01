@@ -1,0 +1,58 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "tantalising_teas:block/cinnamon_log_1_age0"
+        },
+        {
+          "model": "tantalising_teas:block/cinnamon_log_2_age0"
+        },
+        {
+          "model": "tantalising_teas:block/cinnamon_log_3_age0"
+        },
+        {
+          "model": "tantalising_teas:block/cinnamon_log_4_age0"
+        }
+      ],
+      "when": {
+        "age": "0"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "tantalising_teas:block/cinnamon_log_1_age1"
+        },
+        {
+          "model": "tantalising_teas:block/cinnamon_log_2_age1"
+        },
+        {
+          "model": "tantalising_teas:block/cinnamon_log_3_age1"
+        },
+        {
+          "model": "tantalising_teas:block/cinnamon_log_4_age1"
+        }
+      ],
+      "when": {
+        "age": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "tantalising_teas:block/cinnamon_log_small_leaves"
+      },
+      "when": {
+        "leaves": "small"
+      }
+    },
+    {
+      "apply": {
+        "model": "tantalising_teas:block/cinnamon_log_large_leaves"
+      },
+      "when": {
+        "leaves": "large"
+      }
+    }
+  ]
+}

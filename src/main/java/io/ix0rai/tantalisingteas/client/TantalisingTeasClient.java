@@ -62,6 +62,10 @@ public class TantalisingTeasClient implements ClientModInitializer {
         // tea cauldron translucency
         BlockRenderLayerMap.INSTANCE.putBlock(TantalisingBlocks.TEA_CAULDRON, RenderLayer.getTranslucent());
 
+        // cutout textures
+        BlockRenderLayerMap.INSTANCE.putBlock(TantalisingBlocks.CINNAMON_LOG, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(TantalisingBlocks.CINNAMON_SAPLING, RenderLayer.getCutout());
+
         // tea colour packet sending
         CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> {
             ClientTeaColourUtil.cacheTeaColours();
