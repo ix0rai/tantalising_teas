@@ -31,7 +31,7 @@ public class AxeItemInjector {
         BlockState targetState = world.getBlockState(pos);
 
         if (targetState.isOf(TantalisingBlocks.CINNAMON_LOG)) {
-            world.m_ktoxvfib(context.getPlayer(), pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            world.playSound(context.getPlayer(), pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
             ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(TantalisingItems.cinnamonSeeds, world.random.nextInt(2) + 1));
             world.spawnEntity(itemEntity);

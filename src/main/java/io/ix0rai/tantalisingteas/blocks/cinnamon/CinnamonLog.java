@@ -34,7 +34,6 @@ public class CinnamonLog extends PillarBlock implements Fertilizable {
     public static final IntProperty AGE = Properties.AGE_1;
     public static final IntProperty STAGE = Properties.STAGE;
 
-    // todo stripping for 1 - 2 cinnamon
     // todo leaves staggered all across the tree
     // todo improve logic
 
@@ -178,7 +177,7 @@ public class CinnamonLog extends PillarBlock implements Fertilizable {
     }
 
     @Override
-    public boolean isFertilizable(BlockView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
         int i = this.countLogsAbove(world, pos);
         int j = this.countBambooBelow(world, pos);
         return i + j + 1 < MAX_HEIGHT && world.getBlockState(pos.up(i)).get(STAGE) != 1;

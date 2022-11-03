@@ -14,8 +14,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
+import org.joml.Quaternionf;
 
 import java.util.Objects;
 
@@ -50,10 +50,10 @@ public class TeaCauldronBlockEntityRenderer implements BlockEntityRenderer<TeaCa
                 matrices.translate(0.5, level / 3D - ticks.get(pos) / 100D, 0.5);
 
                 // spin
-                matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(ticks.get(pos) * spinMultipliers[level - 1]));
+                matrices.multiply(new Quaternionf(0f, 1f, 0f, ticks.get(pos) * spinMultipliers[level - 1]));
 
                 // rotate the item so it's lying flat
-                matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
+                matrices.multiply(new Quaternionf(1f, 0f, 0f, 90f));
 
                 // scale the item
                 float scale = 0.01f * (100 - ticks.get(pos) * multipliers[level - 1]);
