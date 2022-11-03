@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractBlockInjector",
+    "AxeItemInjector",
     "BlockWithEntityInvoker",
     "ChunkAccessor"
   ],

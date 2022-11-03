@@ -19,7 +19,7 @@ public class TantalisingItems {
     public static Item cinnamonStick;
 
     public static void register() {
-        cinnamonSeeds = register("cinnamon_seeds", new AliasedBlockItem(TantalisingBlocks.CINNAMON_LOG, new FabricItemSettings()));
+        cinnamonSeeds = register("cinnamon_seeds", new AliasedBlockItem(TantalisingBlocks.CINNAMON_SAPLING, new FabricItemSettings()));
         cinnamonStick = register("cinnamon_stick", new Item(new FabricItemSettings()));
         teaBottle = register("tea_bottle", new DrinkableTeaItem(new FabricItemSettings().food(new FoodComponent.Builder().saturationModifier(3.0f).hunger(1).alwaysEdible().build())));
     }
