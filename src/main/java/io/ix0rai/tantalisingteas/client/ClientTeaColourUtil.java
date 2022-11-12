@@ -16,9 +16,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
-import net.minecraft.util.HolderSet;
+import net.minecraft.unmapped.C_nusqeapl;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.HolderSet;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -77,7 +77,7 @@ public class ClientTeaColourUtil {
 
             String name = LanguageUtil.translate(LanguageUtil.BOTTLE) + " " + LanguageUtil.translate(LanguageUtil.OF)
                     + (strength == 2 ? "" : " " + LanguageUtil.translate(LanguageUtil.STRENGTHS[strength]))
-                    + " " + LanguageUtil.translate(Registry.ITEM.get(NbtUtil.getIngredientId(primaryIngredient)).getTranslationKey()) + " " + LanguageUtil.translate(LanguageUtil.TEA);
+                    + " " + LanguageUtil.translate(C_nusqeapl.f_blfmzmyy.get(NbtUtil.getIngredientId(primaryIngredient)).getTranslationKey()) + " " + LanguageUtil.translate(LanguageUtil.TEA);
             stack.setCustomName(Text.of(name));
         }
     }
@@ -89,7 +89,7 @@ public class ClientTeaColourUtil {
     public static void cacheTeaColours() {
         // cache the colours of each texture in the tea ingredient tag
         if (TeaColourUtil.ITEM_COLOURS.isEmpty()) {
-            HolderSet.NamedSet<Item> items = Registry.ITEM.getOrCreateTag(Constants.TEA_INGREDIENTS);
+            HolderSet.NamedSet<Item> items = C_nusqeapl.f_blfmzmyy.getOrCreateTag(Constants.TEA_INGREDIENTS);
 
             // ensure we have some ingredients in the tag, otherwise we can assume caching was attempted too early
             if (items.size() == 0) {
@@ -98,7 +98,7 @@ public class ClientTeaColourUtil {
 
             items.forEach(item -> {
                 // get the model
-                Identifier id = Registry.ITEM.getId(item.value());
+                Identifier id = C_nusqeapl.f_blfmzmyy.getId(item.value());
                 ModelIdentifier modelId = new ModelIdentifier(id, "inventory");
                 BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(modelId);
 

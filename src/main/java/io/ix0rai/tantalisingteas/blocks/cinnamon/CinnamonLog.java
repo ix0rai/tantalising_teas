@@ -30,6 +30,7 @@ public class CinnamonLog extends PillarBlock implements Fertilizable {
     protected static final VoxelShape LARGE_LEAVES_SHAPE = Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 16.0, 13.0);
     protected static final VoxelShape NO_LEAVES_SHAPE = Block.createCuboidShape(6.5, 0.0, 6.5, 9.5, 16.0, 9.5);
     public static final int MAX_HEIGHT = 16;
+    public static final int AGE_INCREASE_HEIGHT = 4;
     public static final EnumProperty<CinnamonTreeLeaves> LEAVES = EnumProperty.of("leaves", CinnamonTreeLeaves.class);
     public static final IntProperty AGE = Properties.AGE_1;
     public static final IntProperty STAGE = Properties.STAGE;
@@ -110,29 +111,41 @@ public class CinnamonLog extends PillarBlock implements Fertilizable {
     }
 
     protected void updateLeaves(BlockState state, World world, BlockPos pos, RandomGenerator random, int height) {
-        // todo: rewrite this
         BlockState blockState = world.getBlockState(pos.down());
-        BlockPos blockPos = pos.down(2);
-        BlockState blockState2 = world.getBlockState(blockPos);
-        CinnamonTreeLeaves bambooLeaves = CinnamonTreeLeaves.NONE;
-
-        if (height >= 1) {
-            if (blockState.isIn(TantalisingBlocks.CINNAMON_LOGS) && blockState.get(LEAVES) != CinnamonTreeLeaves.NONE) {
-                if (blockState.isIn(TantalisingBlocks.CINNAMON_LOGS) && blockState.get(LEAVES) != CinnamonTreeLeaves.NONE) {
-                    bambooLeaves = CinnamonTreeLeaves.LARGE;
-                    if (blockState2.isIn(TantalisingBlocks.CINNAMON_LOGS)) {
-                        world.setBlockState(pos.down(), blockState.with(LEAVES, CinnamonTreeLeaves.SMALL), 3);
-                        world.setBlockState(blockPos, blockState2.with(LEAVES, CinnamonTreeLeaves.NONE), 3);
-                    }
-                }
+        if (blockState.isIn(TantalisingBlocks.CINNAMON_LOGS)) {
+            if (state.get(LEAVES) == CinnamonTreeLeaves.NONE) {
+                world.setBlockState(pos, state.with(LEAVES, CinnamonTreeLeaves.SMALL));
             } else {
-                bambooLeaves = CinnamonTreeLeaves.SMALL;
+                world.setBlockState(pos, state.with(LEAVES, CinnamonTreeLeaves.random(random)));
             }
         }
 
-        int i = state.get(AGE) != 1 && !blockState2.isIn(TantalisingBlocks.CINNAMON_LOGS) ? 0 : 1;
-        int j = (height < MAX_HEIGHT / 2 || random.nextFloat() >= 0.25F) && height != MAX_HEIGHT - 1 ? 0 : 1;
-        world.setBlockState(pos.up(), this.getDefaultState().with(AGE, i).with(LEAVES, bambooLeaves).with(STAGE, j), 3);
+
+
+
+        // todo: rewrite this
+//        BlockState blockState = world.getBlockState(pos.down());
+//        BlockPos blockPos = pos.down(2);
+//        BlockState blockState2 = world.getBlockState(blockPos);
+//        CinnamonTreeLeaves bambooLeaves = CinnamonTreeLeaves.NONE;
+//
+//        if (height >= 1) {
+//            if (blockState.isIn(TantalisingBlocks.CINNAMON_LOGS) && blockState.get(LEAVES) != CinnamonTreeLeaves.NONE) {
+//                if (blockState.isIn(TantalisingBlocks.CINNAMON_LOGS) && blockState.get(LEAVES) != CinnamonTreeLeaves.NONE) {
+//                    bambooLeaves = CinnamonTreeLeaves.LARGE;
+//                    if (blockState2.isIn(TantalisingBlocks.CINNAMON_LOGS)) {
+//                        world.setBlockState(pos.down(), blockState.with(LEAVES, CinnamonTreeLeaves.SMALL), 3);
+//                        world.setBlockState(blockPos, blockState2.with(LEAVES, CinnamonTreeLeaves.NONE), 3);
+//                    }
+//                }
+//            } else {
+//                bambooLeaves = CinnamonTreeLeaves.SMALL;
+//            }
+//        }
+//
+//        int i = state.get(AGE) != 1 && !blockState2.isIn(TantalisingBlocks.CINNAMON_LOGS) ? 0 : 1;
+//        int j = (height < MAX_HEIGHT / 2 || random.nextFloat() >= 0.25F) && height != MAX_HEIGHT - 1 ? 0 : 1;
+//        world.setBlockState(pos.up(), this.getDefaultState().with(AGE, i).with(LEAVES, bambooLeaves).with(STAGE, j), 3);
     }
 
     protected int countLogsAbove(BlockView world, BlockPos pos) {
@@ -148,28 +161,30 @@ public class CinnamonLog extends PillarBlock implements Fertilizable {
 
     @Override
     public void grow(ServerWorld world, RandomGenerator random, BlockPos pos, BlockState state) {
-        int i = this.countLogsAbove(world, pos);
-        int j = this.countBambooBelow(world, pos);
-        int k = i + j + 1;
+        int logsAbove = this.countLogsAbove(world, pos);
+        int logsBelow = this.countLogsBelow(world, pos);
+        // height is amount of logs below + amount of logs above + current log
+        int height = logsAbove + logsBelow + 1;
         int l = 1 + random.nextInt(2);
 
-        for(int m = 0; m < l; ++m) {
-            BlockPos blockPos = pos.up(i);
-            BlockState blockState = world.getBlockState(blockPos);
-            if (k >= MAX_HEIGHT || blockState.get(STAGE) == 1 || !world.isAir(blockPos.up())) {
-                return;
+        for (int m = 0; m < l; m ++) {
+            BlockPos newPos = pos.up(logsAbove);
+            BlockState stateBelow = world.getBlockState(newPos.down());
+
+            if (height < MAX_HEIGHT && world.isAir(newPos)) {
+                world.setBlockState(newPos, this.getDefaultState().with(AGE, 1).with(LEAVES, CinnamonTreeLeaves.NONE).with(STAGE, 1), Block.NOTIFY_ALL);
             }
 
-            this.updateLeaves(blockState, world, blockPos, random, k);
-            ++i;
-            ++k;
+            this.updateLeaves(stateBelow, world, newPos.down(), random, height);
+            logsAbove++;
+            height ++;
         }
     }
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, RandomGenerator random) {
         if (state.get(STAGE) == 0 && random.nextInt(3) == 0 && world.isAir(pos.up()) && world.getBaseLightLevel(pos.up(), 0) >= 9) {
-            int i = this.countBambooBelow(world, pos) + 1;
+            int i = this.countLogsBelow(world, pos) + 1;
             if (i < 16) {
                 this.updateLeaves(state, world, pos, random, i);
             }
@@ -178,12 +193,12 @@ public class CinnamonLog extends PillarBlock implements Fertilizable {
 
     @Override
     public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
-        int i = this.countLogsAbove(world, pos);
-        int j = this.countBambooBelow(world, pos);
-        return i + j + 1 < MAX_HEIGHT && world.getBlockState(pos.up(i)).get(STAGE) != 1;
+        int logsAbove = this.countLogsAbove(world, pos);
+        int logsBelow = this.countLogsBelow(world, pos);
+        return logsAbove + logsBelow + 1 < MAX_HEIGHT;
     }
 
-    protected int countBambooBelow(BlockView world, BlockPos pos) {
+    protected int countLogsBelow(BlockView world, BlockPos pos) {
         // done
         int count = 0;
 
@@ -196,13 +211,14 @@ public class CinnamonLog extends PillarBlock implements Fertilizable {
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        // todo look at this
+        // break if no logs are below
         if (!state.canPlaceAt(world, pos)) {
             world.scheduleBlockTick(pos, this, 1);
         }
 
-        if (direction == Direction.UP && neighborState.isIn(TantalisingBlocks.CINNAMON_LOGS) && neighborState.get(AGE) > state.get(AGE)) {
-            world.setBlockState(pos, state.cycle(AGE), 2);
+        // increase age with the rest of the tree
+        if ((direction == Direction.UP || direction == Direction.DOWN) && neighborState.isIn(TantalisingBlocks.CINNAMON_LOGS) && neighborState.get(AGE) == 1) {
+            world.setBlockState(pos, state.with(AGE, 1), Block.NOTIFY_LISTENERS);
         }
 
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);

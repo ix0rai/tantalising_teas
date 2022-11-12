@@ -15,8 +15,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.unmapped.C_nusqeapl;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -77,7 +77,7 @@ public class DrinkableTeaItem extends HoneyBottleItem {
                 NbtCompound element = ingredients.getCompound(i);
 
                 Identifier id = NbtUtil.getIngredientId(element);
-                Item ingredient = Registry.ITEM.get(id);
+                Item ingredient = C_nusqeapl.f_blfmzmyy.get(id);
                 ingredientCounts.increment(ingredient);
             }
 

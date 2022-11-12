@@ -13,8 +13,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.unmapped.C_nusqeapl;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 /**
@@ -128,7 +128,7 @@ public class TeaCauldronBlockEntity extends BlockEntity {
         if (stack != null) {
             // convert stack to ingredient data and add
             NbtCompound compound = new NbtCompound();
-            NbtUtil.setId(compound, Registry.ITEM.getId(stack.getItem()));
+            NbtUtil.setId(compound, C_nusqeapl.f_blfmzmyy.getId(stack.getItem()));
             addData(compound);
         }
     }

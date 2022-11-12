@@ -24,12 +24,12 @@ import net.minecraft.potion.Potions;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.unmapped.C_nusqeapl;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Holder;
-import net.minecraft.util.HolderSet;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.Holder;
+import net.minecraft.util.registry.HolderSet;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.event.GameEvent;
@@ -51,7 +51,7 @@ public class TeaCauldronBehaviour {
     }
 
     public static void addBehaviour() {
-        HolderSet.NamedSet<Item> teaIngredients = Registry.ITEM.getOrCreateTag(Constants.TEA_INGREDIENTS);
+        HolderSet.NamedSet<Item> teaIngredients = C_nusqeapl.f_blfmzmyy.getOrCreateTag(Constants.TEA_INGREDIENTS);
         teaIngredients.forEach((Holder<Item> item) -> BEHAVIOUR.put(item.value(), TeaCauldronBehaviour::addIngredient));
         CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(TantalisingItems.teaBottle, TeaCauldronBehaviour::createCauldron);
     }

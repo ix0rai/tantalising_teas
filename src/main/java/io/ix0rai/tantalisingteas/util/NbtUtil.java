@@ -4,8 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.unmapped.C_nusqeapl;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -123,7 +123,7 @@ public class NbtUtil {
 
     public static boolean isTeaIngredient(NbtCompound ingredient) {
         Identifier id = getIngredientId(ingredient);
-        return Registry.ITEM.get(id).getDefaultStack().isIn(Constants.TEA_INGREDIENTS);
+        return C_nusqeapl.f_blfmzmyy.get(id).getDefaultStack().isIn(Constants.TEA_INGREDIENTS);
     }
 
     public static boolean containsIngredientKey(NbtCompound nbt) {

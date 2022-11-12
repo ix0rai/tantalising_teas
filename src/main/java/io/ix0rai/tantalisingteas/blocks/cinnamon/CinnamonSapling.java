@@ -17,8 +17,8 @@ public class CinnamonSapling extends BambooSaplingBlock {
 
     @Override
     protected void grow(World world, BlockPos pos) {
-        world.setBlockState(pos, TantalisingBlocks.CINNAMON_LOG.getDefaultState().with(CinnamonLog.LEAVES, CinnamonTreeLeaves.random(world.getRandom())), 3);
-        world.setBlockState(pos.up(), TantalisingBlocks.CINNAMON_LOG.getDefaultState().with(CinnamonLog.LEAVES, CinnamonTreeLeaves.SMALL), 3);
+        world.setBlockState(pos, TantalisingBlocks.CINNAMON_LOG.getDefaultState().with(CinnamonLog.AGE, 0).with(CinnamonLog.LEAVES, CinnamonTreeLeaves.random(world.getRandom())), 3);
+        world.setBlockState(pos.up(), TantalisingBlocks.CINNAMON_LOG.getDefaultState().with(CinnamonLog.AGE, 0).with(CinnamonLog.LEAVES, CinnamonTreeLeaves.SMALL), 3);
     }
 
     @Override

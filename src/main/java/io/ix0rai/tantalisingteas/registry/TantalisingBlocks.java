@@ -16,13 +16,15 @@ import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.TagKey;
+import net.minecraft.unmapped.C_msgswxvc;
+import net.minecraft.unmapped.C_nusqeapl;
 import net.minecraft.util.registry.Registry;
 
 /**
  * blocks and block entities registered by tantalising teas
  */
 public class TantalisingBlocks {
-    public static final TagKey<Block> CINNAMON_LOGS = TagKey.of(Registry.BLOCK_KEY, TantalisingTeas.id("cinnamon_logs"));
+    public static final TagKey<Block> CINNAMON_LOGS = TagKey.of(C_msgswxvc.BLOCK, TantalisingTeas.id("cinnamon_logs"));
 
     public static final TeaCauldron TEA_CAULDRON = new TeaCauldron(AbstractBlock.Settings.copy(Blocks.CAULDRON), LeveledCauldronBlock.RAIN_PREDICATE);
     public static final BlockEntityType<TeaCauldronBlockEntity> TEA_CAULDRON_ENTITY = FabricBlockEntityTypeBuilder.create(TeaCauldronBlockEntity::new, TEA_CAULDRON).build(null);
@@ -33,11 +35,11 @@ public class TantalisingBlocks {
 
     public static void register() {
         String teaCauldron = "tea_cauldron";
-        Registry.register(Registry.BLOCK, TantalisingTeas.id("cinnamon_log"), CINNAMON_LOG);
-        Registry.register(Registry.BLOCK, TantalisingTeas.id("stripped_cinnamon_log"), STRIPPED_CINNAMON_LOG);
-        Registry.register(Registry.BLOCK, TantalisingTeas.id("cinnamon_sapling"), CINNAMON_SAPLING);
-        Registry.register(Registry.BLOCK, TantalisingTeas.id(teaCauldron), TEA_CAULDRON);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, TantalisingTeas.id(teaCauldron + "_entity"), TEA_CAULDRON_ENTITY);
+        Registry.register(C_nusqeapl.AIR, TantalisingTeas.id("cinnamon_log"), CINNAMON_LOG);
+        Registry.register(C_nusqeapl.AIR, TantalisingTeas.id("stripped_cinnamon_log"), STRIPPED_CINNAMON_LOG);
+        Registry.register(C_nusqeapl.AIR, TantalisingTeas.id("cinnamon_sapling"), CINNAMON_SAPLING);
+        Registry.register(C_nusqeapl.AIR, TantalisingTeas.id(teaCauldron), TEA_CAULDRON);
+        Registry.register(C_nusqeapl.f_zrzntavz, TantalisingTeas.id(teaCauldron + "_entity"), TEA_CAULDRON_ENTITY);
 
         // register stripping behaviour
         StrippableBlockRegistry.register(CINNAMON_LOG, STRIPPED_CINNAMON_LOG);

@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
+import net.minecraft.unmapped.C_nusqeapl;
 import net.minecraft.util.registry.Registry;
 
 /**
@@ -25,6 +26,6 @@ public class TantalisingItems {
     }
 
     private static Item register(String id, Item item) {
-        return Registry.register(Registry.ITEM, TantalisingTeas.id(id), item);
+        return Registry.register(C_nusqeapl.f_blfmzmyy, TantalisingTeas.id(id), item);
     }
 }
